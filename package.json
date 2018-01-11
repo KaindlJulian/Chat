@@ -24,6 +24,7 @@
     "@angular/service-worker": "^5.0.0",
     "@types/gapi": "0.0.35",
     "@types/gapi.auth2": "0.0.46",
+    "bootstrap": "4.0.0-beta.2",
     "core-js": "^2.4.1",
     "gapi": "0.0.3",
     "rxjs": "^5.5.2",
