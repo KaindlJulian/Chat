@@ -1,5 +1,5 @@
-.g-signin2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+footer.page-footer.cyan {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
