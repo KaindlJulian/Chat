@@ -5,10 +5,11 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken')
 const user = require('../model/user')
 
+
 const database = require('../config/database')
 
-// Register
-router.post('/register', (req, res, next) => {
+var returnrouter = function(io){
+  router.post('/register', (req, res, next) => {
     console.log(req.body)
  let newUser = new user.user(req.body.name, req.body.email, req.body.password, req.body.username);
  console.log(newUser)
@@ -43,7 +44,7 @@ router.post('/authenticate', (req, res, next) => {
           expiresIn: 604800 //1 week
       });
 
-      res.json({success: true, token: 'Bearer '+token, user:{name: user.name, username: user.username, email: user.email}})
+      res.json({success: true, token: 'JWT '+token, user:{name: user.name, username: user.username, email: user.email}})
       }
       else{
         return res.json({success: false, msg: 'Password didnt match'})
@@ -53,13 +54,24 @@ router.post('/authenticate', (req, res, next) => {
 });
 
 // Profile
-router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
-  res.json({user: req.user});
+io.on('connection', function(socket) {
+  console.log('Authentication passed!');
+  // now you can access user info through socket.request.user
+  // socket.request.user.logged_in will be set to true if the user was authenticated
+  socket.emit('success', {
+    message: 'success logged in!',
+    user: socket.request.user
+  });
 });
+ 
 
 // Validate
 router.get('/validate', (req, res, next) => {
   res.send('VALIDATE');
 });
+return router;
+}
+// Register
 
-module.exports = router;
+
+module.exports = returnrouter;
