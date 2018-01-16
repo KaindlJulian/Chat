@@ -19,6 +19,7 @@
     "mongoose": "^4.13.9",
     "mysql": "^2.15.0",
     "passport": "^0.4.0",
-    "passport-jwt": "^3.0.1"
+    "passport-jwt": "^3.0.1",
+    "socket.io": "^2.0.4"
   }
 }
