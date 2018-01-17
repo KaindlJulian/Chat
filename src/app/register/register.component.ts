@@ -20,11 +20,11 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.authenticationService.register(model.name, model.email, model.username, model.password)
+    this.authenticationService.register(this.model.name, this.model.email, this.model.username, this.model.password)
     .subscribe(result => {
         if (result === true) {
             // succesfull register
-            this.router.navigate(['/']);
+            this.router.navigate(['login']);
         } else {
             this.router.navigate(['/']);
         }

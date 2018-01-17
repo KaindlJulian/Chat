@@ -3,7 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-
+const SERVER_URL = 'http://localhost:8080';
 
 @Injectable()
 export class AuthenticationService {
