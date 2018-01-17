@@ -55,11 +55,22 @@ router.post('/authenticate', (req, res, next) => {
 // Profile
 io.on('connection', async function(socket) {
   console.log(io.engine.clientsCount);
-  await database.updateStatus(socket.decoded_token.data)
-  socket.emit('success', {message:socket.decoded_token.data});
+  database.updateStatus(socket.decoded_token.data)
+  let groups = await database.getGroupsforUser(socket.decoded_token.data.id);
+  socket.emit('success', socket.decoded_token.data);
+
+  socket.on('createChat',async (data) => {
+    console.log(data);
+    await database.insertGroup(data.name, data.user);
+    socket.emit('works', ('works'));
+  })
   // in socket.io 1.0
   console.log('hello! ', socket.decoded_token.data.name);
   console.log('Authentication passed!');
+
+  socket.on('disconnect', ()=>{
+
+  })
 });
  
 

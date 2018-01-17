@@ -1,6 +1,8 @@
 
 const mysql = require('mysql')
 const bcrypt = require('bcryptjs')
+const uuid = require('uuid/v4')
+const chat = require('../model/chat')
 const dbPool = mysql.createPool({
     connectionLimit: 10,
     host: 'localhost',
@@ -64,9 +66,49 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
 
 module.exports.updateStatus = function(data){
     dbPool.getConnection((err, connection) => {
-        connection.query("update user Set status = 'online',  lastSeen = sysdate(), where id = ?", data.id, (err,results) =>{
+        connection.query("update user Set status = 'online',  lastSeen = sysdate() where id = ?", data.id, (err,results) =>{
             if(err) throw err;
             console.log(results.affectedRows);
+            connection.release();
+        })
+    })
+}
+module.exports.getGroupsforUser= function(data){
+    return new Promise((resolve,reject)=>{
+        dbPool.getConnection((err, connection) =>{
+            connection.query("select * from chat c join registration r on c.id = r.chat_id where r.user_id = ?", data,(err, results) =>{
+                if(err) throw err;
+                let groups = results;
+                connection.release();
+                resolve(groups);
+            })
+        })
+    })   
+}
+
+module.exports.insertGroup = function(name, userdata){
+    let generatedKey = uuid();
+    console.log(generatedKey);
+    let newChat = {};
+    newChat = new chat.chat(generatedKey, name)
+    console.log(newChat);
+    let keyPair ={user_id: userdata.id, chat_id: newChat.id}
+    dbPool.getConnection((err,connection) => {
+        connection.query('insert into chat set ?', newChat,(err, results)=>{
+            if(err) throw err;
+            connection.release();
+            insertRegistration(keyPair);
+        })
+        
+    })
+}
+
+function insertRegistration(keyPair){
+    dbPool.getConnection((err,connection) => {
+        console.log(keyPair);
+        connection.query('insert into registration set ?', keyPair, (err, results) =>{
+            if(err) throw err;
+            connection.release();
         })
     })
 }
