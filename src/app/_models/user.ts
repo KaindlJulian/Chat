@@ -3,4 +3,5 @@ export class User {
     password: string;
     username: string;
     name: string;
+    lastseen: DateTime;
 }
