@@ -25,5 +25,8 @@
     "socket.io": "^2.0.4",
     "socketio-jwt": "github:root-core/socketio-jwt",
     "socketio-jwt-auth": "0.0.6"
+  },
+  "devDependencies": {
+    "@types/socket.io": "^1.4.31"
   }
 }
