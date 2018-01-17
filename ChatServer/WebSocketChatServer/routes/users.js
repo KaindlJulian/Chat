@@ -7,7 +7,7 @@ const user = require('../model/user')
 
 const database = require('../config/database')
 
-var returnrouter = function(io, passport){
+var returnrouter = function(io){
   router.post('/register', (req, res, next) => {
     console.log(req.body)
  let newUser = new user.user(req.body.name, req.body.email, req.body.password, req.body.username);
@@ -53,9 +53,10 @@ router.post('/authenticate', (req, res, next) => {
 });
 
 // Profile
-io.on('connection', function(socket) {
-  console.log(socket.decoded_token.data)
-  socket.emit('success', socket.decoded_token.data);
+io.on('connection', async function(socket) {
+  console.log(io.engine.clientsCount);
+  await database.updateStatus(socket.decoded_token.data)
+  socket.emit('success', {message:socket.decoded_token.data});
   // in socket.io 1.0
   console.log('hello! ', socket.decoded_token.data.name);
   console.log('Authentication passed!');
@@ -63,9 +64,7 @@ io.on('connection', function(socket) {
  
 
 // Validate
-router.get('/validate', (req, res, next) => {
-  res.send('VALIDATE');
-});
+
 return router;
 }
 // Register

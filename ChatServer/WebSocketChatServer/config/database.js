@@ -61,3 +61,12 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
         callback(null, isMatch);
     })
 }
+
+module.exports.updateStatus = function(data){
+    dbPool.getConnection((err, connection) => {
+        connection.query("update user Set status = 'online',  lastSeen = sysdate(), where id = ?", data.id, (err,results) =>{
+            if(err) throw err;
+            console.log(results.affectedRows);
+        })
+    })
+}
