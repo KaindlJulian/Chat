@@ -1,14 +1,13 @@
 
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 const jwt = require('jsonwebtoken')
 const user = require('../model/user')
 
 
 const database = require('../config/database')
 
-var returnrouter = function(io){
+var returnrouter = function(io, passport){
   router.post('/register', (req, res, next) => {
     console.log(req.body)
  let newUser = new user.user(req.body.name, req.body.email, req.body.password, req.body.username);
@@ -43,8 +42,8 @@ router.post('/authenticate', (req, res, next) => {
         const token = jwt.sign({data:user}, database.secret,{
           expiresIn: 604800 //1 week
       });
-
-      res.json({success: true, token: 'JWT '+token, user:{name: user.name, username: user.username, email: user.email}})
+      
+      res.json({success: true, token: token, user:{name: user.name, username: user.username, email: user.email}})
       }
       else{
         return res.json({success: false, msg: 'Password didnt match'})
@@ -55,13 +54,11 @@ router.post('/authenticate', (req, res, next) => {
 
 // Profile
 io.on('connection', function(socket) {
+  console.log(socket.decoded_token.data)
+  socket.emit('success', socket.decoded_token.data);
+  // in socket.io 1.0
+  console.log('hello! ', socket.decoded_token.data.name);
   console.log('Authentication passed!');
-  // now you can access user info through socket.request.user
-  // socket.request.user.logged_in will be set to true if the user was authenticated
-  socket.emit('success', {
-    message: 'success logged in!',
-    user: socket.request.user
-  });
 });
  
 
