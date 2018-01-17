@@ -4,23 +4,28 @@
 
   <div class="md-form">
       <i class="fa fa-user prefix grey-text"></i>
-      <input type="text" id="orangeForm-name" class="form-control" mdbActive>
+      <input [(ngModel)]="model.name" type="text" id="orangeForm-name" class="form-control" mdbActive>
       <label for="orangeForm-name">Your name</label>
+  </div>
+    <div class="md-form">
+      <i class="fa fa-user prefix grey-text"></i>
+      <input [(ngModel)]="model.username" type="text" id="orangeForm-name" class="form-control" mdbActive>
+      <label for="orangeForm-name">Your username</label>
   </div>
   <div class="md-form">
       <i class="fa fa-envelope prefix grey-text"></i>
-      <input type="text" id="orangeForm-email" class="form-control" mdbActive>
+      <input [(ngModel)]="model.email" type="text" id="orangeForm-email" class="form-control" mdbActive>
       <label for="orangeForm-email">Your email</label>
   </div>
 
   <div class="md-form">
       <i class="fa fa-lock prefix grey-text"></i>
-      <input type="password" id="orangeForm-pass" class="form-control" mdbActive>
+      <input [(ngModel)]="model.password" type="password" id="orangeForm-pass" class="form-control" mdbActive>
       <label for="orangeForm-pass">Your password</label>
   </div>
 
   <div class="text-center">
-    <button type="button" class="btn btn-indigo waves-light" mdbRippleRadius>Indigo</button>
+    <button type="button" class="btn btn-indigo waves-light" mdbRippleRadius>Sign In</button>
  </div>
 
 </form>

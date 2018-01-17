@@ -4,20 +4,23 @@
 
   <div class="md-form">
       <i class="fa fa-envelope prefix grey-text"></i>
-      <input type="text" id="defaultForm-email" class="form-control" mdbActive>
-      <label for="defaultForm-email">Your email</label>
+      <input [(ngModel)]="model.username" type="text" id="defaultForm-email" class="form-control" mdbActive>
+      <label for="defaultForm-email">Your username</label>
   </div>
 
   <div class="md-form">
       <i class="fa fa-lock prefix grey-text"></i>
-      <input type="password" id="defaultForm-pass" class="form-control" mdbActive>
+      <input [(ngModel)]="model.password" type="password" id="defaultForm-pass" class="form-control" mdbActive>
       <label for="defaultForm-pass">Your password</label>
   </div>
 
   <div class="text-center">
-    <button type="button" class="btn btn-indigo waves-light" mdbRippleRadius>Indigo</button>
+    <button type="button" class="btn btn-indigo waves-light" mdbRippleRadius>Login</button>
   </div>
 </form>
+
+{{model.username}}
+{{model.password}}
 <!-- Login form -->
 
 
