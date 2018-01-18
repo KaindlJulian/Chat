@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const user = require("../model/user");
 
 const database = require("../config/database");
-
+let onlineUser = new Map();
 var returnrouter = function(io) {
   router.post("/register", (req, res, next) => {
     console.log(req.body);
@@ -60,10 +60,15 @@ var returnrouter = function(io) {
 
   // Profile
   io.on("connection", async function(socket) {
-    console.log(io.engine.clientsCount);
+    onlineUser.set(socket.decoded_token.data.id, socket.id);
+    
     database.updateStatus(socket.decoded_token.data);
     let groups = await database.getGroupsforUser(socket.decoded_token.data.id);
-    socket.emit("success", socket.decoded_token.data);
+    console.log(groups.id);
+    for(x in groups){
+      socket.join(groups[x].id);
+    }
+    socket.emit("success", groups);
 
     socket.on("createChat", async data => {
       console.log(data);
@@ -73,8 +78,12 @@ var returnrouter = function(io) {
     // in socket.io 1.0
     console.log("hello! ", socket.decoded_token.data.name);
     console.log("Authentication passed!");
+    socket.on('message',data =>{
 
-    socket.on("disconnect", () => {});
+    })
+    socket.on("disconnect", () => {
+      onlineUser.delete(socket.id);
+    });
   });
 
   // Validate

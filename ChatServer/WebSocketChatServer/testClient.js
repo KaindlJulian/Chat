@@ -9,10 +9,7 @@ var user={}
   socket.on('success', (data) => {
     user = data
     console.log(user);
-    socket.emit('createChat', ({name: 'Hello World', user: user}));
-      socket.on('works', (data)=> {
-        console.log(data);
-      })
+    
   });
 
   
