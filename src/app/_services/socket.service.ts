@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
+// models
 import { User } from '../_models/user';
-import { Message } from '../_models/messages';
+import { Message } from '../_models/message';
+import { Group } from './../_models/group';
 // import { Event } from '../_models/event';
 
 import * as io from 'socket.io-client';
@@ -23,7 +25,7 @@ export class SocketService {
     }
 
     public disconnect(): void {
-        socket.disconnect();
+        this.socket.disconnect();
     }
 
     public onSuccsess(): Observable<Group> {
@@ -34,18 +36,18 @@ export class SocketService {
 
     public onWorks(): Observable<String> {
         return new Observable<String>(observer => {
-            this.socket.on('works',(data: String) => observer.next(data));
+            this.socket.on('works', (data: String) => observer.next(data));
         });
     }
 
 
 
     public createChat(name: string, users: User[]): void {
-        socket.emit('createChat', ({name: name, user: users}));
+        this.socket.emit('createChat', ({name: name, user: users}));
     }
 
     public sendMessage(msg: Message): void {
-        socket.emit('sendMessage', ({
+        this.socket.emit('sendMessage', ({
             sender_id : msg.sender_id,
             receiver_id : msg.receiver_id,
             msg : msg.msg,
