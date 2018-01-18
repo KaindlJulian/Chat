@@ -20,9 +20,9 @@ export class AuthenticationService {
         return this.http.post(SERVER_URL + '/users/register', {name: name, email: email, username: username, password: password })
             .map((response: Response) => {
                 if (response.json().success) {
-                    return true;
+                    return true;    // succesfull register
                 } else {
-                    return false;
+                    return false;   // register failed
                 }
             });
     }
@@ -36,7 +36,7 @@ export class AuthenticationService {
                     this.token = token;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+                    localStorage.setItem('currentUser', { username: username, token: token });
 
                     return true;    // succesfull login
                 } else {
@@ -46,6 +46,7 @@ export class AuthenticationService {
     }
 
     logout(): void {
+        // delete token from localStorage
         this.token = null;
         localStorage.removeItem('currentUser');
     }
