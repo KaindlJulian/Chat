@@ -3,7 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-const SERVER_URL = 'http://localhost:8080';
+const SERVER_URL = 'http://localhost:3000';
 
 @Injectable()
 export class AuthenticationService {
@@ -16,7 +16,8 @@ export class AuthenticationService {
     }
 
     register(name: string, email: string, username: string, password: string): Observable<boolean> {
-        return this.http.post(SERVER_URL + '/users/register', JSON.stringify({ name: name, email: email, username: username, password: password }))
+        console.log(JSON.stringify({ name: name, email: email, username: username, password: password }))
+        return this.http.post(SERVER_URL + '/users/register', {name: name, email: email, username: username, password: password })
             .map((response: Response) => {
                 if (response.json().success) {
                     return true;
@@ -27,7 +28,7 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string): Observable<boolean> {
-        return this.http.post(SERVER_URL + '/users/authenticate', JSON.stringify({ username: username, password: password }))
+        return this.http.post(SERVER_URL + '/users/authenticate', { username: username, password: password })
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 const token = response.json() && response.json().token;

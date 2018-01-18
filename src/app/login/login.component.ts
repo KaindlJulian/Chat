@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../_services/users.service'
 import { Router } from '@angular/router';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  model: any = {};
+  model = new User();
 
   constructor(
     private router: Router,
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    console.log(this.model);
     this.authenticationService.login(this.model.username, this.model.password)
         .subscribe(result => {
             if (result === true) {

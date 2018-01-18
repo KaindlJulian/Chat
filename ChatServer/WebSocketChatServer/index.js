@@ -22,6 +22,7 @@ io.use(socketioJwt.authorize({
   auth_header_required: true
 }));
 const users = require('./routes/users')(io);
+
 app.use(bodyParser.json());
 
 

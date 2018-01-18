@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../_services/users.service'
 import { Router } from '@angular/router';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  model: any = {}
+  model = new User();
 
   constructor(
     private router: Router,
