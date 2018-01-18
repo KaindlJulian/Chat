@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const uuid = require('uuid/v4')
 const chat = require('../model/chat')
 const dbPool = mysql.createPool({
-    connectionLimit: 10,
+    connectionLimit: 50,
     host: 'localhost',
     user: 'root',
     password: '',
@@ -64,13 +64,23 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
     })
 }
 
-module.exports.updateStatus = function(data){
+module.exports.updateStatus = function(data, connected){
     dbPool.getConnection((err, connection) => {
-        connection.query("update user Set status = 'online',  lastSeen = sysdate() where id = ?", data.id, (err,results) =>{
-            if(err) throw err;
-            console.log(results.affectedRows);
-            connection.release();
-        })
+        if(connected){
+            connection.query("update user Set status = 'online',  lastSeen = sysdate() where id = ?", data.id, (err,results) =>{
+                if(err) throw err;
+                console.log(results.affectedRows);
+                connection.release();
+            })
+        }
+        else{
+            connection.query("update user Set status = 'offline',  lastSeen = sysdate() where id = ?", data.id, (err,results) =>{
+                if(err) throw err;
+                console.log(results.affectedRows);
+                connection.release();
+            })
+        }
+        
     })
 }
 module.exports.getGroupsforUser= function(data){
@@ -92,15 +102,34 @@ module.exports.insertGroup = function(name, userdata){
     let newChat = {};
     newChat = new chat.chat(generatedKey, name)
     console.log(newChat);
-    let keyPair ={user_id: userdata.id, chat_id: newChat.id}
+    let keyPair = [];
+    for(x in userdata){
+        keyPair.push({user_id: userdata[x].id, chat_id: newChat.id})
+    }
     dbPool.getConnection((err,connection) => {
         connection.query('insert into chat set ?', newChat,(err, results)=>{
             if(err) throw err;
             connection.release();
-            insertRegistration(keyPair);
+            for(i in keyPair){
+                insertRegistration(keyPair[i]);
+            }
+            
         })
         
     })
+}
+
+module.exports.getUsers = function(){
+    return new Promise((resolve,reject)=>{
+        dbPool.getConnection((err, connection) =>{
+            connection.query('select * from user',(err, results) =>{
+                if(err) throw err;
+                let users = results;
+                connection.release();
+                resolve(users);
+            })
+        })
+    })   
 }
 
 function insertRegistration(keyPair){

@@ -4,12 +4,10 @@ const socket = io.connect('ws://localhost:3000', {
   'extraHeaders': { Authorization: 'Bearer ' + JWT_TOKEN }
 });
 
-var user={}
   // Connection succeeded
-  socket.on('success', (data) => {
-    user = data
-    console.log(user);
-    
+  socket.on('success', (groups, users) => {
+    console.log(users);
+    console.log(groups);
   });
 
   

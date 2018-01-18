@@ -59,30 +59,40 @@ var returnrouter = function(io) {
   });
 
   // Profile
+  var connected = false;
   io.on("connection", async function(socket) {
-    onlineUser.set(socket.decoded_token.data.id, socket.id);
-    
-    database.updateStatus(socket.decoded_token.data);
+    onlineUser.set(socket.id, socket.decoded_token.data.id);
+    connected = true;
+    database.updateStatus(socket.decoded_token.data, connected);
+
     let groups = await database.getGroupsforUser(socket.decoded_token.data.id);
-    console.log(groups.id);
+    let users = await database.getUsers();
     for(x in groups){
       socket.join(groups[x].id);
     }
-    socket.emit("success", groups);
+    Object.keys(io.sockets.sockets).forEach(function(id) {
+      console.log("ID:",id)  // socketId
+  })
+    socket.emit("success", (groups, users));
 
     socket.on("createChat", async data => {
       console.log(data);
-      await database.insertGroup(data.name, data.user);
-      socket.emit("works", "works");
+      await database.insertGroup(data.name, data.users);
+      socket.join(data.id);
+      
+      
     });
     // in socket.io 1.0
     console.log("hello! ", socket.decoded_token.data.name);
     console.log("Authentication passed!");
-    socket.on('message',data =>{
-
+    socket.on('sendMessage',data =>{
+      socket.to(data.id).emit('reiciveMessage', data.msg);
     })
     socket.on("disconnect", () => {
+      connected = false;
+      database.updateStatus(onlineUser.get(socket.id), connected);
       onlineUser.delete(socket.id);
+      
     });
   });
 
