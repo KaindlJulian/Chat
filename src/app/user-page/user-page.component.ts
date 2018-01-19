@@ -1,6 +1,5 @@
-
 import { Component, OnInit } from '@angular/core';
-
+import { GroupItemComponent } from '../group-item/group-item.component';
 
 // models
 import { Group } from './../_models/group';
@@ -24,3 +23,4 @@ export class UserPageComponent implements OnInit {
 
 
 }
+ 

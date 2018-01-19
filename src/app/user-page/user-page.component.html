@@ -61,26 +61,11 @@
 
 
 <ul class="list-group mt-4">                                            <!-- TODO: user component -->
+    <li *ngFor="let group of groups" class="list-group-item justify-content-between align-items-center">
+        <group-item [group]="group" [lastMsg]="">
 
-    <li class="list-group-item justify-content-between align-items-center">
-        <div class="media mb-1">
-            <a class="media-left waves-light">
-                <img class="rounded-circle" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="Generic placeholder image">
-            </a>
-            <div class="media-body">
-                <h4 class="media-heading">
-                  Anna Casie
-                  <span class="badge badge-primary badge-pill">2</span> <!-- TODO: new msg count per group -->
-                </h4>
-                <p>Lorem ipsum dolor sit amet!</p>
-            </div>
-            <div class="media-right mt-1">
-                <h4 class="media-heading">Last Message</h4>             <!-- TODO: last msg datetime -->
-                <p class="float-md-right">13:37</p> 
-            </div>
-        </div>
+        </group-item>
     </li>
-
 </ul>
 
 

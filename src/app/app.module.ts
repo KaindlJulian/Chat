@@ -12,8 +12,10 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { UserPageComponent } from './user-page/user-page.component';
+import { GroupItemComponent } from './group-item/group-item.component';
 
 import { AuthenticationService } from './_services/users.service';
+import { AuthGuard } from './_guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { AuthenticationService } from './_services/users.service';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    UserPageComponent
+    UserPageComponent,
+    GroupItemComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { AuthenticationService } from './_services/users.service';
     HttpModule
   ],
   providers: [
-    AuthenticationService
+    AuthenticationService,
+    AuthGuard
   ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
