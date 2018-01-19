@@ -1,3 +1,5 @@
+import { Promise, reject } from 'q';
+
 
 const mysql = require('mysql')
 const bcrypt = require('bcryptjs')
@@ -24,6 +26,7 @@ module.exports.finduserbyid = function(id, callback){
             }
             connection.release();
             callback(err, user);
+            
         })
     })
 }
@@ -97,7 +100,8 @@ module.exports.getGroupsforUser= function(data){
 }
 
 module.exports.insertGroup = function(name, userdata){
-    let generatedKey = uuid();
+    return new Promise((resolve, reject) => {
+        let generatedKey = uuid();
     console.log(generatedKey);
     let newChat = {};
     newChat = new chat.chat(generatedKey, name)
@@ -113,10 +117,13 @@ module.exports.insertGroup = function(name, userdata){
             for(i in keyPair){
                 insertRegistration(keyPair[i]);
             }
+            resolve(newChat.id)
             
         })
         
     })
+    })
+    
 }
 
 module.exports.getUsers = function(){

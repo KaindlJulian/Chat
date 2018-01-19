@@ -13,7 +13,7 @@ var returnrouter = function(io) {
       req.body.email,
       req.body.password,
       req.body.username,
-      new Date()
+      Date.now //Changed by Lucas Rosenberger from new Date() to actual
     );
     console.log(newUser);
     database.addUser(newUser, (err, user) => {
@@ -61,7 +61,7 @@ var returnrouter = function(io) {
   // Profile
   var connected = false;
   io.on("connection", async function(socket) {
-    onlineUser.set(socket.id, socket.decoded_token.data.id);
+    onlineUser.set(socket.decoded_token.data.id, socket.id);
     connected = true;
     database.updateStatus(socket.decoded_token.data, connected);
 
@@ -75,10 +75,14 @@ var returnrouter = function(io) {
   })
     socket.emit("success", (groups, users));
 
-    socket.on("createChat", async data => {
+    socket.on("createChat", data => {
       console.log(data);
-      await database.insertGroup(data.name, data.users);
-      socket.join(data.id);
+      chatid = await database.insertGroup(data.name, data.users);
+      data.user.forEach((val, ind, arr) =>{
+        let socketOfUser = onlineUser.get(String(val.id));
+        let socket = io.sockets.sockets[socketOfUser];
+        socket.join(chatid);
+      })
       
       
     });
