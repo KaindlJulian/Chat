@@ -34,6 +34,12 @@ export class SocketService {
         });
     }
 
+    public onMessage(): Observable<Message> {
+        return new Observable<Message>(observer => {
+            this.socket.on('success', (data: Message) => observer.next(data));
+        });
+    }
+
     public onWorks(): Observable<String> {
         return new Observable<String>(observer => {
             this.socket.on('works', (data: String) => observer.next(data));
