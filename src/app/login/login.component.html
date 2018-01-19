@@ -1,4 +1,97 @@
-<!-- Login form -->
+<!--Main Navigation-->
+<header>
+
+    <!--Navbar-->
+    <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+        <logo>
+            <a class="logo navbar-brand waves-light" mdbRippleRadius href="#"><strong>WhatsUp</strong></a>
+        </logo>
+        <links>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active waves-light" mdbRippleRadius>
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item waves-light" mdbRippleRadius>
+                    <a class="nav-link" href="#">About Us</a>
+                </li>
+            </ul>
+            <form class="form-inline waves-light" mdbRippleRadius>
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            </form>
+        </links>
+    </mdb-navbar>
+
+    <!--Intro Section-->
+    <section class="view intro-2 hm-gradient">
+        <div class="full-bg-img">
+            <div class="container flex-center">
+                <div class="d-flex align-items-center content-height">
+                    <div class="row flex-center pt-5 mt-3">
+                        <div class="col-md-6 text-center text-md-left mb-5">
+                            <div class="white-text">
+                                <h1 class="h1-responsive font-bold animated fadeInLeft">Welcome back!</h1>
+                                <hr class="hr-light animated fadeInLeft">
+                                <h6 class="animated fadeInLeft">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem repellendus quasi fuga nesciunt dolorum nulla magnam veniam sapiente, fugiat! Commodi sequi non animi ea dolor molestiae, quisquam iste, maiores. Nulla.</h6>
+                                <br>
+                                <a class="btn btn-outline-white animated fadeInLeft waves-light" mdbRippleRadius>Learn more</a>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 col-xl-5 offset-xl-1">
+                            <!--Form-->
+                            <div class="card animated fadeInRight">
+                                <div class="card-body">
+                                    <!--Header-->
+                                    <div class="text-center">
+                                        <h3 class="white-text"><i class="fa fa-user white-text"></i> Log In</h3>
+                                        <hr class="hr-light">
+                                    </div>
+
+                                    <!--Body-->
+                                    <div class="md-form">
+                                        <i class="fa fa-user prefix white-text"></i>
+                                        <input [(ngModel)]="model.username" name="username" type="text" id="form3" class="form-control" mdbActive>
+                                        <label for="form3">Your username</label>
+                                    </div>
+                                    <div class="md-form">
+                                        <i class="fa fa-lock prefix white-text"></i>
+                                        <input [(ngModel)]="model.password" name="password" type="password" id="form4" class="form-control" mdbActive>
+                                        <label for="form4">Your password</label>
+                                    </div>
+
+                                    <div class="text-center">
+                                        <button class="btn btn-indigo waves-light" (click)="login()" mdbRippleRadius>Continue</button>
+                                         <hr class="hr-light mb-3 mt-4">
+
+                                            <div class="inline-ul align-items-center">
+                                                <a class="icons-sm tw-ic"><i class="fa fa-twitter white-text"></i></a>
+                                                <a class="icons-sm li-ic"><i class="fa fa-linkedin white-text"> </i></a>
+                                                <a class="icons-sm ins-ic"><i class="fa fa-instagram white-text"> </i></a>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/.Form-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</header>
+<!--Main Navigation-->
+
+
+
+
+
+
+
+
+
+
+<!-- Login form > OLD VERSION
 <form>
   <p class="h5 text-center mb-4">Sign in</p>
 
@@ -18,7 +111,4 @@
     <button type="button" (click)="login()" class="btn btn-indigo waves-light" mdbRippleRadius>Login</button>
   </div>
 </form>
-<!-- Login form -->
-
-
-
+< Login form -->
