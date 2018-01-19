@@ -1,4 +1,11 @@
+
 import { Component, OnInit } from '@angular/core';
+
+
+// models
+import { Group } from './../_models/group';
+import { Message } from './../_models/message';
+import { User } from './../_models/user';
 
 @Component({
   selector: 'app-user-page',
@@ -7,9 +14,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserPageComponent implements OnInit {
 
+  user: User;
+  groups: Group[];
+
   constructor() { }
 
   ngOnInit() {
   }
+
 
 }

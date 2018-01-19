@@ -1,3 +1,93 @@
-<p>
-  user-page and jwt works!
-</p>
+<main role="main" class="container">
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
+           
+    <!-- Navbar brand -->
+    <logo>
+      <a class="navbar-brand" href="#">
+          <i class="fa fa-address-book-o" aria-hidden="true"></i>
+          WhatsUp
+      </a>
+    </logo>
+
+    <!-- Collapsible content -->
+    <links>
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link waves-light" mdbRippleRadius>Chat<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbRippleRadius>Contacts</a>                      <!-- TODO???? -->
+            </li>
+        </ul>
+        <!-- Links -->
+
+        <!-- Right Float -->
+        <ul class="navbar-nav ml-auto nav-flex-icons">    
+            <!-- New Messages -->
+            <li class="nav-item">
+                <a class="nav-link waves-effect waves-light"> 2 <i class="fa fa-envelope"></i></a>  <!-- TODO -->
+            </li>
+            <!-- Search Bar -->
+            <li>
+                <form class="form-inline  waves-light" mdbRippleRadius>
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                </form>
+            </li>
+            <!-- Account Dropdown -->
+            <li class="nav-item dropdown" dropdown>
+                <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
+                    <i class="fa fa-user-circle" aria-hidden="true"></i><span class="caret"></span>
+                </a>
+                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                    <a class="dropdown-item waves-light" mdbRippleRadius href="#">Settings</a>        <!-- TODO -->
+                    <a class="dropdown-item waves-light" mdbRippleRadius href="#">Logout</a>
+                    <div class="divider dropdown-divider"></div>
+                    <a class="dropdown-item waves-light" mdbRippleRadius href="#">Delete Account</a>
+                </div>
+            </li>
+        </ul>
+        <!-- Right Float -->
+        
+    </links>
+    <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
+
+<!-- Chats -->
+
+
+<ul class="list-group mt-4">                                            <!-- TODO: user component -->
+
+    <li class="list-group-item justify-content-between align-items-center">
+        <div class="media mb-1">
+            <a class="media-left waves-light">
+                <img class="rounded-circle" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="Generic placeholder image">
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">
+                  Anna Casie
+                  <span class="badge badge-primary badge-pill">2</span> <!-- TODO: new msg count per group -->
+                </h4>
+                <p>Lorem ipsum dolor sit amet!</p>
+            </div>
+            <div class="media-right mt-1">
+                <h4 class="media-heading">Last Message</h4>             <!-- TODO: last msg datetime -->
+                <p class="float-md-right">13:37</p> 
+            </div>
+        </div>
+    </li>
+
+</ul>
+
+
+<!-- /.Chats -->
+
+
+
+</main>
+
+

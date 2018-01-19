@@ -21,4 +21,8 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['register']);
   }
 
+  userPageButton() {
+    this.router.navigate(['user-page']);
+  }
+
 }
