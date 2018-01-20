@@ -16,6 +16,7 @@ import { GroupItemComponent } from './group-item/group-item.component';
 
 import { AuthenticationService } from './_services/users.service';
 import { AuthGuard } from './_guards/auth.guard';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AuthGuard } from './_guards/auth.guard';
     RegisterComponent,
     HomeComponent,
     UserPageComponent,
-    GroupItemComponent
+    GroupItemComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

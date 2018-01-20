@@ -57,19 +57,18 @@
 </mdb-navbar>
 <!--/.Navbar-->
 
-<!-- Chats -->
 
+<!-- Groups -->
 
 <ul class="list-group mt-4">                                            <!-- TODO: user component -->
     <li *ngFor="let group of groups" class="list-group-item justify-content-between align-items-center">
-        <group-item [group]="group" [lastMsg]="">
+        <group-item (openGroup)="onOpenGroup($event)" [group]="group" [lastMsg]="todo" [newMessages]="">
 
         </group-item>
     </li>
 </ul>
 
-
-<!-- /.Chats -->
+<!-- /.Groups -->
 
 
 

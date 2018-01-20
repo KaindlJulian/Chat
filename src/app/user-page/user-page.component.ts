@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupItemComponent } from '../group-item/group-item.component';
+import { Router } from '@angular/router';
 
 // models
 import { Group } from './../_models/group';
@@ -22,10 +23,15 @@ export class UserPageComponent implements OnInit {
   groups: Group[];
   messages: Message[];
 
-  constructor(private socketService: SocketService) { }
+  constructor(private socketService: SocketService, private router: Router) { }
 
   ngOnInit() {
     this.socketService.initSocket();
+
+    this.socketService.onSuccsess()
+      .subscribe((groups: any) => {
+        this.groups.push(groups);
+      });
 
     this.ioConnection = this.socketService.onMessage()
       .subscribe((message: Message) => {
@@ -33,17 +39,19 @@ export class UserPageComponent implements OnInit {
       });
   }
 
-  public sendMessage(message: string): void {
+  public sendMessage(message: Message): void {
     if (!message) {
       return;         // abbruch bei leerer msg
     }
+    this.socketService.sendMessage(message);
+  }
 
-    this.socketService.sendMessage({
-      sender_id: this.user.username,      //username?
-      receiver_id: this.groups[2].users,  //list of users/groupname
-      msg: message,
-      sendTime: new Date()
-    });
+  public leaveGroup(): void {
+    this.socketService.leaveGroup(this.groups[1]);
+  }
+
+  public onOpenGroup(selected: Group) {
+    this.router.navigate(['chat', selected.id]);
   }
 
 }

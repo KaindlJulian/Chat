@@ -28,39 +28,39 @@ export class SocketService {
         this.socket.disconnect();
     }
 
+    // region socket on
     public onSuccsess(): Observable<Group> {
         return new Observable<Group>(observer => {
-            this.socket.on('success', (data: Group) => observer.next(data));
+            this.socket.on('success', ({groups, users}) => observer.next(groups));
         });
     }
 
     public onMessage(): Observable<Message> {
         return new Observable<Message>(observer => {
-            this.socket.on('success', (data: Message) => observer.next(data));
+            this.socket.on('receiveMessage', (data: Message) => observer.next(data));
         });
     }
+    // endregion
 
-    public onWorks(): Observable<String> {
-        return new Observable<String>(observer => {
-            this.socket.on('works', (data: String) => observer.next(data));
-        });
-    }
+    // region socket emit
+        public createChat(group: Group): void {
+            this.socket.emit('createChat', ({name: group.name, users: group.users}));
+        }
 
+        public sendMessage(msg: Message): void {
+            this.socket.emit('sendMessage', ({
+                from: msg.sender,
+                msg : msg.msg,
+                group: msg.receiver
+            }));
+        }
 
-
-    public createChat(name: string, users: User[]): void {
-        this.socket.emit('createChat', ({name: name, user: users}));
-    }
-
-    public sendMessage(msg: Message): void {
-        this.socket.emit('sendMessage', ({
-            sender_id : msg.sender_id,
-            receiver_id : msg.receiver_id,
-            msg : msg.msg,
-            sendTime : msg.sendTime
-        }));
-    }
-
+        public leaveGroup(group: Group): void {
+            this.socket.emit('leaveGroup', ({
+                group: group
+            }));
+        }
+    // endregion
 
     /*public onEvent(event: Event): Observable: any {
         return new Observable<Event>(observer => {

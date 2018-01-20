@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Group } from '../_models/group';
 import { Message } from '../_models/message';
 
@@ -14,8 +14,16 @@ export class GroupItemComponent implements OnInit {
 
   @Input() group: Group;
   @Input() lastMsg: Message;
+  @Input() newMessages: number;
+
+  @Output() openGroup: EventEmitter<Group> = new EventEmitter();
 
   ngOnInit() {
+  }
+
+  clickGroup(): void {
+    this.newMessages = 0;
+    this.openGroup.emit(this.group);
   }
 
 }
