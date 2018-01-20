@@ -59,23 +59,21 @@ var returnrouter = function(io) {
   });
 
   // Profile
-  var connected = false;
+  
   io.on("connection", async function(socket) {
-    onlineUser.set(socket.decoded_token.data.id, socket.id);
-    connected = true;
-    database.updateStatus(socket.decoded_token.data, connected);
+    var connected = true;
+    onlineUser.set(socket.id, socket.decoded_token.data.id);
+    await database.updateStatus(socket.decoded_token.data, connected);
 
     let groups = await database.getGroupsforUser(socket.decoded_token.data.id);
     let users = await database.getUsers();
     for(x in groups){
       socket.join(groups[x].id);
     }
-    Object.keys(io.sockets.sockets).forEach(function(id) {
-      console.log("ID:",id)  // socketId
-  })
-    socket.emit("success", (groups, users));
-
-    socket.on("createChat", data => {
+    socket.emit("success", ({groups: groups, users: users}));
+    socket.broadcast.emit("getUsers", (users));
+    //Argumente sind name des chats und ein Array aus Usern im JSON Format{name:'Chat with Boolean', users : Teilnehmer[]}
+    socket.on("createChat", async data => {
       console.log(data);
       chatid = await database.insertGroup(data.name, data.users);
       data.user.forEach((val, ind, arr) =>{
@@ -86,21 +84,30 @@ var returnrouter = function(io) {
       
       
     });
-    // in socket.io 1.0
     console.log("hello! ", socket.decoded_token.data.name);
     console.log("Authentication passed!");
+    //Als argument sollte hier eine Message und die Gruppe mitgeben werden im Json format{msg: 'asdf', group: group}
     socket.on('sendMessage',data =>{
-      socket.to(data.id).emit('reiciveMessage', data.msg);
+      database.insertMsg({msg: data.msg, receiver_id: data.group.id, sender_id : socket.decoded_token.data.id, sendTime:new Date()});
+      socket.to(data.group.id).emit('reiciveMessage', data.msg);
     })
-    socket.on("disconnect", () => {
+    //Als argument sollte die Gruppe mitgegeben werden im JSON format{group: group}
+    socket.on('leaveRoom', (data) =>{
+      database.userLeftGroup(data.group, socket.decoded_token.data.id);
+      socket.to(data.id).emit('leaveRoom', socket.decoded_token.data.name + ' left the Room')
+      socket.leave(data.id);
+    })
+    socket.on("disconnect", async () => {
+      console.log(onlineUser.get(socket.id));
       connected = false;
-      database.updateStatus(onlineUser.get(socket.id), connected);
+      await database.updateStatus(onlineUser.get(socket.id), connected);
       onlineUser.delete(socket.id);
+      let updatedUsers = await database.getUsers();
+      socket.broadcast.emit("getUsers", (updatedUsers));
       
     });
   });
 
-  // Validate
 
   return router;
 };

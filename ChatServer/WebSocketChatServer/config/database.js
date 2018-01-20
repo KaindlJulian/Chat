@@ -1,4 +1,4 @@
-import { Promise, reject } from 'q';
+
 
 
 const mysql = require('mysql')
@@ -70,16 +70,17 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
 module.exports.updateStatus = function(data, connected){
     dbPool.getConnection((err, connection) => {
         if(connected){
+            console.log(connected);
             connection.query("update user Set status = 'online',  lastSeen = sysdate() where id = ?", data.id, (err,results) =>{
                 if(err) throw err;
-                console.log(results.affectedRows);
                 connection.release();
             })
         }
         else{
-            connection.query("update user Set status = 'offline',  lastSeen = sysdate() where id = ?", data.id, (err,results) =>{
+            console.log(connected);
+            console.log(data);
+            connection.query("update user Set status = 'offline',  lastSeen = sysdate() where id = ?", data, (err,results) =>{
                 if(err) throw err;
-                console.log(results.affectedRows);
                 connection.release();
             })
         }
@@ -146,5 +147,28 @@ function insertRegistration(keyPair){
             if(err) throw err;
             connection.release();
         })
+    })
+}
+
+module.exports.insertMsg = function(data){
+    dbPool.getConnection((err,connection) => {
+        console.log(data);
+        connection.query('insert into message set ?', data, (err, results) =>{
+            if(err) throw err;
+            connection.release();
+        })
+    })
+}
+
+module.exports.userLeftGroup = function(group, user){
+    dbPool.getConnection((err, connection) => {
+        console.log(group.id);
+        console.log(user);
+        var query = connection.query('delete from registration where chat_id like ? and user_id = ?', [group.id, user], (err, results) => {
+                if(err) throw err;
+                connection.release();
+                console.log(query.sql);
+        })
+        console.log(query.sql);
     })
 }
