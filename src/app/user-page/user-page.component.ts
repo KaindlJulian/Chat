@@ -32,26 +32,13 @@ export class UserPageComponent implements OnInit {
       .subscribe((groups: any) => {
         this.groups.push(groups);
       });
-
-    this.ioConnection = this.socketService.onMessage()
-      .subscribe((message: Message) => {
-        this.messages.push(message);
-      });
-  }
-
-  public sendMessage(message: Message): void {
-    if (!message) {
-      return;         // abbruch bei leerer msg
-    }
-    this.socketService.sendMessage(message);
-  }
-
-  public leaveGroup(): void {
-    this.socketService.leaveGroup(this.groups[1]);
   }
 
   public onOpenGroup(selected: Group) {
     this.router.navigate(['chat', selected.id]);
   }
 
+  public leaveGroup(): void {
+    this.socketService.leaveGroup(this.groups[1]);
+  }
 }

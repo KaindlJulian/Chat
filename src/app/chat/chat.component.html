@@ -1,3 +1,64 @@
-<p>
-  chat works!
-</p>
+<main role="main" class="container">
+  
+  
+  <!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
+           
+    <!-- Navbar brand -->
+    <logo>
+      <a class="navbar-brand" href="#">
+          <i class="fa fa-address-book-o" aria-hidden="true"></i>
+          WhatsUp
+      </a>
+    </logo>
+
+    <!-- Collapsible content -->
+    <links>
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link waves-light" mdbRippleRadius>Chat<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbRippleRadius>Contacts</a>                      <!-- TODO???? -->
+            </li>
+        </ul>
+        <!-- Links -->
+
+        <!-- Right Float -->
+        <ul class="navbar-nav ml-auto nav-flex-icons">    
+            <!-- New Messages -->
+            <li class="nav-item">
+                <a class="nav-link waves-effect waves-light"> 2 <i class="fa fa-envelope"></i></a>  <!-- TODO -->
+            </li>
+            <!-- Search Bar -->
+            <li>
+                <form class="form-inline  waves-light" mdbRippleRadius>
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                </form>
+            </li>
+            <!-- Account Dropdown -->
+            <li class="nav-item dropdown" dropdown>
+                <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
+                    <i class="fa fa-user-circle" aria-hidden="true"></i><span class="caret"></span>
+                </a>
+                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                    <a class="dropdown-item waves-light" mdbRippleRadius href="#">Settings</a>        <!-- TODO -->
+                    <a class="dropdown-item waves-light" mdbRippleRadius href="#">Logout</a>
+                    <div class="divider dropdown-divider"></div>
+                    <a class="dropdown-item waves-light" mdbRippleRadius href="#">Delete Account</a>
+                </div>
+            </li>
+        </ul>
+        <!-- Right Float -->
+        
+    </links>
+    <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
+  
+<!-- ngfor messages-->
+
+</main>

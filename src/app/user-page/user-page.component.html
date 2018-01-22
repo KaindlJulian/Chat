@@ -60,7 +60,7 @@
 
 <!-- Groups -->
 
-<ul class="list-group mt-4">                                            <!-- TODO: user component -->
+<ul class="list-group mt-4">                                            
     <li *ngFor="let group of groups" class="list-group-item justify-content-between align-items-center">
         <group-item (openGroup)="onOpenGroup($event)" [group]="group" [lastMsg]="todo" [newMessages]="">
 
