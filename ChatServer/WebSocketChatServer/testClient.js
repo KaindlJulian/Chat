@@ -5,9 +5,15 @@ const socket = io.connect('ws://localhost:3000', {
 });
 
 socket.on('success', (data) => {
+  let getUsers = data.users;
+  let getGroups = data.groups;
   console.log(data.users);
   console.log(data.groups);
-  console.log(data.msgs)
+  console.log(data.msgs);
+  socket.emit('addUser', {user: getUsers[1], group : getGroups[0]});
+  socket.on('UserConnectedRoom', data => {
+    console.log(data);
+  })
   //socket.emit('sendMessage', {msg:"Hello with Boolean", group: data.groups[0]})
 });
 

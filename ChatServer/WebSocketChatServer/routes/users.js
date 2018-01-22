@@ -59,71 +59,95 @@ var returnrouter = function(io) {
   });
 
   // Profile
-  
+
   io.on("connection", async function(socket) {
     var connected = true;
     onlineUser.set(socket.id, socket.decoded_token.data.id);
-    let success = await database.updateStatus(socket.decoded_token.data, connected);
+    let success = await database.updateStatus(
+      socket.decoded_token.data,
+      connected
+    );
 
     let groups = await database.getGroupsforUser(socket.decoded_token.data.id);
     let users = await database.getUsers();
     let msg = [];
-    
-    for(x in groups){
+
+    for (x in groups) {
       msg.push(await database.getLastMessagesFromUser(groups[x]));
       socket.join(groups[x].id);
     }
-    socket.emit("success", ({groups: groups, users: users, msgs: msg}));
-    socket.broadcast.emit("getUsers", (users));
+    socket.emit("success", { groups: groups, users: users, msgs: msg });
+    socket.broadcast.emit("getUsers", users);
     //Argumente sind name des chats und ein Array aus Usern im JSON Format{name:'Chat with Boolean', users : Teilnehmer[]}
     socket.on("createChat", async data => {
       console.log(data);
       chatid = await database.insertGroup(data.name, data.users);
-      data.user.forEach((val, ind, arr) =>{
+      data.user.forEach((val, ind, arr) => {
         //©Matthias Herzog
         let socks = Object.keys(io.socket.sockets);
-        socks.forEach((con) => {
-          if(onlineUser.get(String(con)) == val){
-            io.sockets.sockets[con].join(chatid)
-            io.sockets.sockets[con].emit("groupJoin", {groupName: data.name})
+        socks.forEach(con => {
+          if (onlineUser.get(String(con)) == val) {
+            io.sockets.sockets[con].join(chatid);
+            io.sockets.sockets[con].emit("groupJoin", { groupName: data.name });
           }
-        })
-        let socketOfUser = onlineUser.get(String(val.id));
-        let socket = io.sockets.sockets[socketOfUser];
-        
-      })
+        });
+      });
 
-    //Argument sind der Chat im JSON Format{group: groupObjekt}
-    socket.on('openChat', async data =>{
-        allMessages = await database.getAllMessagesFromChat(data.group);
-        socket.emit('sendMessages', {msgs: allMessages});
-    })
-      
+      //Argument sind der Chat im JSON Format{group: groupObjekt}
+    });
+    socket.on("openChat", async data => {
+      allMessages = await database.getAllMessagesFromChat(data.group);
+      socket.emit("sendMessages", { msgs: allMessages });
+    });
+    //Argumente sind die Gruppe und der hinzuzufügende User im JSON Format{group: groupObjekt, user: user}
+    socket.on("addUser", data => {
+      let keyValuePair = [{ user_id: data.user.id, chat_id: data.group.id }];
+      console.log("103: " + keyValuePair);
+      database.insertRegistration(keyValuePair);
+      let socks = Object.keys(io.sockets.sockets);
+      socks.forEach(con => {
+        if (onlineUser.get(String(con) == data.user.id)) {
+          io.sockets.sockets[con].join(database.group.id);
+          io.sockets.sockets[con].emit("groupJoin", { groupName: data.name });
+        }
+      });
+      socket.emit("UserConnectedRoom", data.user.username + " connected");
     });
     console.log("hello! ", socket.decoded_token.data.name);
     console.log("Authentication passed!");
     //Als argument sollte hier eine Message und die Gruppe mitgeben werden im Json format{msg: 'asdf', group: group}
-    socket.on('sendMessage',data =>{
-      database.insertMsg({msg: data.msg, receiver_id: data.group.id, sender_id : socket.decoded_token.data.id, sendTime:new Date()});
-      socket.to(data.group.id).emit('reiciveMessage', data.msg);
-    })
+    socket.on("sendMessage", data => {
+      database.insertMsg({
+        msg: data.msg,
+        receiver_id: data.group.id,
+        sender_id: socket.decoded_token.data.id,
+        sendTime: new Date(),
+      });
+      socket.to(data.group.id).emit("receiveMessage", data.msg);
+    });
     //Als argument sollte die Gruppe mitgegeben werden im JSON format{group: group}
-    socket.on('leaveRoom', (data) =>{
+    socket.on("leaveRoom", data => {
       database.userLeftGroup(data.group, socket.decoded_token.data.id);
-      socket.to(data.id).emit('leaveRoom', socket.decoded_token.data.name + ' left the Room')
+      socket
+        .to(data.id)
+        .emit(
+          "UserLeftRoom",
+          socket.decoded_token.data.name + " left the Room"
+        );
       socket.leave(data.id);
-    })
+    });
     socket.on("disconnect", async () => {
       console.log(onlineUser.get(socket.id));
       connected = false;
-      let success = await database.updateStatus(onlineUser.get(socket.id), connected);
+      let success = await database.updateStatus(
+        onlineUser.get(socket.id),
+        connected
+      );
       onlineUser.delete(socket.id);
-        let updatedUsers = await database.getUsers();
-        socket.broadcast.emit("getUsers", (updatedUsers));
-      
+      let updatedUsers = await database.getUsers();
+      socket.broadcast.emit("getUsers", updatedUsers);
     });
   });
-
 
   return router;
 };

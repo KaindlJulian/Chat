@@ -85,7 +85,6 @@ module.exports.updateStatus = function(data, connected){
                 console.log(data);
                 connection.query("update user Set status = 'offline',  lastSeen = sysdate() where id = ?", data, (err,results) =>{
                     if(err) throw err;
-                    r
                     connection.release();
                 })
             }
@@ -148,7 +147,7 @@ module.exports.getUsers = function(){
     })   
 }
 
-function insertRegistration(keyPair){
+module.exports.insertRegistration = function(keyPair){
     dbPool.getConnection((err,connection) => {
         console.log(keyPair);
         connection.query('insert into registration set ?', keyPair, (err, results) =>{
