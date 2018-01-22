@@ -9,6 +9,7 @@ import { User } from './../_models/user';
 
 // services
 import { SocketService } from './../_services/socket.service';
+import { AuthenticationService } from './../_services/users.service';
 
 @Component({
   selector: 'app-user-page',
@@ -21,7 +22,9 @@ export class UserPageComponent implements OnInit {
   groups: Group[];
   messages: Message[];
 
-  constructor(private socketService: SocketService, private router: Router) { }
+  constructor(private authenticationService: AuthenticationService,
+              private socketService: SocketService,
+              private router: Router) { }
 
   ngOnInit() {
     this.socketService.initSocket();
@@ -34,11 +37,17 @@ export class UserPageComponent implements OnInit {
       });
   }
 
-  public onOpenGroup(selected: Group) {
+  public onOpenGroup(selected: Group): void {
     this.router.navigate(['chat', selected.id]);
   }
 
-  public onLeaveGroup(): void {
-    this.socketService.leaveGroup(this.groups[1]);
+  public onLeaveGroup(selected: Group): void {
+    this.socketService.leaveGroup(selected);
+  }
+
+  public logoutButton(): void {
+    this.socketService.disconnect();
+    this.authenticationService.logout();
+    this.router.navigate(['login']);
   }
 }

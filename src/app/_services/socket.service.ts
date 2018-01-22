@@ -28,6 +28,7 @@ export class SocketService {
 
     public disconnect(): void {
         this.socket.disconnect();
+        console.log('disconnected from socket' + SERVER_URL);
     }
 
     // region socket on
@@ -54,6 +55,12 @@ export class SocketService {
             this.socket.on('userLeftRoom', (data: String) => observer.next(data));
         });
     }
+
+    public onUserConnectedRoom(): Observable<String> {
+        return new Observable<String>(observer => {
+            this.socket.on('userConnectedRoom', (data: String) => observer.next(data));
+        });
+    }
     // endregion
 
     // region socket emit
@@ -65,7 +72,7 @@ export class SocketService {
             this.socket.emit('sendMessage', ({
                 from: msg.sender,
                 msg : msg.msg,
-                group: msg.receiver
+                group: msg.group
             }));
         }
 
@@ -74,6 +81,8 @@ export class SocketService {
                 group: group
             }));
         }
+
+
     // endregion
 
     /*public onEvent(event: Event): Observable: any {
