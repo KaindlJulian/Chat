@@ -34,7 +34,7 @@ export class ChatComponent implements OnInit {
 
   public sendMessage(message: Message): void {
     if (!message) {
-      return;         // abbruch bei leerer msg
+      return;                                                   // abbruch bei leerer msg
     }
     this.socketService.sendMessage(message);
   }

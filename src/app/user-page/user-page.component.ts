@@ -17,9 +17,7 @@ import { SocketService } from './../_services/socket.service';
 })
 export class UserPageComponent implements OnInit {
 
-  ioConnection: any;  // io connection for msgs
-
-  user: User;
+  users: User[];
   groups: Group[];
   messages: Message[];
 
@@ -29,8 +27,10 @@ export class UserPageComponent implements OnInit {
     this.socketService.initSocket();
 
     this.socketService.onSuccsess()
-      .subscribe((groups: any) => {
-        this.groups.push(groups);
+      .subscribe((data: any) => {
+        this.groups.push(data.groups);
+        this.users.push(data.users);
+        this.messages.push(data.messages);
       });
   }
 
@@ -38,7 +38,7 @@ export class UserPageComponent implements OnInit {
     this.router.navigate(['chat', selected.id]);
   }
 
-  public leaveGroup(): void {
+  public onLeaveGroup(): void {
     this.socketService.leaveGroup(this.groups[1]);
   }
 }

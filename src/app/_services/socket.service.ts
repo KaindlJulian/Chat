@@ -10,7 +10,7 @@ import { Group } from './../_models/group';
 
 import * as io from 'socket.io-client';
 
-const SERVER_URL = 'http://localhost:3000';
+const SERVER_URL = 'ws://localhost:3000';
 const JWT_TOKEN = localStorage.getItem('currentUser');
 
 @Injectable()
@@ -22,6 +22,8 @@ export class SocketService {
         this.socket = io.connect(SERVER_URL ,
             {'extraHeaders': { Authorization: 'Bearer ' + JWT_TOKEN }}
         );
+        console.log('connected to socket: ' + SERVER_URL);
+        console.log('jwt token: ' + JWT_TOKEN);
     }
 
     public disconnect(): void {
@@ -29,9 +31,15 @@ export class SocketService {
     }
 
     // region socket on
-    public onSuccsess(): Observable<Group> {
-        return new Observable<Group>(observer => {
-            this.socket.on('success', ({groups, users}) => observer.next(groups));
+    public onSuccsess(): Observable<any> {
+        return new Observable<any>(observer => {
+            this.socket.on('success', ({groups, users, messages}) => observer.next({groups, users, messages}));
+        });
+    }
+
+    public onGetUsers(): Observable<User[]> {
+        return new Observable<User[]>(observer => {
+            this.socket.on('getUsers', (data: User[]) => observer.next(data));
         });
     }
 
