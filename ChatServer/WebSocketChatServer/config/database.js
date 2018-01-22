@@ -1,6 +1,8 @@
 
 
 
+
+
 const mysql = require('mysql')
 const bcrypt = require('bcryptjs')
 const uuid = require('uuid/v4')
@@ -68,24 +70,30 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
 }
 
 module.exports.updateStatus = function(data, connected){
-    dbPool.getConnection((err, connection) => {
-        if(connected){
-            console.log(connected);
-            connection.query("update user Set status = 'online',  lastSeen = sysdate() where id = ?", data.id, (err,results) =>{
-                if(err) throw err;
-                connection.release();
-            })
-        }
-        else{
-            console.log(connected);
-            console.log(data);
-            connection.query("update user Set status = 'offline',  lastSeen = sysdate() where id = ?", data, (err,results) =>{
-                if(err) throw err;
-                connection.release();
-            })
-        }
-        
+    return new Promise((resolve, reject) => {
+        dbPool.getConnection((err, connection) => {
+            if(err)throw err;
+            if(connected){
+                console.log("73:" + connected);
+                connection.query("update user Set status = 'online',  lastSeen = sysdate() where id = ?", data.id, (err,results) =>{
+                    if(err) throw err;
+                    connection.release();
+                })
+            }
+            else{
+                console.log("80:" + connected);
+                console.log(data);
+                connection.query("update user Set status = 'offline',  lastSeen = sysdate() where id = ?", data, (err,results) =>{
+                    if(err) throw err;
+                    r
+                    connection.release();
+                })
+            }
+            
+            resolve(1);
+        })
     })
+    
 }
 module.exports.getGroupsforUser= function(data){
     return new Promise((resolve,reject)=>{
@@ -170,5 +178,27 @@ module.exports.userLeftGroup = function(group, user){
                 console.log(query.sql);
         })
         console.log(query.sql);
+    })
+}
+module.exports.getLastMessagesFromUser = function(group){
+    return new Promise((resolve, reject) => {
+        dbPool.getConnection((err, connection) => {
+            connection.query('select * from message where receiver_id = ? order by sendtime DESC limit 1', group.id, (err, result) =>{
+                if(err) throw err;
+                connection.release();
+                resolve(result);               
+            })
+        })
+    })
+}
+module.exports.getAllMessagesFromChat = function(group){
+    return new Promise((resolve, reject) => {
+        dbPool.getConnection((err, connection) => {
+            connection.query('select * from message where receiver_id = ? order by sendtime DESC', group.id, (err, result) =>{
+                if(err) throw err;
+                connection.release();
+                resolve(result);               
+            })
+        })
     })
 }

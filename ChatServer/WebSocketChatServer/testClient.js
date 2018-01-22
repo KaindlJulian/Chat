@@ -1,5 +1,5 @@
 const io = require('socket.io-client');
-const JWT_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxLCJuYW1lIjoiSm9obiBEb2UiLCJlbWFpbCI6ImV4YW1wbGVAZ21haWwuY29tIiwiUEFTU1dPUkQiOiIkMmEkMTAkb2VSRW0yQ2t1Z2dhRHhOL0w5dEEvdThPWS5ZaWVWeTJuNUVnM2JuejJzQXpxZU00S1BtY3EiLCJ1c2VybmFtZSI6IkpvaG4iLCJzdGF0dXMiOiJvZmZsaW5lIiwibGFzdFNlZW4iOiIwMDAwLTAwLTAwIDAwOjAwOjAwIn0sImlhdCI6MTUxNjE5MDU3MSwiZXhwIjoxNTE2Nzk1MzcxfQ.XIm5odr0Gyyyued8pM7_-tOoS-GfLbpK8MkQ2CRtCWU"
+const JWT_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiZXhhbXBsZUBnbWFpbC5jb20iLCJpZCI6MSwibGFzdFNlZW4iOiIyMDE4LTAxLTIyVDEyOjIxOjE4LjAwMFoiLCJuYW1lIjoiSm9obiBEb2UiLCJQQVNTV09SRCI6IiQyYSQxMCRsUnRPMFowSkl6VUtCZm1MTzNTNlR1UnFmQnd1YmJTNjguNkVPRTZldzNsUzlQQWtyNGRQRyIsInN0YXR1cyI6bnVsbCwidXNlcm5hbWUiOiJKb2huIn0sImlhdCI6MTUxNjYyMzY5OSwiZXhwIjoxNTE3MjI4NDk5fQ.4N8S7jNQ8TBCiU8s1b4MhC3Pc_rS9lQPExxfDnPLSqU"
 const socket = io.connect('ws://localhost:3000', {
   'extraHeaders': { Authorization: 'Bearer ' + JWT_TOKEN }
 });
@@ -7,6 +7,8 @@ const socket = io.connect('ws://localhost:3000', {
 socket.on('success', (data) => {
   console.log(data.users);
   console.log(data.groups);
+  console.log(data.msgs)
+  //socket.emit('sendMessage', {msg:"Hello with Boolean", group: data.groups[0]})
 });
 
 socket.on('getUsers', (data) =>{
