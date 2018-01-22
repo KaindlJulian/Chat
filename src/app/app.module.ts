@@ -13,10 +13,13 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { GroupItemComponent } from './group-item/group-item.component';
+import { ChatComponent } from './chat/chat.component';
 
 import { AuthenticationService } from './_services/users.service';
+import { SocketService } from './_services/socket.service';
 import { AuthGuard } from './_guards/auth.guard';
-import { ChatComponent } from './chat/chat.component';
+import { MessageComponent } from './message/message.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import { ChatComponent } from './chat/chat.component';
     HomeComponent,
     UserPageComponent,
     GroupItemComponent,
-    ChatComponent
+    ChatComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,7 @@ import { ChatComponent } from './chat/chat.component';
   ],
   providers: [
     AuthenticationService,
+    SocketService,
     AuthGuard
   ],
   bootstrap: [AppComponent],

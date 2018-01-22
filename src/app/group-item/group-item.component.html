@@ -1,17 +1,18 @@
 <!-- Group -->
-<div class="media mb-1">
-  <a class="media-left waves-light">
-      <img class="rounded-circle" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="Generic placeholder image">
-  </a>
-  <div class="media-body">
-      <h4 class="media-heading">
-        Anna Casie
-        <span class="badge badge-primary badge-pill">2</span> 
-      </h4>
-      <p>{{ lastMsg.msg }}</p>
-  </div>
-  <div class="media-right mt-1">
-      <h4 class="media-heading">Last Message</h4>            
-      <p class="float-md-right">{{ lastMsg.sendTime }}</p> 
-  </div>
+<div (click)="openGroupButton" class="media mb-1">
+        <a class="media-left waves-light">
+            <img class="rounded-circle" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="Generic placeholder image">
+        </a>
+        <div class="media-body">
+            <h4 class="media-heading">
+              Anna Casie
+              <span class="badge badge-primary badge-pill">2</span> 
+              <button (click)="leaveGroupButton" type="button" class="btn btn-outline-primary btn-sm waves-light" mdbRippleRadius>Leave</button>
+            </h4>
+            <p>last message</p>
+        </div>
+        <div class="media-right mt-1">
+            <h4 class="media-heading">Last Message</h4>            
+            <p class="float-md-right">11:23</p> 
+        </div>
 </div>

@@ -14,16 +14,21 @@ export class GroupItemComponent implements OnInit {
 
   @Input() group: Group;
   @Input() lastMsg: Message;
-  @Input() newMessages: number;
+  // @Input() newMessages: number;
 
   @Output() openGroup: EventEmitter<Group> = new EventEmitter();
+  @Output() leaveGroup: EventEmitter<Group> = new EventEmitter();
 
   ngOnInit() {
   }
 
-  clickGroup(): void {
-    this.newMessages = 0;
+  openGroupButton(): void {
+    // this.newMessages = 0;
     this.openGroup.emit(this.group);
+  }
+
+  leaveGroupButton(): void {
+    this.leaveGroup.emit(this.group);
   }
 
 }

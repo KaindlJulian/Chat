@@ -10,7 +10,7 @@ import { Group } from './../_models/group';
 
 import * as io from 'socket.io-client';
 
-const SERVER_URL = 'http://localhost:3080';
+const SERVER_URL = 'http://localhost:3000';
 const JWT_TOKEN = localStorage.getItem('currentUser');
 
 @Injectable()
