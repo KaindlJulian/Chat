@@ -3,6 +3,6 @@ import { User } from './user';
 export class Message {
     sender: User;
     receiver: User[];
-    msg: string;
+    msg: String;
     sendTime: Date;
 }

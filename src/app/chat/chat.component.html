@@ -59,6 +59,12 @@
 </mdb-navbar>
 <!--/.Navbar-->
   
-<!-- ngfor messages-->
+<!-- Messages-->
+<ul class="list-group">
+    <li *ngFor="let message of messages" class="list-group-item">
+      <message [message]="message"></message>
+    </li>
+</ul>
+<!-- /.Messages-->
 
 </main>

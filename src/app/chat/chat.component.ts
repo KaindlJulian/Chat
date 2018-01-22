@@ -12,16 +12,23 @@ import { Message } from '../_models/message';
 export class ChatComponent implements OnInit {
 
   messages: Message[];
-  ioConnection: any;
+  ioMsgConnection: any;
+  ioSysMsgConnection: any;
+  sysMsg: String;
 
   constructor(private socketService: SocketService, private router: Router) { }
 
   ngOnInit() {
     this.socketService.initSocket();
 
-    this.ioConnection = this.socketService.onMessage()
+    this.ioMsgConnection = this.socketService.onMessage()
       .subscribe((message: Message) => {
         this.messages.push(message);
+      });
+
+    this.ioSysMsgConnection = this.socketService.onLeftRoom()   // add as msg
+      .subscribe((sysMessage: String) => {
+        this.sysMsg = sysMessage;
       });
   }
 

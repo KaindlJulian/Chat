@@ -40,6 +40,12 @@ export class SocketService {
             this.socket.on('receiveMessage', (data: Message) => observer.next(data));
         });
     }
+
+    public onLeftRoom(): Observable<String> {
+        return new Observable<String>(observer => {
+            this.socket.on('userLeftRoom', (data: String) => observer.next(data));
+        });
+    }
     // endregion
 
     // region socket emit
