@@ -31,9 +31,10 @@ export class UserPageComponent implements OnInit {
 
     this.socketService.onSuccsess()
       .subscribe((data: any) => {
+        console.log(data);
         this.groups.push(data.groups);
         this.users.push(data.users);
-        this.messages.push(data.messages);
+        this.messages.push(data.msgs);
       });
   }
 

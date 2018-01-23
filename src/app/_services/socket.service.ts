@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
+import * as io from 'socket.io-client';
 
 // models
 import { User } from '../_models/user';
@@ -8,22 +9,25 @@ import { Message } from '../_models/message';
 import { Group } from './../_models/group';
 // import { Event } from '../_models/event';
 
-import * as io from 'socket.io-client';
+
 
 const SERVER_URL = 'ws://localhost:3000';
-const JWT_TOKEN = localStorage.getItem('currentUser');
 
 @Injectable()
 export class SocketService {
 
     private socket;
+    JWT_TOKEN = localStorage.getItem('currentUser');
 
     public initSocket(): void {
-        this.socket = io.connect(SERVER_URL ,
-            {'extraHeaders': { Authorization: 'Bearer ' + JWT_TOKEN }}
-        );
+        //TODO https://tutorialedge.net/typescript/angular/angular-socket-io-tutorial/
+        console.log(io);
+        this.socket = io.connect('ws://localhost:3000', {
+            'extraHeaders': { Authorization: 'Bearer ' + JWT_TOKEN }
+          });
+        console.log(this.socket);
         console.log('connected to socket: ' + SERVER_URL);
-        console.log('jwt token: ' + JWT_TOKEN);
+        console.log('jwt token: ' + this.JWT_TOKEN);
     }
 
     public disconnect(): void {
@@ -34,7 +38,11 @@ export class SocketService {
     // region socket on
     public onSuccsess(): Observable<any> {
         return new Observable<any>(observer => {
-            this.socket.on('success', ({groups, users, messages}) => observer.next({groups, users, messages}));
+            console.log(this.socket)
+            this.socket.on('success', (data) => {
+                console.log("succsees event fired")
+                observer.next({groups : data.groups, users: data.users, msgs : data.msgs})
+            });
         });
     }
 
