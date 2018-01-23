@@ -22,12 +22,10 @@ export class SocketService {
     private socket;
     JWT_TOKEN = localStorage.getItem('currentUser');
 
-    public connect(): void {
-        this.socket = io(SERVER_URL);
 
-        // TODO https://tutorialedge.net/typescript/angular/angular-socket-io-tutorial/
-    }
-
+    // TODO https://tutorialedge.net/typescript/angular/angular-socket-io-tutorial/
+    // der shit bringt nur wos für msgs weil man des on und emit dann in an service machn kann
+    // wenn ma nur an listener braucht is des gay weil ma ka rx subject ohne observer mochn ko
 
     public initSocket(): void {
 
@@ -35,8 +33,7 @@ export class SocketService {
         this.socket = io.connect('ws://localhost:3000', {
             'extraHeaders': { Authorization: 'Bearer ' + this.JWT_TOKEN }
           });
-        console.log(this.socket);
-        console.log('connected to socket: ' + SERVER_URL);
+        console.log('connected to socket: ' + this.socket);
         console.log('jwt token: ' + this.JWT_TOKEN);
     }
 
@@ -51,7 +48,7 @@ export class SocketService {
             console.log(this.socket);
             this.socket.on('success', (data) => {
                 console.log('succsees event fired');
-                observer.next({groups : data.groups, users: data.users, msgs : data.msgs})
+                observer.next({groups : data.groups, users: data.users, msgs : data.msgs});
             });
         });
     }
@@ -123,10 +120,30 @@ export class SocketService {
         }
     // endregion
 
+    // RxJS Subject for Message connection
+    messageConnection(): Rx.Subject<MessageEvent> {
 
-    /*public onEvent(event: Event): Observable: any {
-        return new Observable<Event>(observer => {
-            this.socket.on(event, () => observer.next());
+        const observable = new Observable(observe => {
+            this.socket.on('message', (data) => {
+              console.log('Received message from Websocket Server: ' + data);
+              observe.next(data);
+            });
+            return () => {
+              this.socket.disconnect();
+            };
         });
-    }*/
+
+        const observer = {
+            next: (msg: Message) => {
+                this.socket.emit('message', ({
+                    from: msg.sender,
+                    msg: msg.msg,
+                    group: msg.group
+                }));
+            },
+        };
+
+        return Rx.Subject.create(observer, observable);
+      }
+
 }
