@@ -5,6 +5,7 @@ const user = require("../model/user");
 
 const database = require("../config/database");
 let onlineUser = new Map();
+
 var returnrouter = function(io) {
   router.post("/register", (req, res, next) => {
     console.log(req.body);
@@ -69,7 +70,10 @@ var returnrouter = function(io) {
     );
 
     let groups = await database.getGroupsforUser(socket.decoded_token.data.id);
+    console.log(success);
+
     let users = await database.getUsers();
+    console.log(users);
     let msg = [];
 
     for (x in groups) {
@@ -78,43 +82,55 @@ var returnrouter = function(io) {
     }
     socket.emit("success", { groups: groups, users: users, msgs: msg });
     socket.broadcast.emit("getUsers", users);
-    //Argumente sind name des chats und ein Array aus Usern im JSON Format{name:'Chat with Boolean', users : Teilnehmer[]}
-    socket.on("createChat", async data => {
-      console.log(data);
-      chatid = await database.insertGroup(data.name, data.users);
-      data.user.forEach((val, ind, arr) => {
-        //©Matthias Herzog
-        let socks = Object.keys(io.socket.sockets);
-        socks.forEach(con => {
-          if (onlineUser.get(String(con)) == val) {
-            io.sockets.sockets[con].join(chatid);
-            io.sockets.sockets[con].emit("groupJoin", { groupName: data.name });
-          }
-        });
-      });
 
-      //Argument sind der Chat im JSON Format{group: groupObjekt}
-    });
+    console.log("hello! ", socket.decoded_token.data.name);
+    console.log("Authentication passed!");
+
+    //Argument sind der Chat im JSON Format{group: groupObjekt}
     socket.on("openChat", async data => {
       allMessages = await database.getAllMessagesFromChat(data.group);
       socket.emit("sendMessages", { msgs: allMessages });
     });
+
+    //Argumente sind name des chats und ein Array aus Usern im JSON Format{name:'Chat with Boolean', users : Teilnehmer[]}
+    socket.on("createChat", async data => {
+      console.log(data);
+      let chatid = await database.insertGroup(data.name, data.users);
+      data.user.forEach((val, ind, arr) => {
+        //©Matthias Herzog
+        let socks = Object.keys(io.sockets.sockets);
+        socks.forEach(con => {
+          if (onlineUser.get(String(con)) == val) {
+            io.sockets.sockets[con].join(chatid);
+            io.sockets.sockets[con].emit("groupJoin", { groupName: data.name });
+            io.sockets.sockets[con].emit('newGroup',{group: {id: chatid, name: data.name}, lastmsg:{}} );
+          }
+        });
+      });
+
+      
+    });
+    
     //Argumente sind die Gruppe und der hinzuzufügende User im JSON Format{group: groupObjekt, user: user}
-    socket.on("addUser", data => {
+    socket.on("addUser", async data => {
       let keyValuePair = [{ user_id: data.user.id, chat_id: data.group.id }];
       console.log("103: " + keyValuePair);
       database.insertRegistration(keyValuePair);
       let socks = Object.keys(io.sockets.sockets);
-      socks.forEach(con => {
-        if (onlineUser.get(String(con) == data.user.id)) {
-          io.sockets.sockets[con].join(database.group.id);
-          io.sockets.sockets[con].emit("groupJoin", { groupName: data.name });
+
+          for(x in socks){
+            if (onlineUser.get(String(con)) == data.user.id) {
+              io.sockets.sockets[con].join(data.group.id);
+              io.sockets.sockets[con].emit("groupJoin", { groupName: data.group.name });
+              let msg = await database.getLastMessagesFromUser(data.group);
+              io.sockets.sockets[con].emit('newGroup',{group: {id: data.group.id, name: data.group.name}, lastmsg: msg} );
+              
+          }
+
         }
-      });
-      socket.emit("UserConnectedRoom", data.user.username + " connected");
+      socket.emit("userConnectedRoom", data.user.username + " connected");
     });
-    console.log("hello! ", socket.decoded_token.data.name);
-    console.log("Authentication passed!");
+
     //Als argument sollte hier eine Message und die Gruppe mitgeben werden im Json format{msg: 'asdf', group: group}
     socket.on("sendMessage", data => {
       database.insertMsg({
@@ -125,17 +141,19 @@ var returnrouter = function(io) {
       });
       socket.to(data.group.id).emit("receiveMessage", data.msg);
     });
+
     //Als argument sollte die Gruppe mitgegeben werden im JSON format{group: group}
     socket.on("leaveRoom", data => {
       database.userLeftGroup(data.group, socket.decoded_token.data.id);
       socket
         .to(data.id)
         .emit(
-          "UserLeftRoom",
+          "userLeftRoom",
           socket.decoded_token.data.name + " left the Room"
         );
       socket.leave(data.id);
     });
+
     socket.on("disconnect", async () => {
       console.log(onlineUser.get(socket.id));
       connected = false;
