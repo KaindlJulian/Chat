@@ -43,45 +43,45 @@ export class SocketService {
     }
 
     // region socket on
-    public onSuccsess(): Observable<any> {
-        return new Observable<any>(observer => {
-            console.log(this.socket);
-            this.socket.on('success', (data) => {
-                console.log('succsees event fired');
-                observer.next({groups : data.groups, users: data.users, msgs : data.msgs});
+        public onSuccsess(): Observable<any> {
+            return new Observable<any>(observer => {
+                console.log(this.socket);
+                this.socket.on('success', (data) => {
+                    console.log('succsees event fired');
+                    observer.next({groups : data.groups, users: data.users, msgs : data.msgs});
+                });
             });
-        });
-    }
+        }
 
-    public onGetUsers(): Observable<User[]> {
-        return new Observable<User[]>(observer => {
-            this.socket.on('getUsers', (data: User[]) => observer.next(data));
-        });
-    }
+        public onGetUsers(): Observable<User[]> {
+            return new Observable<User[]>(observer => {
+                this.socket.on('getUsers', (data: User[]) => observer.next(data));
+            });
+        }
 
-    public onMessage(): Observable<Message> {
-        return new Observable<Message>(observer => {
-            this.socket.on('receiveMessage', (data: Message) => observer.next(data));
-        });
-    }
+        public onMessage(): Observable<Message> {
+            return new Observable<Message>(observer => {
+                this.socket.on('receiveMessage', (data: Message) => observer.next(data));
+            });
+        }
 
-    public onSendMessages(): Observable<Message[]> {
-        return new Observable<Message[]>(observer => {
-            this.socket.on('sendMessages', (data: Message[]) => observer.next(data));
-        });
-    }
+        public onSendMessages(): Observable<Message[]> {
+            return new Observable<Message[]>(observer => {
+                this.socket.on('sendMessages', (data: Message[]) => observer.next(data));
+            });
+        }
 
-    public onLeftRoom(): Observable<String> {
-        return new Observable<String>(observer => {
-            this.socket.on('userLeftRoom', (data: String) => observer.next(data));
-        });
-    }
+        public onLeftRoom(): Observable<String> {
+            return new Observable<String>(observer => {
+                this.socket.on('userLeftRoom', (data: String) => observer.next(data));
+            });
+        }
 
-    public onUserConnectedRoom(): Observable<String> {
-        return new Observable<String>(observer => {
-            this.socket.on('userConnectedRoom', (data: String) => observer.next(data));
-        });
-    }
+        public onUserConnectedRoom(): Observable<String> {
+            return new Observable<String>(observer => {
+                this.socket.on('userConnectedRoom', (data: String) => observer.next(data));
+            });
+        }
     // endregion
 
     // region socket emit
