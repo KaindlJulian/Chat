@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
+
 import * as io from 'socket.io-client';
+// tslint:disable-next-line:import-blacklist
+import * as Rx from 'rxjs/Rx';
 
 // models
 import { User } from '../_models/user';
@@ -19,11 +22,18 @@ export class SocketService {
     private socket;
     JWT_TOKEN = localStorage.getItem('currentUser');
 
+    public connect(): void {
+        this.socket = io(SERVER_URL);
+
+        // TODO https://tutorialedge.net/typescript/angular/angular-socket-io-tutorial/
+    }
+
+
     public initSocket(): void {
-        //TODO https://tutorialedge.net/typescript/angular/angular-socket-io-tutorial/
+
         console.log(io);
         this.socket = io.connect('ws://localhost:3000', {
-            'extraHeaders': { Authorization: 'Bearer ' + JWT_TOKEN }
+            'extraHeaders': { Authorization: 'Bearer ' + this.JWT_TOKEN }
           });
         console.log(this.socket);
         console.log('connected to socket: ' + SERVER_URL);
@@ -38,9 +48,9 @@ export class SocketService {
     // region socket on
     public onSuccsess(): Observable<any> {
         return new Observable<any>(observer => {
-            console.log(this.socket)
+            console.log(this.socket);
             this.socket.on('success', (data) => {
-                console.log("succsees event fired")
+                console.log('succsees event fired');
                 observer.next({groups : data.groups, users: data.users, msgs : data.msgs})
             });
         });
