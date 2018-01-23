@@ -39,10 +39,12 @@ export class UserPageComponent implements OnInit {
 
   public onOpenGroup(selected: Group): void {
     this.router.navigate(['chat', selected.id]);
+    console.log('chat ' + selected.name + ' opened');
   }
 
   public onLeaveGroup(selected: Group): void {
     this.socketService.leaveGroup(selected);
+    console.log('chat ' + selected.name + ' left');
   }
 
   public logoutButton(): void {

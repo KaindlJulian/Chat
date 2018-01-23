@@ -10,16 +10,10 @@ import { Message } from '../_models/message';
 export class MessageComponent implements OnInit {
 
   @Input() message: Message;
-  sender: String;
-  text: String;
-  sendDate: Date;
 
   constructor() { }
 
   ngOnInit() {
-    this.sender = this.message.sender.name;
-    this.text = this.message.msg;
-    this.sendDate = this.message.sendTime;
   }
 
 }

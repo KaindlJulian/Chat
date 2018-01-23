@@ -1,9 +1,9 @@
   <!--Panel-->
   <div class="card card-body my-4 w-50">          
-      <h4 class="card-title">{{ sender }}</h4>
-      <p class="card-text">{{ text }}</p>
+      <h4 class="card-title">{{ message.sender }}</h4>
+      <p class="card-text">{{ message.msg }}</p>
       <div class="flex-row">
-          <a class="card-link">{{ sendDate }}</a>
+          <a class="card-link">{{ message.sendDate }}</a>
       </div>
   </div>
 <!--/.Panel-->

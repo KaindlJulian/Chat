@@ -50,6 +50,12 @@ export class SocketService {
         });
     }
 
+    public onSendMessages(): Observable<Message[]> {
+        return new Observable<Message[]>(observer => {
+            this.socket.on('sendMessages', (data: Message[]) => observer.next(data));
+        });
+    }
+
     public onLeftRoom(): Observable<String> {
         return new Observable<String>(observer => {
             this.socket.on('userLeftRoom', (data: String) => observer.next(data));
@@ -64,8 +70,18 @@ export class SocketService {
     // endregion
 
     // region socket emit
+        public addUser(group: Group, user: User): void {
+            this.socket.emit('addUser', ({
+                group: group,
+                user: user
+            }));
+        }
+
         public createChat(group: Group): void {
-            this.socket.emit('createChat', ({name: group.name, users: group.users}));
+            this.socket.emit('createChat', ({
+                name: group.name,
+                users: group.users
+            }));
         }
 
         public sendMessage(msg: Message): void {
@@ -76,14 +92,19 @@ export class SocketService {
             }));
         }
 
+        public openChat(group: Group): void {
+            this.socket.emit('openChat', ({
+                group: group
+            }));
+        }
+
         public leaveGroup(group: Group): void {
             this.socket.emit('leaveGroup', ({
                 group: group
             }));
         }
-
-
     // endregion
+
 
     /*public onEvent(event: Event): Observable: any {
         return new Observable<Event>(observer => {
