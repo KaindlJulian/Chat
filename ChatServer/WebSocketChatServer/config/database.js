@@ -151,7 +151,7 @@ module.exports.getUsers = function() {
   });
 };
 
-module.exports.insertRegistration = function(keyPair) {
+insertRegistration = function(keyPair) {
   dbPool.getConnection((err, connection) => {
     console.log(keyPair);
     connection.query(
@@ -222,17 +222,26 @@ module.exports.getAllMessagesFromChat = function(group) {
   });
 };
 module.exports.checkRegistration = function(keyPair){
+  console.log(keyPair[0])
   return new Promise((resolve, reject)=>{
     dbPool.getConnection((err, connection) =>{
-      connection.query('select * from Registration where chat_id = ? and user_id = ?', keyPair, (err, results) => {
-        if(results != null){
-          resolve(false);
+      connection.query("select * from registration where chat_id = ? and user_id = ?", [keyPair[0].chat_id, keyPair[0].user_id], (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        connection.release();
+        let success;
+        if(result.length > 0){
+          success = false;
+          resolve(success);
         }
         else{
+          success = true;
+          console.log(success)
           insertRegistration(keyPair);
-          resolve(true);
+          resolve(success);
         }
-        connection.release();
+          
+        
       })
     })
   })

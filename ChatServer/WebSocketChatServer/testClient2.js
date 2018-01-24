@@ -6,11 +6,14 @@ const socket = io.connect('ws://localhost:3000', {
 
   // Connection succeeded
   socket.on('success', (data) => {
-    console.log(data.users);
-    console.log(data.groups);
-    console.log(data.msgs);
+    //console.log(data.users);
+    //console.log(data.groups);
+    //console.log(data.msgs);
+    //socket.emit('leaveRoom', {group : data.groups[0]})
   });
 
   socket.on('getUsers', (data) =>{
       console.log(data);
   })
+  socket.on('groupJoin', data => console.log(data))
+  socket.on('newGroup', data => console.log(data))

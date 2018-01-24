@@ -20,6 +20,7 @@ socket.on('success', (data) => {
 socket.on('getUsers', (data) =>{
     console.log(data);
 })
+socket.on('groupJoin', data => console.log(data))
 
 
 

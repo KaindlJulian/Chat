@@ -119,22 +119,23 @@ var returnrouter = function(io) {
       let success = await database.checkRegistration(keyValuePair);
       let socks = Object.keys(io.sockets.sockets);
       if (success) {
-        for (x in socks) {
-          if (onlineUser.get(String(con)) == data.user.id) {
-            io.sockets.sockets[con].join(data.group.id);
-            io.sockets.sockets[con].emit("groupJoin", {
+        for (x of socks) {
+          console.log(onlineUser.get(String(x)));
+          if (onlineUser.get(String(x)) == data.user.id) {
+            io.sockets.sockets[x].join(data.group.id);
+            io.sockets.sockets[x].emit("groupJoin", {
               groupName: data.group.name,
               success: success,
             });
             let msg = await database.getLastMessagesFromUser(data.group);
-            io.sockets.sockets[con].emit("newGroup", {
+            io.sockets.sockets[x].emit("newGroup", {
               group: { id: data.group.id, name: data.group.name },
               lastmsg: msg,
             });
           }
         }
       } else {
-        io.sockets.sockets[con].emit("groupJoin", {
+        socket.emit("groupJoin", {
           groupName: data.group.name,
           success: success,
         });
