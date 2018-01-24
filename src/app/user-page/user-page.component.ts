@@ -26,13 +26,8 @@ export class UserPageComponent implements OnInit {
               private socketService: SocketService,
               private router: Router) { }
 
-    ngOnChanges() {
-      console.log("Im ng on Changes")
-      
-    }
-  
   ngOnInit() {
-    console.log("Im the init user-page")
+    console.log('Im the init user-page');
     this.socketService.initSocket();
 
     this.socketService.onSuccsess()

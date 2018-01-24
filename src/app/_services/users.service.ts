@@ -11,10 +11,6 @@ export class AuthenticationService {
     public token: string;
 
     constructor(private http: Http) {
-        // set token if saved in local storage
-        console.log("Hello world");
-        //const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        //this.token = currentUser && currentUser.token;
     }
 
     register(name: string, email: string, username: string, password: string): Observable<boolean> {
@@ -56,7 +52,6 @@ export class AuthenticationService {
     logout(): void {
         // delete token from localStorage
         this.token = null;
-        localStorage.removeItem('currentUser');
         localStorage.clear();
         console.log('token deleted');
     }
