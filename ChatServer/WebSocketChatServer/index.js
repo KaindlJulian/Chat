@@ -19,7 +19,6 @@ var socketioJwt   = require("socketio-jwt");
 io.use(socketioJwt.authorize({
   secret: config.secret,
   handshake: true,
-  auth_header_required: true
 }));
 const users = require('./routes/users')(io);
 

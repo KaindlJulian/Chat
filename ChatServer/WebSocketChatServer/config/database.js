@@ -221,3 +221,19 @@ module.exports.getAllMessagesFromChat = function(group) {
     });
   });
 };
+module.exports.checkRegistration = function(keyPair){
+  return new Promise((resolve, reject)=>{
+    dbPool.getConnection((err, connection) =>{
+      connection.query('select * from Registration where chat_id = ? and user_id = ?', keyPair, (err, results) => {
+        if(results != null){
+          resolve(false);
+        }
+        else{
+          insertRegistration(keyPair);
+          resolve(true);
+        }
+        connection.release();
+      })
+    })
+  })
+}

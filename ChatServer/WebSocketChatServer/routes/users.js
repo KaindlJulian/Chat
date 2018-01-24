@@ -103,32 +103,42 @@ var returnrouter = function(io) {
           if (onlineUser.get(String(con)) == val) {
             io.sockets.sockets[con].join(chatid);
             io.sockets.sockets[con].emit("groupJoin", { groupName: data.name });
-            io.sockets.sockets[con].emit('newGroup',{group: {id: chatid, name: data.name}, lastmsg:{}} );
+            io.sockets.sockets[con].emit("newGroup", {
+              group: { id: chatid, name: data.name },
+              lastmsg: {},
+            });
           }
         });
       });
-
-      
     });
-    
+
     //Argumente sind die Gruppe und der hinzuzufügende User im JSON Format{group: groupObjekt, user: user}
     socket.on("addUser", async data => {
       let keyValuePair = [{ user_id: data.user.id, chat_id: data.group.id }];
       console.log("103: " + keyValuePair);
-      database.insertRegistration(keyValuePair);
+      let success = await database.checkRegistration(keyValuePair);
       let socks = Object.keys(io.sockets.sockets);
-
-          for(x in socks){
-            if (onlineUser.get(String(con)) == data.user.id) {
-              io.sockets.sockets[con].join(data.group.id);
-              io.sockets.sockets[con].emit("groupJoin", { groupName: data.group.name });
-              let msg = await database.getLastMessagesFromUser(data.group);
-              io.sockets.sockets[con].emit('newGroup',{group: {id: data.group.id, name: data.group.name}, lastmsg: msg} );
-              
+      if (success) {
+        for (x in socks) {
+          if (onlineUser.get(String(con)) == data.user.id) {
+            io.sockets.sockets[con].join(data.group.id);
+            io.sockets.sockets[con].emit("groupJoin", {
+              groupName: data.group.name,
+              success: success,
+            });
+            let msg = await database.getLastMessagesFromUser(data.group);
+            io.sockets.sockets[con].emit("newGroup", {
+              group: { id: data.group.id, name: data.group.name },
+              lastmsg: msg,
+            });
           }
-
         }
-      socket.emit("userConnectedRoom", data.user.username + " connected");
+      } else {
+        io.sockets.sockets[con].emit("groupJoin", {
+          groupName: data.group.name,
+          success: success,
+        });
+      }
     });
 
     //Als argument sollte hier eine Message und die Gruppe mitgeben werden im Json format{msg: 'asdf', group: group}

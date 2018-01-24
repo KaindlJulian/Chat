@@ -21,6 +21,9 @@ export class SocketService {
 
     private socket;
     JWT_TOKEN = localStorage.getItem('currentUser');
+    opts = {
+        extraHeaders: { Authorization: 'Bearer ' + this.JWT_TOKEN }
+    }
 
 
     // TODO https://tutorialedge.net/typescript/angular/angular-socket-io-tutorial/
@@ -30,9 +33,14 @@ export class SocketService {
     public initSocket(): void {
 
         console.log(io);
-        this.socket = io.connect('ws://localhost:3000', {
-            'extraHeaders': { Authorization: 'Bearer ' + this.JWT_TOKEN }
-          });
+        this.socket = io(SERVER_URL,  
+            {
+                'query': 'token=' + this.JWT_TOKEN
+              }
+            
+          )
+            
+          
         console.log('connected to socket: ' + this.socket);
         console.log('jwt token: ' + this.JWT_TOKEN);
     }
