@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="md-form">
                                         <i class="fa fa-lock prefix white-text"></i>
-                                        <input [(ngModel)]="model.password" name="password" type="password" id="form4" class="form-control" mdbActive>
+                                        <input (keyup.enter)="login()" [(ngModel)]="model.password" name="password" type="password" id="form4" class="form-control" mdbActive>
                                         <label for="form4">Your password</label>
                                     </div>
 
@@ -91,41 +91,4 @@
         </div>
     </section>
 </header>
-    <!--Main Navigation-->
-
-
-
-
-
-<!--Register form> OLD VERSION
-<form>
-  <p class="h5 text-center mb-4">Sign up</p>
-
-  <div class="md-form">
-      <i class="fa fa-user prefix grey-text"></i>
-      <input [(ngModel)]="model.name" name="first" type="text" id="orangeForm-name" class="form-control" mdbActive>
-      <label for="orangeForm-name">Your name</label>
-  </div>
-    <div class="md-form">
-      <i class="fa fa-user prefix grey-text"></i>
-      <input [(ngModel)]="model.username" name="username" type="text" id="orangeForm-name" class="form-control" mdbActive>
-      <label for="orangeForm-name">Your username</label>
-  </div>
-  <div class="md-form">
-      <i class="fa fa-envelope prefix grey-text"></i>
-      <input [(ngModel)]="model.email" name="email" type="text" id="orangeForm-email" class="form-control" mdbActive>
-      <label for="orangeForm-email">Your email</label>
-  </div>
-
-  <div class="md-form">
-      <i class="fa fa-lock prefix grey-text"></i>
-      <input [(ngModel)]="model.password" name="password" type="password" id="orangeForm-pass" class="form-control" mdbActive>
-      <label for="orangeForm-pass">Your password</label>
-  </div>
-
-  <div class="text-center">
-    <button type="button" (click)="register()" class="btn btn-indigo waves-light" mdbRippleRadius>Sign In</button>
- </div>
-
-</form>
-</Register form-->
+<!--Main Navigation-->
