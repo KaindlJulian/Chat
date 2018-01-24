@@ -18,9 +18,9 @@ import { AuthenticationService } from './../_services/users.service';
 })
 export class UserPageComponent implements OnInit {
 
-  users: User[];
-  groups: Group[];
-  messages: Message[];
+  users: User[] = new Array<User>();
+  groups: Group[] = new Array<Group>();
+  messages: Message[] = new Array<Message>();
 
   constructor(private authenticationService: AuthenticationService,
               private socketService: SocketService,

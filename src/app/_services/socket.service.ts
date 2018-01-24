@@ -100,18 +100,18 @@ export class SocketService {
             }));
         }
 
-        public createChat(group: Group): void {
+        public createChat(group: Group, users: User[]): void {
             this.socket.emit('createChat', ({
                 name: group.name,
-                users: group.users
+                users: users
             }));
         }
 
         public sendMessage(msg: Message): void {
             this.socket.emit('sendMessage', ({
-                from: msg.sender,
+                from: msg.sender_id,
                 msg : msg.msg,
-                group: msg.group
+                group: msg.receiver_id
             }));
         }
 
@@ -144,9 +144,9 @@ export class SocketService {
         const observer = {
             next: (msg: Message) => {
                 this.socket.emit('message', ({
-                    from: msg.sender,
+                    from: msg.sender_id,
                     msg: msg.msg,
-                    group: msg.group
+                    group: msg.receiver_id
                 }));
             },
         };
