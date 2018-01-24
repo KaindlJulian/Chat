@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupItemComponent } from '../group-item/group-item.component';
 import { Router } from '@angular/router';
+import { GroupItemComponent } from '../group-item/group-item.component';
 
 // models
 import { Group } from './../_models/group';
@@ -35,25 +35,22 @@ export class UserPageComponent implements OnInit {
         this.groups = data.groups;
         this.users = data.users;
         this.messages = data.msgs[0];
-        console.log(this.messages)
-        console.log(this.groups)
-        console.log(this.users)
       });
   }
 
   public onOpenGroup(selected: Group): void {
-    this.router.navigate(['chat', selected.id]);
-    console.log('chat ' + selected.name + ' opened');
+    this.router.navigate(['chat', selected.name]);
+    console.log('chat opened: ' + selected);
   }
 
   public onLeaveGroup(selected: Group): void {
     this.socketService.leaveGroup(selected);
-    console.log('chat ' + selected.name + ' left');
+    console.log('chat left: ' + selected);
   }
 
   public logoutButton(): void {
     this.socketService.disconnect();
     this.authenticationService.logout();
-    this.router.navigate(['login']);
+    this.router.navigate(['home']);
   }
 }

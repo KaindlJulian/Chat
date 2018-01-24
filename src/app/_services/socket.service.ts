@@ -33,11 +33,10 @@ export class SocketService {
     public initSocket(): void {
 
         console.log(this.socket);
-        this.socket = io(SERVER_URL,
-            {
+        this.socket = io(SERVER_URL, {
                 'query': 'token=' + this.JWT_TOKEN
-            });
-            console.log(this.socket);
+        });
+        console.log(this.socket);
         console.log('connected to socket: ' + this.socket);
         console.log('jwt token: ' + this.JWT_TOKEN);
     }
@@ -123,6 +122,7 @@ export class SocketService {
             this.socket.emit('leaveGroup', ({
                 group: group
             }));
+            console.log('left group: ' + group);
         }
     // endregion
 
@@ -138,7 +138,6 @@ export class SocketService {
               this.socket.disconnect();
             };
         });
-
         const observer = {
             next: (msg: Message) => {
                 this.socket.emit('message', ({
@@ -148,7 +147,6 @@ export class SocketService {
                 }));
             },
         };
-
         return Rx.Subject.create(observer, observable);
       }
 
