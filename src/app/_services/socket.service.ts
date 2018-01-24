@@ -33,14 +33,11 @@ export class SocketService {
     public initSocket(): void {
 
         console.log(io);
-        this.socket = io(SERVER_URL,  
+        this.socket = io(SERVER_URL,
             {
                 'query': 'token=' + this.JWT_TOKEN
-              }
-            
-          )
-            
-          
+            });
+
         console.log('connected to socket: ' + this.socket);
         console.log('jwt token: ' + this.JWT_TOKEN);
     }
