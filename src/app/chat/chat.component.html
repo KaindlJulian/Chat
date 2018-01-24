@@ -59,8 +59,9 @@
   
 <!-- Messages-->
 <ul class="list-group">
-    <li *ngFor="let message of messages" class="list-group-item">
+    <li *ngFor="let message of messages, let i = index" class="list-group-item">
       <message [message]="message"></message>
+      <p>{{message.sendTime}}</p>
     </li>
 </ul>
 <!-- /.Messages-->

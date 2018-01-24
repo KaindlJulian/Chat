@@ -20,6 +20,7 @@ export class GroupItemComponent implements OnInit {
   @Output() leaveGroup: EventEmitter<Group> = new EventEmitter();
 
   ngOnInit() {
+    console.log(this.lastMsg);
   }
 
   openGroupButton(): void {

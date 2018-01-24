@@ -32,12 +32,12 @@ export class SocketService {
 
     public initSocket(): void {
 
-        console.log(io);
+        console.log(this.socket);
         this.socket = io(SERVER_URL,
             {
                 'query': 'token=' + this.JWT_TOKEN
             });
-
+            console.log(this.socket);
         console.log('connected to socket: ' + this.socket);
         console.log('jwt token: ' + this.JWT_TOKEN);
     }
@@ -113,6 +113,7 @@ export class SocketService {
         }
 
         public openChat(group: Group): void {
+            console.log(this.socket);
             this.socket.emit('openChat', ({
                 group: group
             }));

@@ -20,7 +20,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.socketService.initSocket();
-
+    console.log(this.socketService)
     this.ioMsgConnection = this.socketService.onMessage()
       .subscribe((message: Message) => {
         this.messages.push(message);
