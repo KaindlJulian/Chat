@@ -22,10 +22,10 @@ export class AuthenticationService {
             .map((response: Response) => {
                 if (response.json().success) {
                     console.log('succesfull register');
-                    return true;    // succesfull register
+                    return true;
                 } else {
                     console.log('register failed');
-                    return false;   // register failed
+                    return false;
                 }
             });
     }
@@ -44,10 +44,10 @@ export class AuthenticationService {
                     localStorage.setItem('currentUser', token );
 
                     console.log('succesfull login');
-                    return true;    // succesfull login
+                    return true;
                 } else {
                     console.log('login failed');
-                    return false;   // login failed
+                    return false;
                 }
             });
     }
@@ -55,6 +55,7 @@ export class AuthenticationService {
     logout(): void {
         // delete token from localStorage
         this.token = null;
+        localStorage.removeItem('currentUser');
         localStorage.clear();
         console.log('token deleted');
     }

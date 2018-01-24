@@ -52,5 +52,7 @@ export class UserPageComponent implements OnInit {
     this.socketService.disconnect();
     this.authenticationService.logout();
     this.router.navigate(['home']);
+    console.log('token in authService: ' + this.authenticationService.token);
+    console.log('socket in socketService: ' + this.socketService.socket);
   }
 }

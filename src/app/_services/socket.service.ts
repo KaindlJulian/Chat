@@ -19,7 +19,7 @@ const SERVER_URL = 'ws://localhost:3000';
 @Injectable()
 export class SocketService {
 
-    private socket;
+    public socket;
     JWT_TOKEN = localStorage.getItem('currentUser');
     opts = {
         extraHeaders: { Authorization: 'Bearer ' + this.JWT_TOKEN }
