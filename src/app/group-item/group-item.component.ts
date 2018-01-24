@@ -14,7 +14,6 @@ export class GroupItemComponent implements OnInit {
 
   @Input() group: Group;
   @Input() lastMsg: Message;
-  // @Input() newMessages: number;
 
   @Output() openGroup: EventEmitter<Group> = new EventEmitter();
   @Output() leaveGroup: EventEmitter<Group> = new EventEmitter();
@@ -24,12 +23,10 @@ export class GroupItemComponent implements OnInit {
   }
 
   openGroupButton(): void {
-    // this.newMessages = 0;
     this.openGroup.emit(this.group);
   }
 
   leaveGroupButton(): void {
     this.leaveGroup.emit(this.group);
   }
-
 }

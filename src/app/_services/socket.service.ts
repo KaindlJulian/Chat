@@ -23,7 +23,7 @@ export class SocketService {
     JWT_TOKEN = localStorage.getItem('currentUser');
     opts = {
         extraHeaders: { Authorization: 'Bearer ' + this.JWT_TOKEN }
-    }
+    };
 
 
     // TODO https://tutorialedge.net/typescript/angular/angular-socket-io-tutorial/
@@ -51,7 +51,6 @@ export class SocketService {
             return new Observable<any>(observer => {
                 console.log(this.socket);
                 this.socket.on('success', (data) => {
-                    console.log('succsees event fired');
                     observer.next({groups : data.groups, users: data.users, msgs : data.msgs});
                 });
             });

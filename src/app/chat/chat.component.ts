@@ -20,13 +20,15 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.socketService.initSocket();
+
     console.log(this.socketService);
+
     this.ioMsgConnection = this.socketService.onMessage()
       .subscribe((message: Message) => {
         this.messages.push(message);
       });
 
-    this.ioSysMsgConnection = this.socketService.onLeftRoom()   // add as msg
+    this.ioSysMsgConnection = this.socketService.onLeftRoom()
       .subscribe((sysMessage: String) => {
         this.sysMsg = sysMessage;
       });
@@ -34,7 +36,7 @@ export class ChatComponent implements OnInit {
 
   public sendMessage(message: Message): void {
     if (!message) {
-      return;                                                   // abbruch bei leerer msg
+      return;
     }
     this.socketService.sendMessage(message);
   }

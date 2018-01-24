@@ -34,7 +34,7 @@ export class UserPageComponent implements OnInit {
         console.log(data);
         this.groups = data.groups;
         this.users = data.users;
-        this.messages = data.msgs[0];
+        this.messages = data.msgs[0];         // xDDDD
       });
   }
 
