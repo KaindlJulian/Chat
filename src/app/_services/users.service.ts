@@ -12,8 +12,9 @@ export class AuthenticationService {
 
     constructor(private http: Http) {
         // set token if saved in local storage
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
+        console.log("Hello world");
+        //const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        //this.token = currentUser && currentUser.token;
     }
 
     register(name: string, email: string, username: string, password: string): Observable<boolean> {
