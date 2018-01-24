@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 12. Jan 2018 um 19:07
+-- Erstellungszeit: 24. Jan 2018 um 12:49
 -- Server-Version: 10.1.29-MariaDB
 -- PHP-Version: 7.2.0
 
@@ -25,27 +25,111 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `chat`
+--
+
+CREATE TABLE `chat` (
+  `id` varchar(40) NOT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Daten für Tabelle `chat`
+--
+
+INSERT INTO `chat` (`id`, `name`) VALUES
+('2998b6ce-c874-494c-a1ee-2a10b3384586', 'chat with Boolean');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `message`
+--
+
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL,
+  `sender_id` int(11) DEFAULT NULL,
+  `receiver_id` varchar(40) DEFAULT NULL,
+  `msg` text,
+  `sendTime` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Daten für Tabelle `message`
+--
+
+INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `msg`, `sendTime`) VALUES
+(1, 1, '2998b6ce-c874-494c-a1ee-2a10b3384586', 'Hello with Boolean', '2018-01-22 14:54:54'),
+(2, 1, '2998b6ce-c874-494c-a1ee-2a10b3384586', 'Hello with Boolean', '2018-01-22 14:55:50');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `registration`
+--
+
+CREATE TABLE `registration` (
+  `chat_id` varchar(40) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Daten für Tabelle `registration`
+--
+
+INSERT INTO `registration` (`chat_id`, `user_id`) VALUES
+('2998b6ce-c874-494c-a1ee-2a10b3384586', 1),
+('2998b6ce-c874-494c-a1ee-2a10b3384586', 2);
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `user`
 --
 
 CREATE TABLE `user` (
+  `email` varchar(255) DEFAULT NULL,
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `PASSWORD` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL DEFAULT 'not null'
+  `lastSeen` datetime DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `PASSWORD` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Daten für Tabelle `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `email`, `PASSWORD`, `username`) VALUES
-(1, 'John Doe', 'example@gmail.com', '$2a$10$oeREm2CkuggaDxN/L9tA/u8OY.YieVy2n5Eg3bnz2sAzqeM4KPmcq', 'John');
+INSERT INTO `user` (`email`, `id`, `lastSeen`, `name`, `PASSWORD`, `status`, `username`) VALUES
+('example@gmail.com', 1, '2018-01-24 11:55:13', 'John Doe', '$2a$10$lRtO0Z0JIzUKBfmLO3S6TuRqfBwubbS68.6EOE6ew3lS9PAkr4dPG', 'offline', 'John'),
+('adfasdf@gmail.com', 2, '2018-01-24 09:50:54', 'adsf', '$2a$10$hcdE2Wub6he9.xvug8bEY.wUP4n/psv5VgFTUb2As79k.NQl9r6Qq', 'online', 'dff'),
+('schalkspieler@gmail.com', 3, '2018-01-24 11:56:24', 'Elias Schaechl', '$2a$10$PfHpNfSd3FpVgKVQwY0aQuiozGT4Jx3F4o4.mVH6q0zW1EyPdnZtS', 'online', 'SchalkSpieler');
 
 --
 -- Indizes der exportierten Tabellen
 --
+
+--
+-- Indizes für die Tabelle `chat`
+--
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_Sender` (`sender_id`),
+  ADD KEY `FK_Receiver` (`receiver_id`);
+
+--
+-- Indizes für die Tabelle `registration`
+--
+ALTER TABLE `registration`
+  ADD KEY `FK_User` (`user_id`),
+  ADD KEY `FK_chat` (`chat_id`);
 
 --
 -- Indizes für die Tabelle `user`
@@ -58,10 +142,34 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT für Tabelle `message`
+--
+ALTER TABLE `message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT für Tabelle `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints der exportierten Tabellen
+--
+
+--
+-- Constraints der Tabelle `message`
+--
+ALTER TABLE `message`
+  ADD CONSTRAINT `FK_Receiver` FOREIGN KEY (`receiver_id`) REFERENCES `chat` (`id`),
+  ADD CONSTRAINT `FK_Sender` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints der Tabelle `registration`
+--
+ALTER TABLE `registration`
+  ADD CONSTRAINT `FK_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `FK_chat` FOREIGN KEY (`chat_id`) REFERENCES `chat` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
