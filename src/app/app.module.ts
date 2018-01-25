@@ -19,6 +19,8 @@ import { AuthenticationService } from './_services/users.service';
 import { SocketService } from './_services/socket.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { MessageComponent } from './message/message.component';
+import { GroupService } from './_services/group.service';
+import { MessageService } from './_services/message.service';
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { MessageComponent } from './message/message.component';
   providers: [
     AuthenticationService,
     SocketService,
-    AuthGuard
+    AuthGuard,
+    GroupService,
+    MessageService
   ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
