@@ -58,17 +58,33 @@
 <!--/.Navbar-->
 
 <!-- Groups -->
-<ul class="list-group mt-4">                                            
-    <li *ngFor="let group of groups; let i = index" class="list-group-item justify-content-between align-items-center">
-        <group-item 
-            [group]="group" 
-            [lastMsg]="messages[i]" 
-            (openGroup)="onOpenGroup($event)" 
-            (leaveGroup)="onLeaveGroup($event)">
-        </group-item>
-    </li>
-</ul>
+<div class="card-body">
+    <div class="row px-lg-2 px-2">
+        <div class="col-md-6 col-xl-4 px-0 mb-r">
+            <div class="white z-depth-1 px-2 pt-3 pb-0 members-panel-1 scrollbar-light-blue">
+
+                <ul class="list-unstyled friend-list">
+                    <li *ngFor="let group of groups; let i = index" class="p-2">
+                        <group-item 
+                            [group]="group" 
+                            [lastMsg]="messages[i]" 
+                            (openGroup)="onOpenGroup($event)" 
+                            (leaveGroup)="onLeaveGroup($event)">
+                        </group-item>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
 <!-- /.Groups -->
+
+    
 </main>
+
+
+
+
 
 

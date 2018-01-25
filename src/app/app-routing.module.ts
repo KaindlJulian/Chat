@@ -15,7 +15,7 @@ const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'user-page', component: UserPageComponent, canActivate: [AuthGuard] },
+  { path: 'user-page', component: UserPageComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'chat/:name', component: ChatComponent },
   { path: 'gitem', component: GroupItemComponent },
 

@@ -4,22 +4,16 @@
 }
 
 .bgfull {
-    background-color: orange;
+  background-color: lightgray;
 }
 
-.nav-padding-top{
-    color: #69aae0;
-}
 .card.chat-room .members-panel-1,
 .card.chat-room .chat-1 {
   position: relative;
   overflow-y: scroll; }
 
-.card.chat-room .members-panel-1 {
-  height: 570px; }
-
 .card.chat-room .chat-1 {
-  height: 495px; }
+  height: 440px; }
 
 .card.chat-room img.rounded-circle {
   border-radius: 50%; }
