@@ -10,6 +10,7 @@ import { User } from './../_models/user';
 // services
 import { SocketService } from './../_services/socket.service';
 import { AuthenticationService } from './../_services/users.service';
+import { GroupService } from './../_services/group.service';
 
 @Component({
   selector: 'app-user-page',
@@ -22,9 +23,11 @@ export class UserPageComponent implements OnInit {
   groups: Group[] = new Array<Group>();
   messages: Message[] = new Array<Message>();
 
-  constructor(private authenticationService: AuthenticationService,
-              private socketService: SocketService,
-              private router: Router) { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private socketService: SocketService,
+    private groupSingleton: GroupService,
+    private router: Router) { }
 
   ngOnInit() {
     console.log('Im the init user-page');
@@ -40,6 +43,7 @@ export class UserPageComponent implements OnInit {
   }
 
   public onOpenGroup(selected: Group): void {
+    this.groupSingleton.setGroup(selected);
     this.router.navigate(['chat', selected.name]);
     console.log('chat opened: ' + selected);
   }

@@ -14,7 +14,7 @@
         <!-- Links -->
         <ul class="navbar-nav mr-auto ">
             <li class="nav-item active">
-                <a class="nav-link waves-light" mdbRippleRadius>Group.name<span class="sr-only">(current)</span></a><!-- todo -->
+                <a class="nav-link waves-light" mdbRippleRadius>{{group.name}}<span class="sr-only">(current)</span></a><!-- todo -->
             </li>
             <li class="nav-item">
                 <a class="nav-link waves-light" mdbRippleRadius>Contacts</a>                        <!-- todo -->     
@@ -54,61 +54,10 @@
                 <div class="chat-message">
 
                     <!-- Messages -->
-                    <ul class="list-unstyled chat-1 scrollbar-light-blue">
+                    <ul class="list-unstyled chat-1">
                         <li *ngFor="let message of messages, let i = index" class="d-flex justify-content-between mb-4">
                             <message [message]="message"></message>                       
-                        </li> 
-                        <li class="d-flex justify-content-between mb-4">
-                                <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-6" alt="avatar" class="avatar rounded-circle mr-2 ml-lg-3 ml-0 z-depth-1">
-                                <div class="chat-body white p-3 ml-2 z-depth-1">
-                                    <div class="header">
-                                        <strong class="primary-font">Brad Pitt</strong>
-                                        <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>
-                                    </div>
-                                    <hr class="w-100">
-                                    <p class="mb-0">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="d-flex justify-content-between mb-4">
-                                <div class="chat-body white p-3 z-depth-1">
-                                    <div class="header">
-                                        <strong class="primary-font">Anna Cassie</strong>
-                                        <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 12 mins ago</small>
-                                    </div>
-                                    <hr class="w-100">
-                                    <p class="mb-0">
-                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-                                    </p>
-                                </div>
-                                <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="avatar" class="avatar rounded-circle mr-0 ml-3 z-depth-1">
-                            </li><li class="d-flex justify-content-between mb-4">
-                                    <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-6" alt="avatar" class="avatar rounded-circle mr-2 ml-lg-3 ml-0 z-depth-1">
-                                    <div class="chat-body white p-3 ml-2 z-depth-1">
-                                        <div class="header">
-                                            <strong class="primary-font">Brad Pitt</strong>
-                                            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>
-                                        </div>
-                                        <hr class="w-100">
-                                        <p class="mb-0">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="d-flex justify-content-between mb-4">
-                                    <div class="chat-body white p-3 z-depth-1">
-                                        <div class="header">
-                                            <strong class="primary-font">Anna Cassie</strong>
-                                            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 12 mins ago</small>
-                                        </div>
-                                        <hr class="w-100">
-                                        <p class="mb-0">
-                                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-                                        </p>
-                                    </div>
-                                    <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="avatar" class="avatar rounded-circle mr-0 ml-3 z-depth-1">
-                                </li>                           
+                        </li>                      
                     </ul>
 
                     <!-- Input -->
@@ -127,5 +76,32 @@
 </div> 
 
 
-<!-- chat message examples -->
+<!-- chat message examples 
+    <li class="d-flex justify-content-between mb-4">
+            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-6" alt="avatar" class="avatar rounded-circle mr-2 ml-lg-3 ml-0 z-depth-1">
+            <div class="chat-body white p-3 ml-2 z-depth-1">
+                <div class="header">
+                    <strong class="primary-font">Brad Pitt</strong>
+                    <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>
+                </div>
+                <hr class="w-100">
+                <p class="mb-0">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+            </div>
+        </li>
+        <li class="d-flex justify-content-between mb-4">
+            <div class="chat-body white p-3 z-depth-1">
+                <div class="header">
+                    <strong class="primary-font">Anna Cassie</strong>
+                    <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 12 mins ago</small>
+                </div>
+                <hr class="w-100">
+                <p class="mb-0">
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+                </p>
+            </div>
+            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="avatar" class="avatar rounded-circle mr-0 ml-3 z-depth-1">
+        </li>
+-->
 
