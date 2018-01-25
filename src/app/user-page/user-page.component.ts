@@ -14,7 +14,7 @@ import { AuthenticationService } from './../_services/users.service';
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
-  styleUrls: ['./user-page.component.css']
+  styleUrls: ['./user-page.component.scss']
 })
 export class UserPageComponent implements OnInit {
 
