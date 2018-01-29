@@ -17,7 +17,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'user-page', component: UserPageComponent/*, canActivate: [AuthGuard]*/ },
   { path: 'chat/:name', component: ChatComponent },
-  { path: 'gitem', component: GroupItemComponent },
+  { path: 'createGroup', component: GroupItemComponent},
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

@@ -21,6 +21,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { MessageComponent } from './message/message.component';
 import { GroupService } from './_services/group.service';
 import { MessageService } from './_services/message.service';
+import { CreateGroupComponent } from './create-group/create-group.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MessageService } from './_services/message.service';
     UserPageComponent,
     GroupItemComponent,
     ChatComponent,
-    MessageComponent
+    MessageComponent,
+    CreateGroupComponent
   ],
   imports: [
     BrowserModule,

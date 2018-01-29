@@ -38,7 +38,14 @@ export class UserPageComponent implements OnInit {
         console.log(data);
         this.groups = data.groups;
         this.users = data.users;
-        this.messages = data.msgs[0];         // xDDDD
+        this.messages = data.msgs[0];
+      });
+
+    this.socketService.onNewGroup()
+      .subscribe((data) => {
+        console.log(data);
+        this.groups.push(data.group);
+        this.messages.push(data.lastMsg);
       });
   }
 

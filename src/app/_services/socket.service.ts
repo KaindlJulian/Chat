@@ -51,7 +51,7 @@ export class SocketService {
             return new Observable<any>(observer => {
                 console.log(this.socket);
                 this.socket.on('success', (data) => {
-                    observer.next({groups : data.groups, users: data.users, msgs : data.msgs});
+                    observer.next({groups: data.groups, users: data.users, msgs: data.msgs});
                 });
             });
         }
@@ -83,6 +83,20 @@ export class SocketService {
         public onUserConnectedRoom(): Observable<String> {
             return new Observable<String>(observer => {
                 this.socket.on('userConnectedRoom', (data: String) => observer.next(data));
+            });
+        }
+
+        public onGroupJoin(): Observable<any> {
+            return new Observable<any>(observer => {
+                this.socket.on('groupJoin', (data) => observer.next(data));
+            });
+        }
+
+        public onNewGroup(): Observable<any> {
+            return new Observable<any>(observer => {
+                this.socket.on('newGroup', (data) => {
+                    observer.next({group: data.group, lastMsg: data.lastMsg});
+                });
             });
         }
     // endregion

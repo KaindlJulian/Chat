@@ -2,6 +2,7 @@ import { User } from './user';
 import { Message } from './message';
 
 export class Group {
-    id = 0;
+    id:string = '';
+    admin_id: number = 0;
     name: string = '';
 }
