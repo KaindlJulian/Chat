@@ -109,9 +109,9 @@ export class SocketService {
             }));
         }
 
-        public createChat(group: Group, users: User[]): void {
+        public createChat(groupName: String, users: User[]): void {
             this.socket.emit('createChat', ({
-                name: group.name,
+                name: groupName,
                 users: users
             }));
         }

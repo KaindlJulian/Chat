@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { GroupService } from './../_services/group.service';
+import { SocketService } from './../_services/socket.service';
+import { User } from '../_models/user';
+import { Group } from '../_models/group';
 
 @Component({
   selector: 'app-create-group',
@@ -7,18 +11,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateGroupComponent implements OnInit {
 
-  
+  users: User[];
 
-  iconsSelect: Array<any>;
+  groupName: string;
+  groupMembers: User[];
 
-  constructor() { }
+  constructor(
+    private usersSingeloton: GroupService,
+    private socketService: SocketService) { }
 
   ngOnInit() {
-    this.iconsSelect = [
-      { value: '1', label: 'Option 1', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-1.jpg' },
-      { value: '2', label: 'Option 2', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg' },
-      { value: '3', label: 'Option 3', icon: 'https://mdbootstrap.com/img/Photos/Avatars/avatar-3.jpg' },
-  ];
+    this.users = this.usersSingeloton.getUsers();
+
+    this.socketService.onGetUsers().subscribe(users => {
+      this.users = users;
+    });
   }
 
+  createGroup(): void {
+    this.socketService.createChat(this.groupName, this.groupMembers);
+  }
 }

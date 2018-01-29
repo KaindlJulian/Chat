@@ -33,18 +33,7 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     this.group = this.groupSingleton.getGroup();
 
-    this.socketService.initSocket();
-    this.socketService.onSendMessages().subscribe(msgs => {
-      this.messages = msgs;
-      console.log(msgs);
-    });
-
-    console.log(this.socketService);
-
-    this.msgService.messages.subscribe(msg => {
-      this.messages.push(msg);
-      console.log(msg);
-    });
+    this.initSocket();
 
     this.ioSysMsgConnection = this.socketService.onLeftRoom()
       .subscribe((sysMessage: String) => {
@@ -56,6 +45,26 @@ export class ChatComponent implements OnInit {
       .subscribe(data => {
         this.sysMsg = data.group;
       });
+  }
+
+  private initSocket(): void {
+    this.socketService.initSocket();
+    this.socketService.openChat(this.group);
+
+    this.socketService.onSendMessages().subscribe(msgs => {
+      if (this.messages.length !== msgs.length) {
+        this.messages = msgs;
+        console.log(msgs);
+      } else {
+        console.log('no new messages');
+      }
+    });
+
+    this.msgService.messages.subscribe(msg => {
+      this.messages.push(msg);
+      console.log('new message: ' + msg);
+    });
+    console.log('socket: ' + this.socketService.socket);
   }
 
   public sendMessage(message: Message): void {
