@@ -95,12 +95,18 @@ var returnrouter = function(io) {
     //Argumente sind name des chats und ein Array aus Usern im JSON Format{name:'Chat with Boolean', users : Teilnehmer[]}
     socket.on("createChat", async data => {
       console.log(data);
-      let chatid = await database.insertGroup(data.name, data.users);
-      data.user.forEach((val, ind, arr) => {
+      let chatid = await database.insertGroup(data.name, data.users, socket.decoded_token.data.id);
+      data.users.forEach((val, ind, arr) => {
         //©Matthias Herzog
         let socks = Object.keys(io.sockets.sockets);
-        socks.forEach(con => {
-          if (onlineUser.get(String(con)) == val) {
+        
+        for(con of socks) {
+          console.log(val);
+          console.log("||")
+          console.log(onlineUser.get(String(con)))
+          if (onlineUser.get(String(con)) == val.id) {
+            console.log("105");
+            console.log(io.sockets.sockets[con]);
             io.sockets.sockets[con].join(chatid);
             io.sockets.sockets[con].emit("groupJoin", { groupName: data.name });
             io.sockets.sockets[con].emit("newGroup", {
@@ -108,7 +114,7 @@ var returnrouter = function(io) {
               lastmsg: {},
             });
           }
-        });
+        }
       });
     });
 

@@ -7,7 +7,7 @@ const socket = io.connect('ws://localhost:3000', {
   // Connection succeeded
   socket.on('success', (data) => {
     //console.log(data.users);
-    //console.log(data.groups);
+    console.log(data.groups);
     //console.log(data.msgs);
     //socket.emit('leaveRoom', {group : data.groups[0]})
   });
@@ -17,3 +17,4 @@ const socket = io.connect('ws://localhost:3000', {
   })
   socket.on('groupJoin', data => console.log(data))
   socket.on('newGroup', data => console.log(data))
+  socket.on('receiveMessage', data => console.log(data));

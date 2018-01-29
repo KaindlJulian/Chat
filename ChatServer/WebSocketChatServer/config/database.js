@@ -114,12 +114,12 @@ module.exports.getGroupsforUser = function(data) {
   });
 };
 
-module.exports.insertGroup = function(name, userdata) {
+module.exports.insertGroup = function(name, userdata,creator_id) {
   return new Promise((resolve, reject) => {
     let generatedKey = uuid();
     console.log(generatedKey);
     let newChat = {};
-    newChat = new chat.chat(generatedKey, name);
+    newChat = new chat.chat(generatedKey, name, creator_id);
     console.log(newChat);
     let keyPair = [];
     for (x in userdata) {
