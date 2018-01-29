@@ -61,7 +61,7 @@ var returnrouter = function(io) {
 
   // Profile
 
-  io.on("connection", async function(socket) {
+  io.on("connection", async (socket) => {
     var connected = true;
     onlineUser.set(socket.id, socket.decoded_token.data.id);
     let success = await database.updateStatus(
