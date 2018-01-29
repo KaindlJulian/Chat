@@ -110,7 +110,7 @@ var returnrouter = function(io) {
             io.sockets.sockets[con].join(chatid);
             io.sockets.sockets[con].emit("groupJoin", { groupName: data.name });
             io.sockets.sockets[con].emit("newGroup", {
-              group: { id: chatid, name: data.name },
+              group: { id: chatid, name: data.name, creator: socket.decoded_token.data.id },
               lastmsg: {},
             });
           }
@@ -135,7 +135,7 @@ var returnrouter = function(io) {
             });
             let msg = await database.getLastMessagesFromUser(data.group);
             io.sockets.sockets[x].emit("newGroup", {
-              group: { id: data.group.id, name: data.group.name },
+              group: { id: data.group.id, name: data.group.name, creator: socket.decoded_token.data.id},
               lastmsg: msg,
             });
           }
