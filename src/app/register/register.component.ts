@@ -21,7 +21,9 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.validate();
+    if (!this.validate()) {
+      return null;
+    }
     this.authenticationService.register(this.model.name, this.model.email, this.model.username, this.model.password)
     .subscribe(result => {
         if (result === true) {
