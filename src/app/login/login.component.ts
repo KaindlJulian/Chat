@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    if (!this.validate()) {
+        return null;
+    }
     console.log(this.model);
     this.authenticationService.login(this.model.username, this.model.password)
         .subscribe(result => {
@@ -30,5 +33,17 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['home']);
             }
         });
+    }
+
+    private validate(): boolean {
+        if (this.model.username === '') {
+            this.model.username = 'Enter a username!';
+            return false;
+        }
+        if (this.model.password === '') {
+            this.model.username = 'Enter a password!';
+            return false;
+        }
+        return true;
     }
 }
