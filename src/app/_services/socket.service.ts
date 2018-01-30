@@ -154,9 +154,8 @@ export class SocketService {
         const observer = {
             next: (msg: Message) => {
                 this.socket.emit('message', ({
-                    from: msg.sender_id,
                     msg: msg.msg,
-                    group: msg.receiver_id
+                    group: msg.receiver_id              // number
                 }));
             },
         };

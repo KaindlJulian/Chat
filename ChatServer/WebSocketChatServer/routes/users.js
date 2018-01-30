@@ -152,7 +152,7 @@ var returnrouter = function(io) {
     socket.on("sendMessage", data => {
       database.insertMsg({
         msg: data.msg,
-        receiver_id: data.group.id,
+        receiver_id: data.group,  //.id
         sender_id: socket.decoded_token.data.id,
         sendTime: new Date(),
       });

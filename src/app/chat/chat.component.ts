@@ -22,6 +22,8 @@ export class ChatComponent implements OnInit {
   ioSysMsgConnection: any;
   sysMsg: String;
 
+  msgText: string = ' ';
+
   constructor(
     private msgService: MessageService,
     private socketService: SocketService,
@@ -67,11 +69,20 @@ export class ChatComponent implements OnInit {
     console.log('socket: ' + this.socketService.socket);
   }
 
+  public sendButton(): void {
+    const msg: Message = new Message();
+    msg.msg = this.msgText;
+    msg.receiver_id = this.group.id;
+    msg.sendTime = new Date();
+    this.messages.push(msg);
+    this.sendMessage(msg);
+  }
+
   public sendMessage(message: Message): void {
     if (!message) {
       return;
     }
-    this.socketService.sendMessage(message);
+    this.msgService.sendMsg(message);
   }
 
   public getUserByMsg(msg: Message): User {
