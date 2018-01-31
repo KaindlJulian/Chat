@@ -88,7 +88,10 @@ var returnrouter = function(io) {
 
     //Argument sind der Chat im JSON Format{group: groupObjekt}
     socket.on("openChat", async data => {
+      console.log("91:")
+      console.log(data.group);
       allMessages = await database.getAllMessagesFromChat(data.group);
+      console.log(allMessages);
       socket.emit("sendMessages", { msgs: allMessages });
     });
 
@@ -148,7 +151,7 @@ var returnrouter = function(io) {
       }
     });
 
-    //Als argument sollte hier eine Message und die Gruppe mitgeben werden im Json format{msg: 'asdf', group: group}
+    //Als argument sollte hier eine Message und die Gruppe mitgeben werden im Json format{msg: 'asdf', group: group.id}
     socket.on("sendMessage", data => {
       database.insertMsg({
         msg: data.msg,

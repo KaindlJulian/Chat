@@ -7,7 +7,7 @@ export class GroupService {
 
   private group: Group;
 
-  private users: User[];
+  private users = new Array<User>();
 
   constructor() { }
 
@@ -20,7 +20,8 @@ export class GroupService {
   }
 
   public getUserById(id: number): User {
-    for (const user of this.users){
+    console.log(this.users);
+    for (let user of this.users){
       if (user.id === id) {
         return user;
       }

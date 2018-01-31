@@ -70,7 +70,7 @@ export class SocketService {
 
         public onSendMessages(): Observable<Message[]> {
             return new Observable<Message[]>(observer => {
-                this.socket.on('sendMessages', (data: Message[]) => observer.next(data));
+                this.socket.on('sendMessages', (data: any) => observer.next(data.msgs));
             });
         }
 
