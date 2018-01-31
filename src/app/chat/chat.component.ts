@@ -78,6 +78,7 @@ export class ChatComponent implements OnInit {
   }
 
   public sendMessage(message: Message): void {
+    console.log(message);
     if (!message) {
       return;
     }
