@@ -16,7 +16,7 @@ import { User } from '../_models/user';
 })
 export class ChatComponent implements OnInit {
 
-  messages = new Array<Message>();
+  messages: Message[];
   group: Group;
   ioMsgConnection: any;
   ioSysMsgConnection: any;
@@ -51,14 +51,15 @@ export class ChatComponent implements OnInit {
 
   private initSocket(): void {
     this.socketService.initSocket();
-    console.log(this.group);
     this.socketService.openChat(this.group);
-    console.log(this.socketService);
+
     this.socketService.onSendMessages().subscribe(msgs => {
+      if (this.messages.length !== msgs.length) {
         this.messages = msgs;
-        console.log(msgs[0]);
-        console.log(this.messages);
+        console.log(msgs);
+      } else {
         console.log('no new messages');
+      }
     });
 
     this.msgService.messages.subscribe(msg => {
@@ -70,6 +71,7 @@ export class ChatComponent implements OnInit {
 
   public sendButton(): void {
     const msg: Message = new Message();
+    msg.sender_id = 0; // yea
     msg.msg = this.msgText;
     msg.receiver_id = this.group.id;
     msg.sendTime = new Date();
@@ -78,7 +80,6 @@ export class ChatComponent implements OnInit {
   }
 
   public sendMessage(message: Message): void {
-    console.log(message);
     if (!message) {
       return;
     }

@@ -153,7 +153,8 @@ export class SocketService {
         });
         const observer = {
             next: (msg: Message) => {
-                this.socket.emit('message', ({
+                console.log('message in rxSubject' + msg);
+                this.socket.emit('sendMessage', ({
                     msg: msg.msg,
                     group: msg.receiver_id              // number
                 }));

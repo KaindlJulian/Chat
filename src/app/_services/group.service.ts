@@ -7,6 +7,8 @@ export class GroupService {
 
   private group: Group;
 
+  private user: User;
+
   private users = new Array<User>();
 
   constructor() { }
@@ -34,5 +36,12 @@ export class GroupService {
   }
   public setUsers(users: User[]): void {
     this.users = users;
+  }
+
+  public getSessionUser(): User {
+    return this.user;
+  }
+  public setSessionUser(user: User): void {
+    this.user = user;
   }
 }

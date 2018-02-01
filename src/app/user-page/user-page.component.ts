@@ -41,7 +41,6 @@ export class UserPageComponent implements OnInit {
         this.messages = data.msgs[0];
         this.groupSingleton.setUsers(this.users);
       });
-      
 
     this.socketService.onNewGroup()
       .subscribe((data) => {

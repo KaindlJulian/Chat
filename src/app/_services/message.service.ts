@@ -20,7 +20,7 @@ export class MessageService {
 
   // message observable (this.messages)
   sendMsg(msg: Message) {
-    console.log('new message: ' + msg);
+    console.log('new message in msgService: ' + msg);
     this.messages.next(msg);
   }
 

@@ -1,3 +1,4 @@
+import { GroupService } from './../_services/group.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../_services/users.service';
 import { Router } from '@angular/router';
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService,
+    private groupService: GroupService) { }
 
   ngOnInit() {
   }
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['home']);
             }
         });
+        this.groupService.setSessionUser(this.model);
     }
 
     private validate(): boolean {
