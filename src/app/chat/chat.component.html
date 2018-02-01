@@ -1,72 +1,45 @@
+<body class="rare-wind-gradient">
 <!--Navbar-->
 <mdb-navbar SideClass="navbar navbar-dark indigo">       
     <!-- Navbar brand -->
     <logo>
       <a class="navbar-brand" href="user-page">
             <i class="fa fa-whatsapp" aria-hidden="true"></i>
-          WhatsUp
+          THis chat
       </a>
     </logo>
-
     <!-- Collapsible content -->
     <links>
-
         <!-- Links -->
-        <ul class="navbar-nav mr-auto ">
-            <li class="nav-item active">
-                <a class="nav-link waves-light" mdbRippleRadius>{{group.name}}<span class="sr-only">(current)</span></a><!-- todo -->
-            </li>
+        <ul class="navbar-nav mr-auto pt-3 ">
             <li class="nav-item">
-                <a class="nav-link waves-light" mdbRippleRadius>Contacts</a>                        <!-- todo -->     
-            </li>
-        </ul>
-        <!-- Links -->
-
-        <!-- Right Float -->
-        <ul class="navbar-nav ml-auto nav-flex-icons">    
-            <!-- Account Dropdown -->
-            <li class="nav-item dropdown" dropdown>
-                <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
-                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i><span class="caret"></span>
-                </a>
-                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-                    <a class="dropdown-item waves-light" mdbRippleRadius href="#">Settings</a>  
-                    <a class="dropdown-item waves-light" mdbRippleRadius href="#">Add User</a>      <!-- todo -->
-                    <div class="divider dropdown-divider"></div>
-                    <a class="dropdown-item waves-light" mdbRippleRadius href="#">Delete Group</a>
+                <div class="d-flex justify-content-around">
+                <a href="#" class="nav-link waves-light border rounded-left border-white" mdbRippleRadius>Add User</a>        <!-- todo -->
+                <a href="#" class="nav-link waves-light border border-white" mdbRippleRadius>Delete Group</a>   <!-- todo -->  
+                <a href="#" class="nav-link waves-light border rounded-right border-white" mdbRippleRadius>Remove User</a>        <!-- todo -->
                 </div>
             </li>
         </ul>
-        <!-- Right Float -->
-        
+        <!-- Links -->    
     </links>
     <!-- Collapsible content -->
-
 </mdb-navbar>
 <!--/.Navbar-->
   
-<div class="card container-fluid rare-wind-gradient chat-room">
+<div class="card container-fluid transparent z-depth-0 chat-room">
     <div class="card-body">
         <!-- Grid row -->
         <div class="row px-lg-2 px-2 px-xs-auto">
             <!-- Grid column -->
             <div class="col-xs col-sm col-md col-xl pl-md px-lg-auto px-0">
                 <div class="chat-message">
-
-                    <!-- Messages -->
+                    <!-- ngFor Messages -->
                     <ul class="list-unstyled chat-1">
                         <li *ngFor="let message of messages, let i = index" class="d-flex justify-content-between mb-4">
                             <message [message]="message" [user]="getUserByMsg(message)"></message>                       
                         </li>                   
-                    </ul>
-
-                    <!-- Input -->
-                    <div class="white">
-                        <div class="form-group basic-textarea">
-                            <textarea class="form-control pl-2 my-0" id="exampleFormControlTextarea2" rows="3" placeholder="Type your message here..."></textarea>
-                        </div>
-                    </div>
-                    <button type="button" (click)="sendButton()" class="btn btn-outline-white btn-rounded btn-sm waves-effect waves-dark float-right">Send</button>
+                    </ul>  
+                    <!-- ./Messages -->              
                 </div>
             </div>
             <!-- Grid column -->
@@ -75,33 +48,17 @@
     </div>
 </div> 
 
-
-<!-- chat message examples 
-    <li class="d-flex justify-content-between mb-4cd
-            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-6" alt="avatar" class="avatar rounded-circle mr-2 ml-lg-3 ml-0 z-depth-1">
-            <div class="chat-body white p-3 ml-2 z-depth-1">
-                <div class="header">
-                    <strong class="primary-font">Brad Pitt</strong>
-                    <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>
-                </div>
-                <hr class="w-100">
-                <p class="mb-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-            </div>
-        </li>
-        <li class="d-flex justify-content-between mb-4">
-            <div class="chat-body white p-3 z-depth-1">
-                <div class="header">
-                    <strong class="primary-font">Anna Cassie</strong>
-                    <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 12 mins ago</small>
-                </div>
-                <hr class="w-100">
-                <p class="mb-0">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-                </p>
-            </div>
-            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="avatar" class="avatar rounded-circle mr-0 ml-3 z-depth-1">
-        </li>
--->
+<!-- Input -->
+<div class="container-fluid card transparent mb-auto z-depth-0 fixed-bottom">
+    <div class="d-flex justify-content-between ">
+        <div class="md-form col-8">
+            <input type="text" class="form-control" style="color: white;" placeholder="Type your Message ...">
+        </div>
+        <button (click)="sendButton()" class="btn btn-outline-white btn-rounded m-auto float-right waves-effect waves-light ">
+            <i class="fa fa-send-o" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+</body>
+<!-- ./Input -->
 
