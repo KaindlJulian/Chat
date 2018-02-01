@@ -14,7 +14,7 @@ export class CreateGroupComponent implements OnInit {
   users: User[];
 
   groupName: string;
-  groupMembers: User[];
+  groupMembers: User[] = new Array<User>();
 
   constructor(
     private usersSingeloton: GroupService,
@@ -23,9 +23,15 @@ export class CreateGroupComponent implements OnInit {
   ngOnInit() {
     this.users = this.usersSingeloton.getUsers();
 
+    this.socketService.initSocket();
+
     this.socketService.onGetUsers().subscribe(users => {
       this.users = users;
     });
+  }
+
+  addContact(contact: User): void {
+    this.groupMembers.push(contact);
   }
 
   createGroup(): void {

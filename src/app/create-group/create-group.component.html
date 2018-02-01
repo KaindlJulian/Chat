@@ -1,34 +1,31 @@
 
 
 <!--Navbar-->
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo fixed-top">
            
     <!-- Navbar brand -->
     <logo>
-      <a class="navbar-brand">
-          <i class="fa fa-address-book-o" aria-hidden="true"></i>
-          Whats Up
+      <a class="navbar-brand" href="user-page">
+            <i class="fa fa-group" aria-hidden="true"></i>
+          Create Group
       </a>
     </logo>
 
     <!-- Collapsible content -->
     <links>
-
         <!-- Links -->
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto pt-3">
             <li class="nav-item active">
-                <a class="nav-link waves-light" mdbRippleRadius>Groups</a>
+                <a href="user-page" class="nav-link waves-light m-auto" mdbRippleRadius>Cancel</a>        <!-- todo -->
             </li>
-            <li class="nav-item">
-                <a class="nav-link waves-light" mdbRippleRadius>Contacts</a>                      
+            <li class="nav-item active mt-1">
+                <a (click)="createGroup()" class="nav-link waves-light m-auto" mdbRippleRadius>Submit</a>                        <!-- todo -->  
             </li>
-            <li class="nav-item">
-                <a class="nav-link waves-light" mdbRippleRadius href="createGroup">New Group<span class="sr-only">(current)</span></a>                      
+            <li>
+                <hr style="background-color:#bfbfbf;">                     
             </li>
         </ul>
         <!-- Links -->
-
-        <!-- Right Float -->
         <ul class="navbar-nav ml-auto nav-flex-icons">    
             <!-- Search Bar -->
             <li>
@@ -36,34 +33,18 @@
                     <input class="form-control mr-sm-2" type="text" placeholder="Search">
                 </form>
             </li>
-            <!-- Account Dropdown -->
-            <li class="nav-item dropdown" dropdown>
-                <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
-                    <i class="fa fa-user-circle" aria-hidden="true"></i><span class="caret"></span>
-                </a>
-                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-                    <a class="dropdown-item waves-light" mdbRippleRadius href="#">Settings</a>        <!-- TODO -->
-                    <a (click)="logoutButton()" class="dropdown-item waves-light" mdbRippleRadius>Logout</a>
-                    <div class="divider dropdown-divider"></div>
-                    <a class="dropdown-item waves-light" mdbRippleRadius href="#">Delete Account</a>
-                </div>
-            </li>
         </ul>
-        <!-- Right Float -->
-        
     </links>
     <!-- Collapsible content -->
-
 </mdb-navbar>
 <!--/.Navbar-->
 
+<body>
 <!-- Form -->
-<form class ="container">
-    <p class="h1 text-center mb-4">Create Group</p>
-
+<form class ="container mt-auto">
     <div class="md-form">
         <i class="fa fa-tag prefix grey-text"></i>
-        <input type="text" id="form1" class="form-control" mdbActive>
+        <input [(ngModel)]="groupName" name="groupName" type="text" id="form1" class="form-control" mdbActive>
         <label for="form1">Name</label>
     </div>
     <div class="md-form">
@@ -74,23 +55,25 @@
 </form>             <!-- select contacts (w/ ngFor) with add button and add them to members text field -->
 
 <!-- Grid column -->
-<main class="container">
-<div class="white z-depth-1 px-2 pt-3 pb-0 members-panel-1 scrollbar-light-blue">
-    <ul class="list-unstyled friend-list">
+<div class="container">
+<div class="white z-depth-1 px-2 pb-0">
+    <ul class="list-unstyled friend-list mb-0">
         <li class="p-2">
-            <a href="#" class="d-flex justify-content-between">
+            <a class="d-flex justify-content-between">
                 <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-1" alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1">
-                <div class="text-small">   
+                <div class="h4 mt-auto mb-auto">   
                     <strong>Danny Smith</strong>
                 </div>
-                <div class="chat-footer">
-                    <button type="button" class="btn btn-sm btn-indigo waves-light" mdbRippleRadius>Add</button>
+                <div class="mt-auto mb-auto col-3">
+                    <button (click)="addContact(contact)" type="button" class="btn btn-sm btn-indigo waves-light" mdbRippleRadius>Add</button>
                 </div>
             </a>
         </li>
     </ul>
 </div>
-</main>
+</div>
+    
+</body>
 <!-- Grid column -->
 
 
