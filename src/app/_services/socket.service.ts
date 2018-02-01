@@ -26,7 +26,7 @@ export class SocketService {
     };
 
 
-    // TODO https://tutorialedge.net/typescript/angular/angular-socket-io-tutorial/
+    // https://codingblast.com/chat-application-angular-socket-io/
     // der shit bringt nur wos für msgs weil man des on und emit dann in an service machn kann
     // wenn ma nur an listener braucht is des gay weil ma ka rx subject ohne observer mochn ko
 
@@ -143,7 +143,7 @@ export class SocketService {
     messageConnection(): Rx.Subject<MessageEvent> {
 
         const observable = new Observable(observe => {
-            this.socket.on('message', (data) => {
+            this.socket.on('receiveMessage', (data) => {
               console.log('Received message from Websocket Server: ' + data);
               observe.next(data);
             });
