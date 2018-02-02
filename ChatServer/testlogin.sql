@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 24. Jan 2018 um 12:49
+-- Erstellungszeit: 02. Feb 2018 um 21:02
 -- Server-Version: 10.1.29-MariaDB
 -- PHP-Version: 7.2.0
 
@@ -30,15 +30,16 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `chat` (
   `id` varchar(40) NOT NULL,
-  `name` varchar(255) DEFAULT NULL
+  `name` varchar(255) DEFAULT NULL,
+  `creator_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Daten für Tabelle `chat`
 --
 
-INSERT INTO `chat` (`id`, `name`) VALUES
-('2998b6ce-c874-494c-a1ee-2a10b3384586', 'chat with Boolean');
+INSERT INTO `chat` (`id`, `name`, `creator_id`) VALUES
+('169f0504-2dc6-46f0-93b8-4f9d4bcb2729', 'Its me', 1);
 
 -- --------------------------------------------------------
 
@@ -59,8 +60,8 @@ CREATE TABLE `message` (
 --
 
 INSERT INTO `message` (`id`, `sender_id`, `receiver_id`, `msg`, `sendTime`) VALUES
-(1, 1, '2998b6ce-c874-494c-a1ee-2a10b3384586', 'Hello with Boolean', '2018-01-22 14:54:54'),
-(2, 1, '2998b6ce-c874-494c-a1ee-2a10b3384586', 'Hello with Boolean', '2018-01-22 14:55:50');
+(3, 1, '169f0504-2dc6-46f0-93b8-4f9d4bcb2729', 'Hello World', '2018-01-29 11:57:07'),
+(4, 1, '169f0504-2dc6-46f0-93b8-4f9d4bcb2729', ' ', '2018-02-02 17:18:31');
 
 -- --------------------------------------------------------
 
@@ -78,8 +79,9 @@ CREATE TABLE `registration` (
 --
 
 INSERT INTO `registration` (`chat_id`, `user_id`) VALUES
-('2998b6ce-c874-494c-a1ee-2a10b3384586', 1),
-('2998b6ce-c874-494c-a1ee-2a10b3384586', 2);
+('169f0504-2dc6-46f0-93b8-4f9d4bcb2729', 3),
+('169f0504-2dc6-46f0-93b8-4f9d4bcb2729', 1),
+('169f0504-2dc6-46f0-93b8-4f9d4bcb2729', 2);
 
 -- --------------------------------------------------------
 
@@ -102,8 +104,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`email`, `id`, `lastSeen`, `name`, `PASSWORD`, `status`, `username`) VALUES
-('example@gmail.com', 1, '2018-01-24 11:55:13', 'John Doe', '$2a$10$lRtO0Z0JIzUKBfmLO3S6TuRqfBwubbS68.6EOE6ew3lS9PAkr4dPG', 'offline', 'John'),
-('adfasdf@gmail.com', 2, '2018-01-24 09:50:54', 'adsf', '$2a$10$hcdE2Wub6he9.xvug8bEY.wUP4n/psv5VgFTUb2As79k.NQl9r6Qq', 'online', 'dff'),
+('example@gmail.com', 1, '2018-02-02 17:20:45', 'John Doe', '$2a$10$lRtO0Z0JIzUKBfmLO3S6TuRqfBwubbS68.6EOE6ew3lS9PAkr4dPG', 'online', 'John'),
+('adfasdf@gmail.com', 2, '2018-01-31 09:35:59', 'adsf', '$2a$10$hcdE2Wub6he9.xvug8bEY.wUP4n/psv5VgFTUb2As79k.NQl9r6Qq', 'online', 'dff'),
 ('schalkspieler@gmail.com', 3, '2018-01-24 11:56:24', 'Elias Schaechl', '$2a$10$PfHpNfSd3FpVgKVQwY0aQuiozGT4Jx3F4o4.mVH6q0zW1EyPdnZtS', 'online', 'SchalkSpieler');
 
 --
@@ -145,7 +147,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT für Tabelle `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT für Tabelle `user`
