@@ -7,20 +7,26 @@ const database = require("../config/database");
 let onlineUser = new Map();
 
 var returnrouter = function(io) {
-  router.post("/register", (req, res, next) => {
+  router.post("/register", async (req, res, next) => {
     console.log(req.body);
-    let newUser = new user.user(
-      req.body.name,
-      req.body.email,
-      req.body.password,
-      req.body.username,
-      new Date() //Changed by Lucas Rosenberger from new Date() to actual
-    );
-    console.log(newUser);
-    database.addUser(newUser, (err, user) => {
-      if (err) res.json({ success: false, msg: "failed to register user" });
-      else res.json({ success: true, msg: "user registered" });
-    });
+    let success = await database.checkUserName(req.body.username)
+    if(success){
+      let newUser = new user.user(
+        req.body.name,
+        req.body.email,
+        req.body.password,
+        req.body.username,
+        new Date() //Changed by Lucas Rosenberger from new Date() to actual
+      );
+      console.log(newUser);
+      database.addUser(newUser, (err, user) => {
+        if (err) res.json({ success: false, msg: "failed to register user" });
+        else res.json({ success: true, msg: "user registered" });
+      });
+    }
+    else{
+      res.json({success : false, msg: 'UserName is already taken'});
+    }
   });
 
   // Authenticate

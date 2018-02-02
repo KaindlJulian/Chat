@@ -1,3 +1,4 @@
+
 const mysql = require("mysql");
 const bcrypt = require("bcryptjs");
 const uuid = require("uuid/v4");
@@ -26,6 +27,29 @@ module.exports.finduserbyid = function(id, callback) {
     });
   });
 };
+
+module.exports.checkUserName = function(userName){
+  return Promise((resolve, reject) =>{
+    dbPool.getConnection((err, connection) => {
+      connection.query("select * from user where username = ?", userName, (err, results) => {
+        if(err) throw err;
+        console.log(result);
+        connection.release();
+        let success;
+        if(result.length > 0){
+          success = false;
+          resolve(success);
+        }
+        else{
+          success = true;
+          console.log(success)
+          resolve(success);
+        }
+      })
+    })
+  })
+  
+}
 
 module.exports.addUser = function(user, callback) {
   console.log(user);
