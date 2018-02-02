@@ -22,6 +22,7 @@ import { MessageComponent } from './message/message.component';
 import { GroupService } from './_services/group.service';
 import { MessageService } from './_services/message.service';
 import { CreateGroupComponent } from './create-group/create-group.component';
+import { UserItemComponent } from './user-item/user-item.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { CreateGroupComponent } from './create-group/create-group.component';
     GroupItemComponent,
     ChatComponent,
     MessageComponent,
-    CreateGroupComponent
+    CreateGroupComponent,
+    UserItemComponent
   ],
   imports: [
     BrowserModule,

@@ -22,7 +22,7 @@ export class ChatComponent implements OnInit {
   ioSysMsgConnection: any;
   sysMsg: String;
 
-  msgText: string = ' ';
+  msgText: string = '';
 
   constructor(
     private msgService: MessageService,
@@ -65,13 +65,13 @@ export class ChatComponent implements OnInit {
 
     this.msgService.messages.subscribe(msg => {
       this.messages.push(msg);
-      console.log('new message: ' + msg);
+      console.log(msg);
     });
-    console.log('socket: ' + this.socketService.socket);
+    console.log(this.socketService.socket);
   }
 
   public sendButton(): void {
-    const msg: Message = new Message();
+    let msg: Message = new Message();
     msg.sender_id = 0; // yea
     msg.msg = this.msgText;
     msg.receiver_id = this.group.id;
@@ -85,6 +85,7 @@ export class ChatComponent implements OnInit {
       return;
     }
     this.msgService.sendMsg(message);
+    this.msgText = '';
   }
 
   public getUserByMsg(msg: Message): User {

@@ -2,7 +2,7 @@
 <div class="chat-body white p-3 ml-2 z-depth-1 float-left">
     <div class="header">
         <strong class="primary-font">{{user.username}}</strong>
-        <small class="pull-right text-muted"><i class="fa fa-clock-o"></i>{{message.sendTime}}</small>
+        <small class="pull-right text-muted"><i class="fa fa-clock-o"></i>{{message.sendTime | date: 'hh:mm dd.MM'}}</small>
     </div>
     <hr class="w-100">
     <p class="mb-0">

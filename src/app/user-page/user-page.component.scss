@@ -1,7 +1,5 @@
-.card.chat-room .members-panel-1,
-.card.chat-room .chat-1 {
-  position: relative;
-  overflow-y: scroll; }
 
-.card.chat-room .members-panel-1 {
-  height: 570px; }
+.rare-wind-gradient {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#69aae0), to(#effcff));
+  background-image: -webkit-linear-gradient(bottom, #69aae0 0%, #effcff 100%);
+  background-image: linear-gradient(to top, #2b34d1 0%, #9affff 100%); }
