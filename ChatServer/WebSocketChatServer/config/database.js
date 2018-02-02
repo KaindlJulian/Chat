@@ -138,7 +138,7 @@ module.exports.getGroupsforUser = function(data) {
   });
 };
 
-module.exports.insertGroup = function(name, userdata,creator_id) {
+module.exports.insertGroup = function(name, userdata, creator_id) {
   return new Promise((resolve, reject) => {
     let generatedKey = uuid();
     console.log(generatedKey);

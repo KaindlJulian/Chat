@@ -10,8 +10,7 @@ socket.on('success', (data) => {
   console.log(data.users);
   console.log(data.groups);
   console.log(data.msgs);
- //socket.emit('createChat', {name: "Its me", users: data.users});
- socket.emit('sendMessage', {group : data.groups[0], msg: "Hello World"});
+ socket.emit('createChat', {name: "Its You", users: data.users});
 });
 
 socket.on('getUsers', (data) =>{
