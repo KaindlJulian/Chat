@@ -1,10 +1,11 @@
-<main role="main" class="container">
+<body class="rare-wind-gradient">
+
 <!--Navbar-->
 <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
            
     <!-- Navbar brand -->
     <logo>
-      <a class="navbar-brand" (click)="logoutButton()">
+      <a href="" class="navbar-brand" (click)="logoutButton()">
           <i class="fa fa-address-book-o" aria-hidden="true"></i>
           Whats Up
       </a>
@@ -12,61 +13,27 @@
 
     <!-- Collapsible content -->
     <links>
-
-        <!-- Links -->
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link waves-light" mdbRippleRadius>Groups<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link waves-light" mdbRippleRadius>Contacts</a>                      
-            </li>
-            <li class="nav-item">
-                <a class="nav-link waves-light" mdbRippleRadius href="createGroup">New Group</a>                      
-            </li>
-        </ul>
-        <!-- Links -->
-
-        <!-- Right Float -->
-        <ul class="navbar-nav ml-auto nav-flex-icons">    
-            <!-- New Messages -->
-            <li class="nav-item">
-                <a class="nav-link waves-effect waves-light"> 0 <i class="fa fa-envelope"></i></a>  <!-- TODO -->
-            </li>
-            <!-- Search Bar -->
-            <li>
-                <form class="form-inline  waves-light" mdbRippleRadius>
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                </form>
-            </li>
-            <!-- Account Dropdown -->
-            <li class="nav-item dropdown" dropdown>
-                <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
-                    <i class="fa fa-user-circle" aria-hidden="true"></i><span class="caret"></span>
-                </a>
-                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-                    <a class="dropdown-item waves-light" mdbRippleRadius href="#">Settings</a>        <!-- TODO -->
-                    <a (click)="logoutButton()" class="dropdown-item waves-light" mdbRippleRadius>Logout</a>
-                    <div class="divider dropdown-divider"></div>
-                    <a class="dropdown-item waves-light" mdbRippleRadius href="#">Delete Account</a>
-                </div>
-            </li>
-        </ul>
-        <!-- Right Float -->
-        
+    <ul class="navbar-nav mr-auto pt-3">
+        <li class="nav-item">
+            <div class="d-flex justify-content-around">
+            <a href="createGroup" class="nav-link waves-light border rounded-left border-white" mdbRippleRadius>Create Group</a>        <!-- todo -->
+            <a href="#" class="nav-link waves-light border border-white" mdbRippleRadius>Delete Group</a>   <!-- todo -->  
+            <a href="#" class="nav-link waves-light border rounded-right border-white" mdbRippleRadius>Logout User</a>        <!-- todo -->
+            </div>
+        </li>    
+    </ul>
     </links>
     <!-- Collapsible content -->
-
 </mdb-navbar>
 <!--/.Navbar-->
 
 <!-- Groups -->
 <div class="card-body">
     <div class="row px-lg-2 px-2">
-        <div class="col-md-6 col-xl-4 px-0 mb-r">
-            <div class="white z-depth-1 px-2 pt-3 pb-0 members-panel-1 scrollbar-light-blue">
+        <div class="col-md-6 col-xl-4 px-0 mb-2">
+            <div class="white z-depth-1 px-2 pt-2 pb-2 pb-0 members-panel-1 scrollbar-light-blue">
 
-                <ul class="list-unstyled friend-list">
+                <ul class="list-unstyled friend-list mb-0">
                     <li *ngFor="let group of groups; let i = index" class="p-2">
                         <group-item 
                             [group]="group" 
@@ -83,11 +50,7 @@
 </div>
 <!-- /.Groups -->
 
-    
-</main>
-
-
-
+</body>
 
 
 

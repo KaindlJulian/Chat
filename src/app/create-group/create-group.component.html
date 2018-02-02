@@ -16,15 +16,15 @@
         <!-- Links -->
         <ul class="navbar-nav mr-auto pt-3">
             <li class="nav-item active">
-                <a href="user-page" class="nav-link waves-light m-auto" mdbRippleRadius>Cancel</a>        <!-- todo -->
+                <a href="user-page" class="nav-link waves-light m-auto" mdbRippleRadius>Cancel</a>
             </li>
             <li class="nav-item active mt-1">
-                <a (click)="createGroup()" class="nav-link waves-light m-auto" mdbRippleRadius>Submit</a>                        <!-- todo -->  
+                <a (click)="createGroup()" class="nav-link waves-light m-auto" mdbRippleRadius>Submit</a>
             </li>
             <li>
-                <hr style="background-color:#bfbfbf;">                     
+                <hr style="background-color:#bfbfbf;">
             </li>
-        </ul>
+        </ul> 
         <!-- Links -->
         <ul class="navbar-nav ml-auto nav-flex-icons">    
             <!-- Search Bar -->
@@ -49,30 +49,28 @@
     </div>
     <div class="md-form">
         <i class="fa fa-user prefix grey-text"></i>
-        <textarea type="text" id="form2" class="md-textarea" style="height: 100px" mdbActive></textarea>
-        <label for="form2">Members</label>  
+        <textarea readonly type="text" id="form2" class="md-textarea" style="height: 100px"></textarea>
+        <label for="form2">{{groupMemberNames}}</label>  
     </div>
-</form>             <!-- select contacts (w/ ngFor) with add button and add them to members text field -->
+</form>            
+
+
 
 <!-- Grid column -->
 <div class="container">
-<div class="white z-depth-1 px-2 pb-0">
+<h1 class="h4"><i class="fa fa-address-book" aria-hidden="true"></i> Contacts: </h1>
+<div class="white px-2 pb-0">
     <ul class="list-unstyled friend-list mb-0">
-        <li class="p-2">
-            <a class="d-flex justify-content-between">
-                <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-1" alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1">
-                <div class="h4 mt-auto mb-auto">   
-                    <strong>Danny Smith</strong>
-                </div>
-                <div class="mt-auto mb-auto col-3">
-                    <button (click)="addContact(contact)" type="button" class="btn btn-sm btn-indigo waves-light" mdbRippleRadius>Add</button>
-                </div>
-            </a>
+        <li class="" *ngFor="let user of users">
+            <user-item 
+            *ngIf="isSelected(user)"
+            [user]="user" 
+            (addContact)="addContact($event)">
+            </user-item>
         </li>
     </ul>
 </div>
-</div>
-    
+</div> 
 </body>
 <!-- Grid column -->
 

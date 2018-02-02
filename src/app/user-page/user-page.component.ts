@@ -39,7 +39,7 @@ export class UserPageComponent implements OnInit {
         this.groups = data.groups;
         this.users = data.users;
         this.messages = data.msgs[0];
-        this.groupSingleton.setUsers(this.users);
+        this.groupSingleton.setUsers(data.users);
       });
 
     this.socketService.onNewGroup()
