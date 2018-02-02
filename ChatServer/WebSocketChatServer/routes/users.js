@@ -129,32 +129,39 @@ var returnrouter = function(io) {
 
     //Argumente sind die Gruppe und der hinzuzufügende User im JSON Format{group: groupObjekt, user: user}
     socket.on("addUser", async data => {
-      let keyValuePair = [{ user_id: data.user.id, chat_id: data.group.id }];
-      console.log("103: " + keyValuePair);
-      let success = await database.checkRegistration(keyValuePair);
-      let socks = Object.keys(io.sockets.sockets);
-      if (success) {
-        for (x of socks) {
-          console.log(onlineUser.get(String(x)));
-          if (onlineUser.get(String(x)) == data.user.id) {
-            io.sockets.sockets[x].join(data.group.id);
-            io.sockets.sockets[x].emit("groupJoin", {
-              groupName: data.group.name,
-              success: success,
-            });
-            let msg = await database.getLastMessagesFromUser(data.group);
-            io.sockets.sockets[x].emit("newGroup", {
-              group: { id: data.group.id, name: data.group.name, creator: socket.decoded_token.data.id},
-              lastmsg: msg,
-            });
+      let isAdmin = await database.checkForAdmin(socket.decoded_token.data.id, data.group.id);
+      if(isAdmin){
+        let keyValuePair = [{ user_id: data.user.id, chat_id: data.group.id }];
+        console.log("103: " + keyValuePair);
+        let success = await database.checkRegistration(keyValuePair);
+        let socks = Object.keys(io.sockets.sockets);
+        if (success) {
+          for (x of socks) {
+            console.log(onlineUser.get(String(x)));
+            if (onlineUser.get(String(x)) == data.user.id) {
+              io.sockets.sockets[x].join(data.group.id);
+              io.sockets.sockets[x].emit("groupJoin", {
+                groupName: data.group.name,
+                success: success,
+              });
+              let msg = await database.getLastMessagesFromUser(data.group);
+              io.sockets.sockets[x].emit("newGroup", {
+                group: { id: data.group.id, name: data.group.name, creator: socket.decoded_token.data.id},
+                lastmsg: msg,
+              });
+            }
           }
+        } else {
+          socket.emit("groupJoin", {
+            groupName: data.group.name,
+            success: success,
+          });
         }
-      } else {
-        socket.emit("groupJoin", {
-          groupName: data.group.name,
-          success: success,
-        });
       }
+      else{
+        socket.emit("groupJoin", {groupName: "You are not allowed to add users", success: false})
+      }
+      
     });
 
     //Als argument sollte hier eine Message und die Gruppe mitgeben werden im Json format{msg: 'asdf', group: group.id}

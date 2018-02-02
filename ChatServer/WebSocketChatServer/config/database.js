@@ -270,3 +270,25 @@ module.exports.checkRegistration = function(keyPair){
     })
   })
 }
+module.exports.checkForAdmin = function(userId, groupId){
+  return new Promise((resolve, reject) => {
+    dbPool.getConnection((err, connection) =>{
+      connection.query("select * from chat where creator_id = ? and id = ?",[userId, groupId], (err, result) =>{
+        if(err) throw err;
+        console.log(result);
+        connection.release();
+        let success;
+        if(result.length > 0){
+          success = false;
+          resolve(success);
+        }
+        else{
+          success = true;
+          console.log(success)
+          insertRegistration(keyPair);
+          resolve(success);
+        }
+      })
+    })
+  })
+}
