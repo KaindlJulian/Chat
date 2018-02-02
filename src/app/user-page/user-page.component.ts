@@ -38,7 +38,7 @@ export class UserPageComponent implements OnInit {
         console.log(data);
         this.groups = data.groups;
         this.users = data.users;
-        this.messages = data.msgs[0];
+        this.setLastMessages(data.msgs[0]);
         this.groupSingleton.setUsers(data.users);
       });
 
@@ -46,8 +46,14 @@ export class UserPageComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
         this.groups.push(data.group);
-        this.messages.push(data.lastMsg);
+        this.groups[this.groups.length - 1].lastMessage = data.lastMsg;
       });
+  }
+
+  private setLastMessages(messages: Message[]): void {
+    this.groups.forEach((group, index) => {
+      group.lastMessage = messages[index].msg;
+    });
   }
 
   public onOpenGroup(selected: Group): void {

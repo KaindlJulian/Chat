@@ -18,7 +18,7 @@
             <div class="d-flex justify-content-around">
             <a href="createGroup" class="nav-link waves-light border rounded-left border-white" mdbRippleRadius>Create Group</a>        <!-- todo -->
             <a href="#" class="nav-link waves-light border border-white" mdbRippleRadius>Delete Group</a>   <!-- todo -->  
-            <a href="#" class="nav-link waves-light border rounded-right border-white" mdbRippleRadius>Logout User</a>        <!-- todo -->
+            <a href="logout" class="nav-link waves-light border rounded-right border-white" mdbRippleRadius>Logout User</a>        <!-- todo -->
             </div>
         </li>    
     </ul>
@@ -31,13 +31,12 @@
 <div class="card-body">
     <div class="row px-lg-2 px-2">
         <div class="col-md-6 col-xl-4 px-0 mb-2">
-            <div class="white z-depth-1 px-2 pt-2 pb-2 pb-0 members-panel-1 scrollbar-light-blue">
+            <div class="white z-depth-1 px-2 pt-2 pb-2 pb-0">
 
                 <ul class="list-unstyled friend-list mb-0">
                     <li *ngFor="let group of groups; let i = index" class="p-2">
                         <group-item 
                             [group]="group" 
-                            [lastMsg]="messages[i]" 
                             (openGroup)="onOpenGroup($event)" 
                             (leaveGroup)="onLeaveGroup($event)">
                         </group-item>
