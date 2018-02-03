@@ -135,10 +135,11 @@ export class SocketService {
         }
 
         public leaveGroup(group: Group): void {
-            this.socket.emit('leaveGroup', ({
+            this.socket.emit('leaveRoom', ({
                 group: group
             }));
-            console.log('left group: ' + group);
+            console.log('leaveGroup emit');
+            console.log(group);
         }
     // endregion
 

@@ -93,4 +93,18 @@ export class ChatComponent implements OnInit {
   public getUserByMsg(msg: Message): User {
     return this.groupSingleton.getUserById(msg.sender_id);
   }
+
+  public AddUser(): void {
+    this.router.navigate(['groupAdd', this.group.name]);
+  }
+  public RemoveUser(): void {
+    this.router.navigate(['groupRemove', this.group.name]);
+  }
+
+  public leaveGroup(): void {
+    this.socketService.leaveGroup(this.group);
+  }
+  public deleteGroup(): void {
+    console.log('deleteGroup - wip');
+  }
 }

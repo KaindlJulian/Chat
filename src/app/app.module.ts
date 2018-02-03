@@ -25,6 +25,8 @@ import { AuthGuard } from './_guards/auth.guard';
 import { MessageService } from './_services/message.service';
 
 import { GroupService } from './_services/group.service';
+import { AddUserComponent } from './add-user/add-user.component';
+import { RemoveUserComponent } from './remove-user/remove-user.component';
 
 
 
@@ -39,7 +41,9 @@ import { GroupService } from './_services/group.service';
     ChatComponent,
     MessageComponent,
     CreateGroupComponent,
-    UserItemComponent
+    UserItemComponent,
+    AddUserComponent,
+    RemoveUserComponent
   ],
   imports: [
     BrowserModule,

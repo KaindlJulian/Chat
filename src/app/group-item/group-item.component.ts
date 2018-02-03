@@ -22,6 +22,9 @@ export class GroupItemComponent implements OnInit {
       this.group.lastMessage = new Message();
       this.group.lastMessage.msg = 'group created';
     }
+    if (this.group.lastMessage.msg.length > 13) {
+      this.group.lastMessage.msg = this.group.lastMessage.msg.substr(0, 13) + '...';
+    }
   }
 
   openGroupButton(): void {
