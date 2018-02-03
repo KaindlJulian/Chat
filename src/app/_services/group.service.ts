@@ -7,8 +7,6 @@ export class GroupService {
 
   private group: Group;
 
-  private user: User;
-
   private users = new Array<User>();
 
   constructor() { }
@@ -21,6 +19,9 @@ export class GroupService {
     this.group = group;
   }
 
+ // gibt error bei anzeign der message für den sender weil der ned im array is
+ // deswegn moch wa an sender: User ind message und ersparn uns den scheiß, muss dann halt nur mappen
+ // (kann i ned weil du ka sender_id beim receiveMessage bigst)
   public getUserById(id: number): User {
     console.log(this.users);
     for (let user of this.users){
@@ -36,12 +37,5 @@ export class GroupService {
   }
   public setUsers(users: User[]): void {
     this.users = users;
-  }
-
-  public getSessionUser(): User {
-    return this.user;
-  }
-  public setSessionUser(user: User): void {
-    this.user = user;
   }
 }

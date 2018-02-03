@@ -37,7 +37,7 @@
                     <!-- ngFor Messages -->
                     <ul class="list-unstyled chat-1">
                         <li *ngFor="let message of messages, let i = index" class="d-flex justify-content-between mb-4">
-                            <message [message]="message" [user]="getUserByMsg(message)"></message>                       
+                            <message [message]="message" [user]="getUserByMsg(message)"></message>       <!--change to message.sender -->                
                         </li>                   
                     </ul>  
                     <!-- ./Messages -->              
@@ -53,7 +53,7 @@
 <div class="container-fluid card transparent mb-auto z-depth-0 fixed-bottom">
     <div class="d-flex justify-content-between ">
         <div class="md-form col-8">
-            <input type="text" [(ngModel)]="msgText" class="form-control" style="color: white;" placeholder="Type your Message ...">
+            <input type="text" name="messageText" [(ngModel)]="msgText" class="form-control" style="color: white;" placeholder="Type your Message ...">
         </div>
         <button (click)="sendButton()" class="btn btn-outline-white btn-rounded m-auto float-right waves-effect waves-light ">
             <i class="fa fa-send-o" aria-hidden="true"></i>

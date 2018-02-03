@@ -5,7 +5,7 @@ export class Group {
     id:string = '';
     admin_id: number = 0;
     name: string = '';
-    lastMessage: string = '';
+    lastMessage: Message = null;
     // admin?: User;
     // users?: User[];
     // messages?: Message[];

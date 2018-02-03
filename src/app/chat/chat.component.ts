@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import { MessageService } from '../_services/message.service';
 import { GroupService } from '../_services/group.service';
+import { SessionUserService } from '../_services/session-user.service';
+
 import { Message } from '../_models/message';
 import { Group } from '../_models/group';
 import { User } from '../_models/user';
@@ -54,7 +56,6 @@ export class ChatComponent implements OnInit {
     this.socketService.openChat(this.group);
 
     this.socketService.onSendMessages().subscribe(msgs => {
-      console.log(msgs);
       if (this.messages.length !== msgs.length) {
         this.messages = msgs;
         console.log(msgs);
@@ -72,10 +73,11 @@ export class ChatComponent implements OnInit {
 
   public sendButton(): void {
     let msg: Message = new Message();
-    msg.sender_id = 0; // yea
+    msg.sender_id = 0; // get id from session user service
     msg.msg = this.msgText;
     msg.receiver_id = this.group.id;
     msg.sendTime = new Date();
+    console.log(msg);
     this.messages.push(msg);
     this.sendMessage(msg);
   }

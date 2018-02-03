@@ -64,7 +64,10 @@ export class SocketService {
 
         public onMessage(): Observable<Message> {
             return new Observable<Message>(observer => {
-                this.socket.on('receiveMessage', (data: Message) => observer.next(data));
+                this.socket.on('receiveMessage', (data: Message) => {
+                    observer.next(data);
+                    console.log(data);
+                });
             });
         }
 
@@ -141,7 +144,6 @@ export class SocketService {
 
     // RxJS Subject for Message connection
     messageConnection(): Rx.Subject<MessageEvent> {
-
         const observable = new Observable(observe => {
             this.socket.on('receiveMessage', (data) => {
               console.log('Received message from Websocket Server: ' + data);

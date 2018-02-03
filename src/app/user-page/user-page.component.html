@@ -21,6 +21,14 @@
             <a href="logout" class="nav-link waves-light border rounded-right border-white" mdbRippleRadius>Logout User</a>        <!-- todo -->
             </div>
         </li>    
+        <li>
+            <hr style="background-color:#bfbfbf;">
+        </li>
+        <li>
+            <div class="text-small navbar-brand">
+                <small>Logged In as </small>
+            </div>
+        </li>
     </ul>
     </links>
     <!-- Collapsible content -->
@@ -34,7 +42,7 @@
             <div class="white z-depth-1 px-2 pt-2 pb-2 pb-0">
 
                 <ul class="list-unstyled friend-list mb-0">
-                    <li *ngFor="let group of groups; let i = index" class="p-2">
+                    <li *ngFor="let group of groups; let i = index" class="p-2 mt-auto border">
                         <group-item 
                             [group]="group" 
                             (openGroup)="onOpenGroup($event)" 

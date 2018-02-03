@@ -3,7 +3,7 @@ import { User } from './user';
 
 export class Message {
     sender_id: number = 0;
-    // sender?: User
+    sender: User = null;
     receiver_id: string = '';
     // receiver?: Group
     msg: string = '';
