@@ -54,6 +54,7 @@ var returnrouter = function(io) {
             success: true,
             token: token,
             user: {
+              id : user.id,
               name: user.name,
               username: user.username,
               email: user.email,
