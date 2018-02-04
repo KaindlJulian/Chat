@@ -29,14 +29,14 @@ module.exports.finduserbyid = function(id, callback) {
 };
 
 module.exports.checkUserName = function(userName){
-  return Promise((resolve, reject) =>{
+  return new Promise((resolve, reject) =>{
     dbPool.getConnection((err, connection) => {
       connection.query("select * from user where username = ?", userName, (err, results) => {
         if(err) throw err;
-        console.log(result);
+        console.log(results);
         connection.release();
         let success;
-        if(result.length > 0){
+        if(results.length > 0){
           success = false;
           resolve(success);
         }

@@ -18,6 +18,7 @@ var returnrouter = function(io) {
         req.body.username,
         new Date() //Changed by Lucas Rosenberger from new Date() to actual
       );
+      console.log("21")
       console.log(newUser);
       database.addUser(newUser, (err, user) => {
         if (err) res.json({ success: false, msg: "failed to register user" });
