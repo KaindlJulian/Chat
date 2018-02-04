@@ -121,7 +121,6 @@ export class SocketService {
 
         public sendMessage(msg: Message): void {
             this.socket.emit('sendMessage', ({
-                from: msg.sender_id,
                 msg : msg.msg,
                 group: msg.receiver_id
             }));

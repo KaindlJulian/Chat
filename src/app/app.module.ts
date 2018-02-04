@@ -22,7 +22,6 @@ import { AuthenticationService } from './_services/users.service';
 import { SocketService } from './_services/socket.service';
 import { SessionUserService } from './_services/session-user.service';
 import { AuthGuard } from './_guards/auth.guard';
-import { MessageService } from './_services/message.service';
 
 import { GroupService } from './_services/group.service';
 import { AddUserComponent } from './add-user/add-user.component';
@@ -59,7 +58,6 @@ import { RemoveUserComponent } from './remove-user/remove-user.component';
     SocketService,
     AuthGuard,
     GroupService,
-    MessageService
   ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]

@@ -2,7 +2,6 @@ import { SocketService } from './../_services/socket.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MessageService } from '../_services/message.service';
 import { GroupService } from '../_services/group.service';
 import { SessionUserService } from '../_services/session-user.service';
 
@@ -27,7 +26,6 @@ export class ChatComponent implements OnInit {
   msgText: string = '';
 
   constructor(
-    private msgService: MessageService,
     private socketService: SocketService,
     private groupSingleton: GroupService,
     private router: Router) { }
@@ -67,17 +65,12 @@ export class ChatComponent implements OnInit {
       console.log(msg);
       this.messages.push(this.setSender(msg));
     });
-
-    this.msgService.messages.subscribe(msg => {
-      this.messages.push(this.setSender(msg));
-      console.log(msg);
-    });
     console.log(this.socketService.socket);
   }
 
   public sendButton(): void {
     let msg: Message = new Message();
-    msg.sender_id = 0; // get id from session user service deswegn geht der chat atm nur von john zu andere
+    msg.sender_id = 0; // get id from session user service 
     msg.sender = this.groupSingleton.getUserById(msg.sender_id); // get sessionUser from service
     msg.msg = this.msgText;
     msg.receiver_id = this.group.id;
@@ -91,7 +84,7 @@ export class ChatComponent implements OnInit {
     if (!message) {
       return;
     }
-    this.msgService.sendMsg(message);
+    this.socketService.sendMessage(message);
     this.msgText = '';
   }
 
@@ -108,6 +101,7 @@ export class ChatComponent implements OnInit {
     return mappedMsgs.reverse();
   }
   private setSender(message: Message): Message {
+    console.log(message);
     let msg: Message = message;
     msg.sender = this.groupSingleton.getUserById(message.sender_id);
     return msg;
