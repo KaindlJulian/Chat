@@ -23,7 +23,6 @@ export class GroupService {
  // deswegn moch wa an sender: User ind message und ersparn uns den scheiß, muss dann halt nur mappen
  // (kann i ned weil du ka sender_id beim receiveMessage bigst)
   public getUserById(id: number): User {
-    console.log(this.users);
     for (let user of this.users){
       if (user.id === id) {
         return user;

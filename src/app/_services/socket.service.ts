@@ -65,8 +65,8 @@ export class SocketService {
         public onMessage(): Observable<Message> {
             return new Observable<Message>(observer => {
                 this.socket.on('receiveMessage', (data: Message) => {
-                    observer.next(data);
                     console.log(data);
+                    observer.next(data);
                 });
             });
         }
@@ -147,7 +147,8 @@ export class SocketService {
     messageConnection(): Rx.Subject<MessageEvent> {
         const observable = new Observable(observe => {
             this.socket.on('receiveMessage', (data) => {
-              console.log('Received message from Websocket Server: ' + data);
+              console.log('Received message from Websocket Server: ');
+              console.log(data);
               observe.next(data);
             });
             return () => {
@@ -156,7 +157,8 @@ export class SocketService {
         });
         const observer = {
             next: (msg: Message) => {
-                console.log('message in rxSubject' + msg);
+                console.log('message in rxSubject');
+                console.log(msg);
                 this.socket.emit('sendMessage', ({
                     msg: msg.msg,
                     group: msg.receiver_id              // number

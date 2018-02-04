@@ -33,7 +33,6 @@ export class ChatComponent implements OnInit {
     private router: Router) { }
 
 
-  // https://tutorialedge.net/typescript/angular/angular-socket-io-tutorial/
   ngOnInit() {
     this.group = this.groupSingleton.getGroup();
 
@@ -57,15 +56,20 @@ export class ChatComponent implements OnInit {
 
     this.socketService.onSendMessages().subscribe(msgs => {
       if (this.messages.length !== msgs.length) {
-        this.messages = msgs;
+        this.messages = this.setSenderArray(msgs);
         console.log(msgs);
       } else {
         console.log('no new messages');
       }
     });
 
+    this.socketService.onMessage().subscribe(msg => {
+      console.log(msg);
+      this.messages.push(this.setSender(msg));
+    });
+
     this.msgService.messages.subscribe(msg => {
-      this.messages.push(msg);
+      this.messages.push(this.setSender(msg));
       console.log(msg);
     });
     console.log(this.socketService.socket);
@@ -73,7 +77,8 @@ export class ChatComponent implements OnInit {
 
   public sendButton(): void {
     let msg: Message = new Message();
-    msg.sender_id = 0; // get id from session user service
+    msg.sender_id = 0; // get id from session user service deswegn geht der chat atm nur von john zu andere
+    msg.sender = this.groupSingleton.getUserById(msg.sender_id); // get sessionUser from service
     msg.msg = this.msgText;
     msg.receiver_id = this.group.id;
     msg.sendTime = new Date();
@@ -93,6 +98,21 @@ export class ChatComponent implements OnInit {
   public getUserByMsg(msg: Message): User {
     return this.groupSingleton.getUserById(msg.sender_id);
   }
+
+  private setSenderArray(msgs: Message[]): Message[] {
+    let mappedMsgs: Message[] = [];
+    msgs.forEach((msg, index) => {
+      mappedMsgs.push(msg);
+      mappedMsgs[index].sender = this.groupSingleton.getUserById(msg.sender_id);
+    });
+    return mappedMsgs.reverse();
+  }
+  private setSender(message: Message): Message {
+    let msg: Message = message;
+    msg.sender = this.groupSingleton.getUserById(message.sender_id);
+    return msg;
+  }
+
 
   public AddUser(): void {
     this.router.navigate(['groupAdd', this.group.name]);

@@ -39,7 +39,7 @@
                     <!-- ngFor Messages -->
                     <ul class="list-unstyled chat-1">
                         <li *ngFor="let message of messages, let i = index" class="d-flex justify-content-between mb-4">
-                            <message [message]="message" [user]="getUserByMsg(message)"></message>       <!--change to message -->                
+                            <message [message]="message"></message>       <!--change to message -->                
                         </li>                   
                     </ul>  
                     <!-- ./Messages -->              

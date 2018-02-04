@@ -168,11 +168,16 @@ var returnrouter = function(io) {
     socket.on("sendMessage", data => {
       database.insertMsg({
         msg: data.msg,
-        receiver_id: data.group,  //.id
+        receiver_id: data.group,  
         sender_id: socket.decoded_token.data.id,
         sendTime: new Date(),
       });
-      socket.to(data.group.id).emit("receiveMessage", data.msg);
+      socket.to(data.group).emit("receiveMessage", {
+        msg: data.msg,
+        receiver_id: data.group,  
+        sender_id: socket.decoded_token.data.id,
+        sendTime: new Date()
+      }); 
     });
 
     //Als argument sollte die Gruppe mitgegeben werden im JSON format{group: group}
