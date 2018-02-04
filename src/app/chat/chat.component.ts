@@ -1,5 +1,5 @@
 import { SocketService } from './../_services/socket.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { GroupService } from '../_services/group.service';
@@ -17,13 +17,14 @@ import { User } from '../_models/user';
 })
 export class ChatComponent implements OnInit {
 
+  @ViewChild('room') private myScrollContainer: ElementRef;
   messages = new Array<Message>();
   group: Group;
   ioMsgConnection: any;
   ioSysMsgConnection: any;
   sysMsg: String;
 
-  msgText: string = '';
+  msgText = '';
 
   constructor(
     private socketService: SocketService,
@@ -48,6 +49,16 @@ export class ChatComponent implements OnInit {
       });
   }
 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  private scrollToBottom(): void {
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) {}
+  }
+
   private initSocket(): void {
     this.socketService.initSocket();
     this.socketService.openChat(this.group);
@@ -69,12 +80,14 @@ export class ChatComponent implements OnInit {
   }
 
   public sendButton(): void {
-    let msg: Message = new Message();
-    msg.sender_id = 0; // get id from session user service 
+    const msg: Message = new Message();
+
+    msg.sender_id = 0; // get id from session user service
     msg.sender = this.groupSingleton.getUserById(msg.sender_id); // get sessionUser from service
     msg.msg = this.msgText;
     msg.receiver_id = this.group.id;
     msg.sendTime = new Date();
+
     console.log(msg);
     this.messages.push(msg);
     this.sendMessage(msg);
@@ -93,7 +106,7 @@ export class ChatComponent implements OnInit {
   }
 
   private setSenderArray(msgs: Message[]): Message[] {
-    let mappedMsgs: Message[] = [];
+    const mappedMsgs: Message[] = [];
     msgs.forEach((msg, index) => {
       mappedMsgs.push(msg);
       mappedMsgs[index].sender = this.groupSingleton.getUserById(msg.sender_id);
@@ -102,7 +115,7 @@ export class ChatComponent implements OnInit {
   }
   private setSender(message: Message): Message {
     console.log(message);
-    let msg: Message = message;
+    const msg: Message = message;
     msg.sender = this.groupSingleton.getUserById(message.sender_id);
     return msg;
   }
