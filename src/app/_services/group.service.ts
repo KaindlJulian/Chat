@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { Group } from '../_models/group';
 import { User } from '../_models/user';
 
+
 @Injectable()
 export class GroupService {
 
   private group: Group;
+  private groupToAdd: Group;
 
   private users = new Array<User>();
 
@@ -14,9 +16,15 @@ export class GroupService {
   public getGroup(): Group {
     return this.group;
   }
-
   public setGroup(group: Group): void {
     this.group = group;
+  }
+
+  getGroupToAdd(): Group {
+    return this.groupToAdd;
+  }
+  setGroupToAdd(group: Group): void {
+    this.groupToAdd = group;
   }
 
  // gibt error bei anzeign der message für den sender weil der ned im array is

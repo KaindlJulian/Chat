@@ -1,6 +1,6 @@
 <body class="rare-wind-gradient">
 <!--Navbar-->
-<mdb-navbar SideClass="navbar navbar-dark indigo">       
+<mdb-navbar SideClass="navbar navbar-dark indigo fixed-top">       
     <!-- Navbar brand -->
     <logo>
       <a class="navbar-brand" href="user-page">
@@ -14,11 +14,11 @@
         <ul class="navbar-nav mr-auto pt-3 ">
             <li class="nav-item">
                 <div class="d-flex justify-content-around">
-                    <a href="#" class="nav-link waves-light border rounded-left border-white" mdbRippleRadius>Add User</a>        <!-- todo -->
-                    <a href="#" class="nav-link waves-light border rounded-right border-white" mdbRippleRadius>Remove User</a>        <!-- todo -->
+                    <a (click)="navigateAdd()" class="nav-link waves-light border rounded-left border-white" mdbRippleRadius>Add User</a>        <!-- todo -->
+                    <a (click)="navigateRemove()" class="nav-link waves-light border rounded-right border-white" mdbRippleRadius>Remove User</a>        <!-- todo -->
                     
-                    <a (click)="leaveGroup()" href="user-page" class="nav-link waves-light border rounded-left border-white ml-2" mdbRippleRadius>Leave Group</a>   <!-- todo --> 
-                    <a (click)="deleteGroup()" href="user-page" class="nav-link waves-light border rounded-right border-white" mdbRippleRadius>Delete Group</a>   <!-- todo -->  
+                    <a (click)="leaveGroup()" class="nav-link waves-light border rounded-left border-white ml-2" mdbRippleRadius>Leave Group</a>   <!-- todo --> 
+                    <a (click)="deleteGroup()" class="nav-link waves-light border rounded-right border-white" mdbRippleRadius>Delete Group</a>   <!-- todo -->  
                 </div>
             </li>
             <li><hr style="background-color: white;"/></li>
@@ -29,7 +29,7 @@
 </mdb-navbar>
 <!--/.Navbar-->
   
-<div class="card container-fluid transparent z-depth-0 chat-room">
+<div class="card container-fluid transparent mt-7 z-depth-0 chat-room">
     <div class="card-body">
         <!-- Grid row -->
         <div class="row px-lg-2 px-2 px-xs-auto">

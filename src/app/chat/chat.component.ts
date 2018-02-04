@@ -114,15 +114,16 @@ export class ChatComponent implements OnInit {
   }
 
 
-  public AddUser(): void {
-    this.router.navigate(['groupAdd', this.group.name]);
+  public navigateAdd(): void {
+    this.router.navigate(['group-add', this.group.name]);
   }
-  public RemoveUser(): void {
-    this.router.navigate(['groupRemove', this.group.name]);
+  public navigateRemove(): void {
+    this.router.navigate(['group-remove', this.group.name]);
   }
 
   public leaveGroup(): void {
     this.socketService.leaveGroup(this.group);
+    this.router.navigate(['user-page']);
   }
   public deleteGroup(): void {
     console.log('deleteGroup - wip');

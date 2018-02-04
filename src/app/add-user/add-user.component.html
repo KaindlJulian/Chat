@@ -1,3 +1,58 @@
-<p>
-  add-user works!
-</p>
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo fixed-top">   
+  <!-- Navbar brand -->
+  <logo>
+    <a class="navbar-brand" href="user-page">
+          <i class="fa fa-group" aria-hidden="true"></i>
+        Add to xxx
+    </a>
+  </logo>
+
+  <!-- Collapsible content -->
+  <links>
+      <!-- Links -->
+      <ul class="navbar-nav mr-auto pt-3">
+          <li class="nav-item active">
+              <a href="user-page" class="nav-link waves-light m-auto" mdbRippleRadius>Cancel</a>
+          </li>
+          <li class="nav-item active mt-1">
+              <a href="user-page" class="nav-link waves-light m-auto" mdbRippleRadius>Submit</a>
+          </li>
+          <li>
+              <hr style="background-color:#bfbfbf;">
+          </li>
+      </ul> 
+      <!-- Links -->
+      <ul class="navbar-nav ml-auto nav-flex-icons">    
+          <!-- Search Bar -->
+          <li>
+              <form class="form-inline  waves-light" mdbRippleRadius>
+                  <input class="form-control mr-sm-2" type="text" placeholder="Search">
+              </form>
+          </li>
+      </ul>
+  </links>
+  <!-- Collapsible content -->
+</mdb-navbar>
+<!--/.Navbar-->
+
+<body>
+  <div class="container">
+  <div class="white px-2 pb-0">
+    <ul class="list-unstyled friend-list mb-0">
+        <li class="" *ngFor="let user of users">
+            <user-item             
+            *ngIf="isSelected(user)"
+            [user]="user" 
+            (addContact)="addUser($event)">>
+            </user-item>
+        </li>
+    </ul>
+  </div>
+  </div> 
+</body>
+
+
+
+
+
