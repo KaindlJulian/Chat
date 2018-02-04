@@ -101,7 +101,7 @@ var returnrouter = function(io) {
       socket.emit("sendMessages", { msgs: allMessages });
     });
 
-    //Argumente sind name des chats und ein Array aus Usern im JSON Format{name:'Chat with Boolean', users : Teilnehmer[]}
+    //Argumente sind name des chats und ein Array aus Usern im JSON Format{name:'Chat cwith Boolean', users : Teilnehmer[]}
     socket.on("createChat", async data => {
       console.log(data);
       let chatid = await database.insertGroup(data.name, data.users, socket.decoded_token.data.id);

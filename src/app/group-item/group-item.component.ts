@@ -13,13 +13,18 @@ export class GroupItemComponent implements OnInit {
   constructor() { }
 
   @Input() group: Group;
-  @Input() lastMsg: Message;
 
   @Output() openGroup: EventEmitter<Group> = new EventEmitter();
   @Output() leaveGroup: EventEmitter<Group> = new EventEmitter();
 
   ngOnInit() {
-    console.log(this.lastMsg);
+    if (!this.group.lastMessage) {
+      this.group.lastMessage = new Message();
+      this.group.lastMessage.msg = 'group created';
+    }
+    if (this.group.lastMessage.msg.length > 13) {
+      this.group.lastMessage.msg = this.group.lastMessage.msg.substr(0, 13) + '...';
+    }
   }
 
   openGroupButton(): void {

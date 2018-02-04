@@ -11,6 +11,7 @@ import { User } from './../_models/user';
 import { SocketService } from './../_services/socket.service';
 import { AuthenticationService } from './../_services/users.service';
 import { GroupService } from './../_services/group.service';
+import { SessionUserService } from '../_services/session-user.service';
 
 @Component({
   selector: 'app-user-page',
@@ -18,6 +19,8 @@ import { GroupService } from './../_services/group.service';
   styleUrls: ['./user-page.component.scss']
 })
 export class UserPageComponent implements OnInit {
+
+  user: User = new User;
 
   users: User[] = new Array<User>();
   groups: Group[] = new Array<Group>();
@@ -27,6 +30,7 @@ export class UserPageComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private socketService: SocketService,
     private groupSingleton: GroupService,
+    private sessionUser: SessionUserService,
     private router: Router) { }
 
   ngOnInit() {
@@ -38,16 +42,26 @@ export class UserPageComponent implements OnInit {
         console.log(data);
         this.groups = data.groups;
         this.users = data.users;
-        this.messages = data.msgs[0];
+        this.setLastMessages(data.msgs[0]);
         this.groupSingleton.setUsers(data.users);
+        // this.sessionUser.setUser(data.user) plssssss
       });
 
     this.socketService.onNewGroup()
       .subscribe((data) => {
         console.log(data);
         this.groups.push(data.group);
-        this.messages.push(data.lastMsg);
+        this.groups[this.groups.length - 1].lastMessage = data.lastMsg;
       });
+  }
+
+  private setLastMessages(messages: Message[]): void {
+    this.groups.forEach((group, index) => {
+      if (messages[index]) {
+        group.lastMessage = messages[index];
+        console.log(messages[index]);
+      }
+    });
   }
 
   public onOpenGroup(selected: Group): void {

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { GroupService } from './../_services/group.service';
 import { SocketService } from './../_services/socket.service';
@@ -18,6 +19,7 @@ export class CreateGroupComponent implements OnInit {
   groupMembers: User[] = new Array<User>();
 
   constructor(
+    private router: Router,
     private usersSingleton: GroupService,
     private socketService: SocketService) { }
 
@@ -49,5 +51,6 @@ export class CreateGroupComponent implements OnInit {
   createGroup(): void {
     console.log(this.users);
     this.socketService.createChat(this.groupName, this.groupMembers);
+    this.router.navigate(['user-page']);
   }
 }

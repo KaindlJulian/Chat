@@ -1,12 +1,15 @@
 <!-- Group -->
 <a (click)="openGroupButton()" class="d-flex justify-content-between">
     <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1">
-    <div class="text-small mt-auto mb-auto">   
-        <strong>{{group.name}}</strong>
-        <p class="last-message text-muted">{{lastMsg.msg}}</p>
+    <div class="text-small mt-auto mb-auto mr-auto">   
+        <strong>{{group.name}}</strong> 
+        <p class="last-message text-muted"><span class="text-muted float-left mr-1">
+            <i class="fa fa-envelope" aria-hidden="true"></i></span>
+            {{group.lastMessage.msg}}
+        </p>
     </div>
-    <div class="chat-footer">
-        <p class="text-smaller text-muted mb-0">{{lastMsg.sendTime | date: 'hh:mm dd.MM'}}</p>
-        <span class="text-muted float-right"><i class="fa fa-mail-reply" aria-hidden="true"></i></span>
+    <div class="chat-footer mt-auto mb-auto">
+        <button type="button" class="btn btn-sm btn-outline-primary waves-effect mt-auto mb-auto">Leave</button>
+        <p class="text-smaller text-muted mb-0">{{group.lastMessage.sendTime | date: 'hh:mm dd.MM'}}</p>
     </div>
 </a>

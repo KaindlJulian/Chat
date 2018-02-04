@@ -14,15 +14,20 @@ import { HomeComponent } from './home/home.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { GroupItemComponent } from './group-item/group-item.component';
 import { ChatComponent } from './chat/chat.component';
+import { CreateGroupComponent } from './create-group/create-group.component';
+import { UserItemComponent } from './user-item/user-item.component';
+import { MessageComponent } from './message/message.component';
 
 import { AuthenticationService } from './_services/users.service';
 import { SocketService } from './_services/socket.service';
+import { SessionUserService } from './_services/session-user.service';
 import { AuthGuard } from './_guards/auth.guard';
-import { MessageComponent } from './message/message.component';
-import { GroupService } from './_services/group.service';
 import { MessageService } from './_services/message.service';
-import { CreateGroupComponent } from './create-group/create-group.component';
-import { UserItemComponent } from './user-item/user-item.component';
+
+import { GroupService } from './_services/group.service';
+import { AddUserComponent } from './add-user/add-user.component';
+import { RemoveUserComponent } from './remove-user/remove-user.component';
+
 
 
 @NgModule({
@@ -36,7 +41,9 @@ import { UserItemComponent } from './user-item/user-item.component';
     ChatComponent,
     MessageComponent,
     CreateGroupComponent,
-    UserItemComponent
+    UserItemComponent,
+    AddUserComponent,
+    RemoveUserComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +55,7 @@ import { UserItemComponent } from './user-item/user-item.component';
   ],
   providers: [
     AuthenticationService,
+    SessionUserService,
     SocketService,
     AuthGuard,
     GroupService,
