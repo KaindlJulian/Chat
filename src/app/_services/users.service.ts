@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { JitCompiler } from '@angular/compiler/src/jit/compiler';
 
-const SERVER_URL = 'http://localhost:3000';
+const SERVER_URL = 'http://localhost:3462';
 
 @Injectable()
 export class AuthenticationService {
