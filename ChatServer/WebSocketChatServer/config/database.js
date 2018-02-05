@@ -149,6 +149,7 @@ module.exports.insertGroup = function(name, userdata, creator_id) {
     for (x in userdata) {
       keyPair.push({ user_id: userdata[x].id, chat_id: newChat.id });
     }
+    keyPair.push({user_id: creator_id, chat_id: newChat.id});
     dbPool.getConnection((err, connection) => {
       connection.query("insert into chat set ?", newChat, (err, results) => {
         if (err) throw err;
