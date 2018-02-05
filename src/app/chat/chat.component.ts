@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit {
 
   @ViewChild('room') private myScrollContainer: ElementRef;
 
-  currentUser: User;
+  currentUser =  new User();
   messages = new Array<Message>();
   group: Group;
 
@@ -38,6 +38,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.group = this.groupSingleton.getGroup();
+    console.log(this.sessionUser);
     this.currentUser = this.sessionUser.getUser();
 
     this.initSocket();
