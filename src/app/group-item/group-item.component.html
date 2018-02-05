@@ -9,7 +9,7 @@
         </p>
     </div>
     <div class="chat-footer mt-auto mb-auto">
-        <button type="button" class="btn btn-sm btn-outline-primary waves-effect mt-auto mb-auto">Leave</button>
+        <button (click)="leaveGroupButton()" type="button" class="btn btn-sm btn-outline-primary waves-effect mt-auto mb-auto">Leave</button>
         <p class="text-smaller text-muted mb-0">{{group.lastMessage.sendTime | date: 'hh:mm dd.MM'}}</p>
     </div>
 </a>

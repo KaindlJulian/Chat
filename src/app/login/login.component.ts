@@ -6,14 +6,14 @@ import { User } from '../_models/user';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   model = new User();
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService,) { }
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
   }

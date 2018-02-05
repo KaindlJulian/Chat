@@ -9,7 +9,6 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { ChatComponent } from './chat/chat.component';
 import { GroupItemComponent } from './group-item/group-item.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
-import { RemoveUserComponent } from './remove-user/remove-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 
 const appRoutes: Routes = [
@@ -20,7 +19,6 @@ const appRoutes: Routes = [
   { path: 'user-page', component: UserPageComponent, /*canActivate: [AuthGuard]*/ },
   { path: 'chat/:name', component: ChatComponent, /*canActivate: [AuthGuard]*/ },
   { path: 'group-add/:name', component: AddUserComponent, /*canActivate: [AuthGuard]*/ },
-  { path: 'group-remove/:name', component: RemoveUserComponent, /*canActivate: [AuthGuard]*/ },
   { path: 'createGroup', component: CreateGroupComponent, /*canActivate: [AuthGuard]*/},
 
   // otherwise redirect to home

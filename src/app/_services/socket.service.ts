@@ -79,7 +79,10 @@ export class SocketService {
 
         public onLeftRoom(): Observable<String> {
             return new Observable<String>(observer => {
-                this.socket.on('userLeftRoom', (data: String) => observer.next(data));
+                this.socket.on('userLeftRoom', (data: String) => {
+                    observer.next(data);
+                    console.log('caught userLeftRoom with message' + data);
+                });
             });
         }
 

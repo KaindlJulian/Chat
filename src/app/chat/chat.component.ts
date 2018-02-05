@@ -19,22 +19,17 @@ export class ChatComponent implements OnInit {
 
   @ViewChild('room') private myScrollContainer: ElementRef;
 
+  msgText = '';
+
   currentUser =  new User();
   messages = new Array<Message>();
   group: Group;
-
-  ioMsgConnection: any;
-  ioSysMsgConnection: any;
-  sysMsg: String;
-
-  msgText = '';
 
   constructor(
     private socketService: SocketService,
     private groupSingleton: GroupService,
     private sessionUser: SessionUserService,
     private router: Router) { }
-
 
   ngOnInit() {
     this.group = this.groupSingleton.getGroup();
@@ -43,18 +38,17 @@ export class ChatComponent implements OnInit {
 
     this.initSocket();
 
-    this.ioSysMsgConnection = this.socketService.onLeftRoom()
+    this.socketService.onLeftRoom()
       .subscribe((sysMessage: String) => {
-        this.sysMsg = sysMessage;
         console.log(sysMessage);
-      });
-
-    this.ioSysMsgConnection = this.socketService.onGroupJoin()
-      .subscribe(data => {
-        this.sysMsg = data.group;
+        const systemMsg: Message = new Message();
+        systemMsg.msg = '[' + sysMessage + ']';
+        systemMsg.sender = this.sessionUser.getUser();
+        this.messages.push(systemMsg);
       });
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngAfterViewChecked() {
     this.scrollToBottom();
   }

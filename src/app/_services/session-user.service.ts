@@ -9,16 +9,14 @@ export class SessionUserService {
   constructor() { }
 
   public getUser(): User {
-    if (!localStorage.getItem('currentUser')) {
-      return null;
-    }
+    this.user = JSON.parse(localStorage.getItem('sessionUser'));
+    console.log('sessionUser in service');
+    console.log(this.user);
     return this.user;
   }
 
   public setUser(user: User): void {
-    if (user) {
-      return null;
-    }
     this.user = user;
+    localStorage.setItem('sessionUser', JSON.stringify(user));
   }
 }

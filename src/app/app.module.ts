@@ -25,9 +25,6 @@ import { AuthGuard } from './_guards/auth.guard';
 
 import { GroupService } from './_services/group.service';
 import { AddUserComponent } from './add-user/add-user.component';
-import { RemoveUserComponent } from './remove-user/remove-user.component';
-
-
 
 @NgModule({
   declarations: [
@@ -42,7 +39,6 @@ import { RemoveUserComponent } from './remove-user/remove-user.component';
     CreateGroupComponent,
     UserItemComponent,
     AddUserComponent,
-    RemoveUserComponent
   ],
   imports: [
     BrowserModule,

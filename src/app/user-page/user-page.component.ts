@@ -20,8 +20,7 @@ import { SessionUserService } from '../_services/session-user.service';
 })
 export class UserPageComponent implements OnInit {
 
-  user: User = new User;
-
+  user: User;
   users: User[] = new Array<User>();
   groups: Group[] = new Array<Group>();
   messages: Message[] = new Array<Message>();
@@ -34,8 +33,10 @@ export class UserPageComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.user = this.sessionUser.getUser();
     console.log('Im the init user-page');
     this.socketService.initSocket();
+
 
     this.socketService.onSuccsess()
       .subscribe((data: any) => {
@@ -66,14 +67,17 @@ export class UserPageComponent implements OnInit {
   }
 
   public onOpenGroup(selected: Group): void {
+    console.log('selected group: ');
+    console.log(selected);
     this.groupSingleton.setGroup(selected);
     this.router.navigate(['chat', selected.name]);
-    console.log('chat opened: ' + selected);
   }
 
   public onLeaveGroup(selected: Group): void {
+    this.groups.splice(this.groups.indexOf(selected), 1);
     this.socketService.leaveGroup(selected);
-    console.log('chat left: ' + selected);
+    console.log('chat left:');
+    console.log(selected);
   }
 
   public logoutButton(): void {
