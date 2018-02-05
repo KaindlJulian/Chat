@@ -18,8 +18,11 @@ import { User } from '../_models/user';
 export class ChatComponent implements OnInit {
 
   @ViewChild('room') private myScrollContainer: ElementRef;
+
+  currentUser: User;
   messages = new Array<Message>();
   group: Group;
+
   ioMsgConnection: any;
   ioSysMsgConnection: any;
   sysMsg: String;
@@ -29,11 +32,13 @@ export class ChatComponent implements OnInit {
   constructor(
     private socketService: SocketService,
     private groupSingleton: GroupService,
+    private sessionUser: SessionUserService,
     private router: Router) { }
 
 
   ngOnInit() {
     this.group = this.groupSingleton.getGroup();
+    this.currentUser = this.sessionUser.getUser();
 
     this.initSocket();
 
@@ -82,8 +87,8 @@ export class ChatComponent implements OnInit {
   public sendButton(): void {
     const msg: Message = new Message();
 
-    msg.sender_id = 0; // get id from session user service
-    msg.sender = this.groupSingleton.getUserById(msg.sender_id); // get sessionUser from service
+    msg.sender_id = this.currentUser.id;
+    msg.sender = this.currentUser;
     msg.msg = this.msgText;
     msg.receiver_id = this.group.id;
     msg.sendTime = new Date();

@@ -50,8 +50,10 @@ export class UserPageComponent implements OnInit {
     this.socketService.onNewGroup()
       .subscribe((data) => {
         console.log(data);
+        let newGroup: Group = data.group;
+        newGroup.lastMessage = data.lastMsg;
+        newGroup.admin_id = data.admin_id;
         this.groups.push(data.group);
-        this.groups[this.groups.length - 1].lastMessage = data.lastMsg;
       });
   }
 
