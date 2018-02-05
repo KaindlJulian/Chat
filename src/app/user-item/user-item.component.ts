@@ -13,6 +13,9 @@ export class UserItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if (this.user.username.length >= 9) {
+      this.user.username = this.user.username.substr(0, 7) + '...';
+    }
   }
 
   emitAddContact(): void {

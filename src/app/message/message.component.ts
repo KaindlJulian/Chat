@@ -27,15 +27,13 @@ export class MessageComponent implements OnInit {
   }
 
   isNotSessionUser(user: User): boolean {
-    return false; /* for testing todo: sessionuser
-    return !this.isSessionUser(user);*/
+    return !this.isSessionUser(user);
   }
 
   isSessionUser(user: User): boolean {
-    return true; /* for testing todo: sessionuser
     if (this.actUser.username === user.username) {
       return true;
     }
-    return false;*/
+    return false;
   }
 }

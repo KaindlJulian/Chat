@@ -6,6 +6,8 @@ export class SessionUserService {
 
   private user: User;
 
+  constructor() { }
+
   public getUser(): User {
     if (!localStorage.getItem('currentUser')) {
       return null;
@@ -14,6 +16,9 @@ export class SessionUserService {
   }
 
   public setUser(user: User): void {
+    if (user) {
+      return null;
+    }
     this.user = user;
   }
 }

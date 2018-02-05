@@ -44,7 +44,6 @@ export class UserPageComponent implements OnInit {
         this.users = data.users;
         this.setLastMessages(data.msgs[0]);
         this.groupSingleton.setUsers(data.users);
-        // this.sessionUser.setUser(data.user) plssssss
       });
 
     this.socketService.onNewGroup()
