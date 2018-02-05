@@ -3,6 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { JitCompiler } from '@angular/compiler/src/jit/compiler';
+import { SessionUserService } from './session-user.service';
 
 const SERVER_URL = 'http://localhost:3462';
 
@@ -10,7 +11,7 @@ const SERVER_URL = 'http://localhost:3462';
 export class AuthenticationService {
     public token: string;
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private sessionUser: SessionUserService) {
     }
 
     register(name: string, email: string, username: string, password: string): Observable<boolean> {
@@ -40,6 +41,9 @@ export class AuthenticationService {
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', token );
+
+                    console.log(response.json().user);
+                    this.sessionUser.setUser(response.json().user);
 
                     console.log('succesfull login');
                     return true;
