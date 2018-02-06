@@ -1,6 +1,6 @@
 <!-- Group -->
 <a (click)="openGroupButton()" class="d-flex justify-content-between">
-    <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1">
+    <img [src]="group.avatar_url" alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1 img-small">
     <div class="text-small mt-auto mb-auto mr-auto">   
         <strong>{{group.name}}</strong> 
         <p class="last-message text-muted"><span class="text-muted float-left mr-1">

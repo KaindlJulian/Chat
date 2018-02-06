@@ -28,6 +28,10 @@
             <div class="text-small navbar-brand">
                 <small>Logged In as {{user.username}}</small>
             </div>
+            <img [src]="user.avatar_url" alt="avatar" class="avatar rounded-circle ml-1 img-small">
+            <div class="text-small navbar-brand">
+                {{user.username}}
+            </div>
         </li>
     </ul>
     </links>

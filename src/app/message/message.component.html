@@ -1,6 +1,6 @@
 
 
-<img #imageRight src="https://mdbootstrap.com/img/Photos/Avatars/avatar-10.jpg" alt="avatar" class="avatar rounded-circle mr-2 ml-1 z-depth-1">
+<img [src]="message.sender.avatar_url" alt="avatar" class="avatar rounded-circle mr-2 ml-1 z-depth-1 img-small">
 <div *ngIf="isNotSessionUser(message.sender)" class="chat-body white p-3 ml-2 z-depth-1 float-right">
     <div class="header">
         <strong class="primary-font">{{message.sender.username}}</strong>

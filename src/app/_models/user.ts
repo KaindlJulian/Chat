@@ -5,4 +5,5 @@ export class User {
     username: string = '';
     name: string = '';
     lastseen: Date = new Date();
+    avatar_url: string = '';
 }

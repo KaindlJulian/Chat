@@ -3,6 +3,8 @@ import { Message } from '../_models/message';
 import { User } from '../_models/user';
 import { SessionUserService } from '../_services/session-user.service';
 
+const AVATAR_URL = 'https://api.adorable.io/avatars';
+
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'message',
@@ -24,6 +26,7 @@ export class MessageComponent implements OnInit {
       this.message.sender = new User();
       this.message.sender.username = 'unknown';
     }
+    this.message.sender.avatar_url = `${AVATAR_URL}/${this.message.sender.id}.png`;
   }
 
   isNotSessionUser(user: User): boolean {

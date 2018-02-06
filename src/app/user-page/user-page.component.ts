@@ -13,6 +13,8 @@ import { AuthenticationService } from './../_services/users.service';
 import { GroupService } from './../_services/group.service';
 import { SessionUserService } from '../_services/session-user.service';
 
+const AVATAR_URL = 'https://api.adorable.io/avatars';
+
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
@@ -33,7 +35,7 @@ export class UserPageComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.user = this.sessionUser.getUser();
+    this.initUser();
     console.log('Im the init user-page');
     this.socketService.initSocket();
 
@@ -50,11 +52,18 @@ export class UserPageComponent implements OnInit {
     this.socketService.onNewGroup()
       .subscribe((data) => {
         console.log(data);
-        let newGroup: Group = data.group;
+        const newGroup: Group = data.group;
         newGroup.lastMessage = data.lastMsg;
         newGroup.admin_id = data.admin_id;
         this.groups.push(data.group);
       });
+  }
+
+  private initUser(): void {
+    const newUser = this.sessionUser.getUser();
+    newUser.avatar_url = `${AVATAR_URL}/${newUser.id}.png`;
+    this.user = newUser;
+    this.sessionUser.setUser(newUser);
   }
 
   private setLastMessages(messages: Message[]): void {
