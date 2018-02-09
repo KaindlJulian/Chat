@@ -26,6 +26,7 @@ export class UserPageComponent implements OnInit {
   users: User[] = new Array<User>();
   groups: Group[] = new Array<Group>();
   messages: Message[] = new Array<Message>();
+  showContacts = false;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -36,7 +37,6 @@ export class UserPageComponent implements OnInit {
 
   ngOnInit() {
     this.initUser();
-    console.log('Im the init user-page');
     this.socketService.initSocket();
 
     this.socketService.onSuccsess()
@@ -46,6 +46,7 @@ export class UserPageComponent implements OnInit {
         this.users = data.users;
         this.setLastMessages(data.msgs);
         this.groupService.setUsers(data.users);
+        this.users.splice(this.sessionUser.getUser().id - 1, 1);
       });
 
     this.socketService.onMessage()
@@ -82,13 +83,16 @@ export class UserPageComponent implements OnInit {
     });
   }
 
+  toggleShowContacts(): void {
+    this.showContacts = !this.showContacts;
+  }
+
   public onOpenGroup(selected: Group): void {
     console.log('selected group: ');
     console.log(selected);
     this.groupService.setGroup(selected);
     this.router.navigate(['chat', selected.name]);
   }
-
   public onLeaveGroup(selected: Group): void {
     this.groups.splice(this.groups.indexOf(selected), 1);
     this.socketService.leaveGroup(selected);
