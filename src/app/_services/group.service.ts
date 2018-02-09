@@ -14,23 +14,16 @@ export class GroupService {
   constructor() { }
 
   public getGroup(): Group {
+    this.group = JSON.parse(localStorage.getItem('group'));
     return this.group;
   }
   public setGroup(group: Group): void {
     this.group = group;
+    localStorage.setItem('group', JSON.stringify(group));
   }
 
-  getGroupToAdd(): Group {
-    return this.groupToAdd;
-  }
-  setGroupToAdd(group: Group): void {
-    this.groupToAdd = group;
-  }
-
- // gibt error bei anzeign der message für den sender weil der ned im array is
- // deswegn moch wa an sender: User ind message und ersparn uns den scheiß, muss dann halt nur mappen
- // (kann i ned weil du ka sender_id beim receiveMessage bigst)
   public getUserById(id: number): User {
+    this.getUsers();
     for (let user of this.users){
       if (user.id === id) {
         return user;
@@ -40,9 +33,11 @@ export class GroupService {
   }
 
   public getUsers(): User[] {
+    this.users = JSON.parse(localStorage.getItem('users'));
     return this.users;
   }
   public setUsers(users: User[]): void {
     this.users = users;
+    localStorage.setItem('users', JSON.stringify(users));
   }
 }

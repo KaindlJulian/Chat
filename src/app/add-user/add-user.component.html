@@ -4,7 +4,7 @@
   <logo>
     <a class="navbar-brand" href="user-page">
           <i class="fa fa-group" aria-hidden="true"></i>
-        Add to xxx
+        Add to {{group.name}}
     </a>
   </logo>
 
@@ -13,7 +13,7 @@
       <!-- Links -->
       <ul class="navbar-nav mr-auto pt-3">
           <li class="nav-item active">
-              <a href="user-page" class="nav-link waves-light m-auto" mdbRippleRadius>Cancel</a>
+              <a  href="user-page" class="nav-link waves-light m-auto" mdbRippleRadius>Cancel</a>
           </li>
           <li class="nav-item active mt-1">
               <a href="user-page" class="nav-link waves-light m-auto" mdbRippleRadius>Submit</a>
@@ -40,11 +40,10 @@
   <div class="container">
   <div class="white px-2 pb-0">
     <ul class="list-unstyled friend-list mb-0">
-        <li class="" *ngFor="let user of users">
-            <user-item             
-            *ngIf="isSelected(user)"
+        <li *ngFor="let user of users">
+            <user-item
             [user]="user" 
-            (addContact)="addUser($event)">>
+            (addContact)="addContact($event)">
             </user-item>
         </li>
     </ul>

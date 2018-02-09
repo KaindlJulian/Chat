@@ -40,6 +40,7 @@ export class CreateGroupComponent implements OnInit {
     this.socketService.onGetUsers().subscribe(users => {
       this.users = users;
     });
+
   }
 
   isSelected(contact: User): boolean {

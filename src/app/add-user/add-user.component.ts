@@ -4,6 +4,7 @@ import { Group } from '../_models/group';
 import { User } from '../_models/user';
 import { GroupService } from '../_services/group.service';
 import { SocketService } from '../_services/socket.service';
+import { SessionUserService } from '../_services/session-user.service';
 
 @Component({
   selector: 'app-add-user',
@@ -14,24 +15,29 @@ export class AddUserComponent implements OnInit {
 
   group: Group;
   users: User[] = [];
-  selectedUsers: User[] = [];
 
   constructor(
     private socketService: SocketService,
     private groupService: GroupService,
+    private sessionUser: SessionUserService,
     private router: Router) { }
 
   ngOnInit() {
-    this.group = this.groupService.getGroupToAdd();
+    this.socketService.initSocket();
+    this.group = this.groupService.getGroup();
     this.users = this.groupService.getUsers();
+    this.users.splice(this.sessionUser.getUser().id - 1, 1);
   }
 
-  isSelected(user: User): boolean {
-    return !this.selectedUsers.includes(user);
+  isInGroup(user: User): boolean {
+    return true;
   }
 
-  addUser(user): void {
-    this.selectedUsers.push(user);
+  addContact(user: User): void {
     this.socketService.addUser(this.group, user);
+  }
+
+  back(): void {
+    this.router.navigate(['chat', this.group.name]);
   }
 }

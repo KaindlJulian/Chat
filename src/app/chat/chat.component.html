@@ -30,14 +30,14 @@
 <div class="card container-fluid transparent mt-7 z-depth-0 chat-room">
     <div class="card-body">
         <!-- Grid row -->
-        <div class="row px-lg-2 px-2 px-xs-auto">
+        <div class="row px-lg-2 px-2 px-xs-auto msg-room">
             <!-- Grid column -->
             <div class="col-xs col-sm col-md col-xl pl-md px-lg-auto px-0">
                 <div class="chat-message">
                     <!-- ngFor Messages -->
                     <ul #room class="list-unstyled chat-1">
                         <li *ngFor="let message of messages, let i = index" class="d-flex justify-content-between mb-4">
-                            <message [message]="message"></message>       <!--change to message -->                
+                            <message class="msg-body" [message]="message"></message>       <!--change to message -->                
                         </li>                   
                     </ul>  
                     <!-- ./Messages -->              

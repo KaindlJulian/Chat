@@ -30,7 +30,7 @@ export class UserPageComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private socketService: SocketService,
-    private groupSingleton: GroupService,
+    private groupService: GroupService,
     private sessionUser: SessionUserService,
     private router: Router) { }
 
@@ -39,14 +39,22 @@ export class UserPageComponent implements OnInit {
     console.log('Im the init user-page');
     this.socketService.initSocket();
 
-
     this.socketService.onSuccsess()
       .subscribe((data: any) => {
         console.log(data);
         this.groups = data.groups;
         this.users = data.users;
-        this.setLastMessages(data.msgs[0]);
-        this.groupSingleton.setUsers(data.users);
+        this.setLastMessages(data.msgs);
+        this.groupService.setUsers(data.users);
+      });
+
+    this.socketService.onMessage()
+      .subscribe((data) => {
+        this.groups.forEach((group, index) => {
+          if (group.id === data.receiver_id) {
+            group.lastMessage = data;
+          }
+        });
       });
 
     this.socketService.onNewGroup()
@@ -69,8 +77,7 @@ export class UserPageComponent implements OnInit {
   private setLastMessages(messages: Message[]): void {
     this.groups.forEach((group, index) => {
       if (messages[index]) {
-        group.lastMessage = messages[index];
-        console.log(messages[index]);
+        group.lastMessage = messages[index][0];
       }
     });
   }
@@ -78,7 +85,7 @@ export class UserPageComponent implements OnInit {
   public onOpenGroup(selected: Group): void {
     console.log('selected group: ');
     console.log(selected);
-    this.groupSingleton.setGroup(selected);
+    this.groupService.setGroup(selected);
     this.router.navigate(['chat', selected.name]);
   }
 

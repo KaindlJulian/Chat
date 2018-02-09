@@ -18,39 +18,30 @@ const SERVER_URL = 'ws://localhost:3462';
 
 @Injectable()
 export class SocketService {
-
     public socket;
+
     JWT_TOKEN = localStorage.getItem('currentUser');
     opts = {
         extraHeaders: { Authorization: 'Bearer ' + this.JWT_TOKEN }
     };
 
-
-    // https://codingblast.com/chat-application-angular-socket-io/
-    // der shit bringt nur wos für msgs weil man des on und emit dann in an service machn kann
-    // wenn ma nur an listener braucht is des gay weil ma ka rx subject ohne observer mochn ko
-
     public initSocket(): void {
-
-        console.log(this.socket);
         this.socket = io(SERVER_URL, {
                 'query': 'token=' + this.JWT_TOKEN
         });
         console.log(this.socket);
-        console.log('connected to socket: ' + this.socket);
-        console.log('jwt token: ' + this.JWT_TOKEN);
     }
 
     public disconnect(): void {
         this.socket.disconnect();
-        console.log('disconnected from socket' + SERVER_URL);
+        console.log('disconnected from socket on' + SERVER_URL);
     }
 
-    // region socket on
+    // region SOCKET ON
         public onSuccsess(): Observable<any> {
             return new Observable<any>(observer => {
-                console.log(this.socket);
                 this.socket.on('success', (data) => {
+                    console.log(data);
                     observer.next({groups: data.groups, users: data.users, msgs: data.msgs});
                 });
             });
@@ -81,7 +72,7 @@ export class SocketService {
             return new Observable<String>(observer => {
                 this.socket.on('userLeftRoom', (data: String) => {
                     observer.next(data);
-                    console.log('caught userLeftRoom with message' + data);
+                    console.log('data');
                 });
             });
         }
@@ -101,19 +92,21 @@ export class SocketService {
         public onNewGroup(): Observable<any> {
             return new Observable<any>(observer => {
                 this.socket.on('newGroup', (data) => {
-                    console.log(data);
-                    observer.next({group: data.group, lastMsg: data.lastMsg, admin_id: data.creator});
+                    console.log(data);  // kommt nit nach addUser amk
+                    observer.next({group: data.group, lastMsg: data.lastmsg, admin_id: data.creator});
                 });
             });
         }
     // endregion
 
-    // region socket emit
+    // region SOCKET EMIT
         public addUser(group: Group, user: User): void {
             this.socket.emit('addUser', ({
                 group: group,
                 user: user
             }));
+            console.log('emit addUser'); // da gehts aba rein lol
+            console.log(group, user);
         }
 
         public createChat(groupName: String, users: User[]): void {
@@ -145,30 +138,4 @@ export class SocketService {
             console.log(group);
         }
     // endregion
-
-    // RxJS Subject for Message connection
-    messageConnection(): Rx.Subject<MessageEvent> {
-        const observable = new Observable(observe => {
-            this.socket.on('receiveMessage', (data) => {
-              console.log('Received message from Websocket Server: ');
-              console.log(data);
-              observe.next(data);
-            });
-            return () => {
-              this.socket.disconnect();
-            };
-        });
-        const observer = {
-            next: (msg: Message) => {
-                console.log('message in rxSubject');
-                console.log(msg);
-                this.socket.emit('sendMessage', ({
-                    msg: msg.msg,
-                    group: msg.receiver_id              // number
-                }));
-            },
-        };
-        return Rx.Subject.create(observer, observable);
-      }
-
 }

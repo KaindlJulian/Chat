@@ -27,25 +27,16 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private socketService: SocketService,
-    private groupSingleton: GroupService,
+    private groupService: GroupService,
     private sessionUser: SessionUserService,
     private router: Router) { }
 
   ngOnInit() {
-    this.group = this.groupSingleton.getGroup();
+    this.group = this.groupService.getGroup();
     console.log(this.sessionUser);
     this.currentUser = this.sessionUser.getUser();
 
     this.initSocket();
-
-    this.socketService.onLeftRoom()
-      .subscribe((sysMessage: String) => {
-        console.log(sysMessage);
-        const systemMsg: Message = new Message();
-        systemMsg.msg = '[' + sysMessage + ']';
-        systemMsg.sender = this.sessionUser.getUser();
-        this.messages.push(systemMsg);
-      });
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -66,9 +57,6 @@ export class ChatComponent implements OnInit {
     this.socketService.onSendMessages().subscribe(msgs => {
       if (this.messages.length !== msgs.length) {
         this.messages = this.setSenderArray(msgs);
-        console.log(msgs);
-      } else {
-        console.log('no new messages');
       }
     });
 
@@ -76,50 +64,51 @@ export class ChatComponent implements OnInit {
       console.log(msg);
       this.messages.push(this.setSender(msg));
     });
-    console.log(this.socketService.socket);
+
+    this.socketService.onLeftRoom()
+    .subscribe((sysMessage: String) => {
+      console.log(sysMessage);
+      const systemMsg: Message = new Message();
+      systemMsg.msg = '[' + sysMessage + ']';
+      systemMsg.sender = this.sessionUser.getUser();
+      this.messages.push(systemMsg);
+    });
   }
 
   public sendButton(): void {
     const msg: Message = new Message();
-
-    msg.sender_id = this.currentUser.id;
-    msg.sender = this.currentUser;
-    msg.msg = this.msgText;
-    msg.receiver_id = this.group.id;
-    msg.sendTime = new Date();
-
+      msg.sender_id = this.currentUser.id;
+      msg.sender = this.currentUser;
+      msg.msg = this.msgText;
+      msg.receiver_id = this.group.id;
+      msg.sendTime = new Date();
     console.log(msg);
-    this.messages.push(msg);
     this.sendMessage(msg);
   }
 
   public sendMessage(message: Message): void {
-    if (!message) {
+    if (message.msg === '') {
       return;
     }
+    this.messages.push(message);
     this.socketService.sendMessage(message);
     this.msgText = '';
-  }
-
-  public getUserByMsg(msg: Message): User {
-    return this.groupSingleton.getUserById(msg.sender_id);
   }
 
   private setSenderArray(msgs: Message[]): Message[] {
     const mappedMsgs: Message[] = [];
     msgs.forEach((msg, index) => {
+      msg.sender = this.groupService.getUserById(msg.sender_id);
       mappedMsgs.push(msg);
-      mappedMsgs[index].sender = this.groupSingleton.getUserById(msg.sender_id);
     });
     return mappedMsgs.reverse();
   }
   private setSender(message: Message): Message {
     console.log(message);
     const msg: Message = message;
-    msg.sender = this.groupSingleton.getUserById(message.sender_id);
+    msg.sender = this.groupService.getUserById(message.sender_id);
     return msg;
   }
-
 
   public navigateAdd(): void {
     this.router.navigate(['group-add', this.group.name]);
@@ -131,8 +120,5 @@ export class ChatComponent implements OnInit {
   public leaveGroup(): void {
     this.socketService.leaveGroup(this.group);
     this.router.navigate(['user-page']);
-  }
-  public deleteGroup(): void {
-    console.log('deleteGroup - wip');
   }
 }
