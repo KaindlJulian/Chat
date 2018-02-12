@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import { JitCompiler } from '@angular/compiler/src/jit/compiler';
 import { SessionUserService } from './session-user.service';
 
-const SERVER_URL = 'http://193.170.159.225:3462';
+const SERVER_URL = 'http://localhost:3462';
 
 @Injectable()
 export class AuthenticationService {

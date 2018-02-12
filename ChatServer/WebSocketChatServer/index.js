@@ -9,6 +9,18 @@ const user = require('./model/user')
 
 // Connect To Database
 
+// SSL Files
+// https://www.sitepoint.com/how-to-use-ssltls-with-node-js/
+// https://blog.cloudboost.io/everything-about-creating-an-https-server-using-node-js-2fc5c48a8d4e
+var fs = require('fs');
+var key = fs.readFileSync('../ssl/private.key');
+var cert = fs.readFileSync( '../ssl/certificate.crt' );
+// options for server creation
+var options = {
+  key:  key,
+  cert: cert
+}
+// const server = require('https').createServer(options, app).listen(3462);
 
 const app = express();
 const server = require('http').createServer(app);
