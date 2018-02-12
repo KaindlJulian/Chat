@@ -39,7 +39,7 @@ app.use(bodyParser.json());
 
 
 // Port Number
-const port = 3462;
+var port = process.env.PORT || 3462
 
 // CORS Middleware
 app.use(cors());
