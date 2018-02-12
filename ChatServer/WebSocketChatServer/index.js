@@ -13,19 +13,20 @@ const user = require('./model/user')
 // https://www.sitepoint.com/how-to-use-ssltls-with-node-js/
 // https://blog.cloudboost.io/everything-about-creating-an-https-server-using-node-js-2fc5c48a8d4e
 var fs = require('fs');
-var key = fs.readFileSync('../ssl/private.key');
-var cert = fs.readFileSync( '../ssl/certificate.crt' );
+var key = fs.readFileSync('./ssl/private.key');
+var cert = fs.readFileSync( './ssl/certificate.crt' );
 // options for server creation
 var options = {
   key:  key,
   cert: cert
 }
-// const server = require('https').createServer(options, app).listen(3462);
 
 const app = express();
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+const httpServer = require('http').createServer(app);
+//const httpsServer = require('https').createServer(options, app)
+const io = require('socket.io')(httpServer);
 var socketioJwt   = require("socketio-jwt");
+
 
 
 io.use(socketioJwt.authorize({
@@ -57,6 +58,6 @@ app.get('/', (req, res) => {
 });
 
 // Start Server
-server.listen(port, () => {
+httpServer.listen(port, () => {
   console.log('Server started on port '+port);
 });
