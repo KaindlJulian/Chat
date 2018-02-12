@@ -14,7 +14,7 @@ import { Group } from './../_models/group';
 
 
 
-const SERVER_URL = 'ws://localhost:3462';
+const SERVER_URL = 'ws://193.170.159.225:3462';
 
 @Injectable()
 export class SocketService {
