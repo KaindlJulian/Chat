@@ -92,8 +92,8 @@ export class SocketService {
         public onNewGroup(): Observable<any> {
             return new Observable<any>(observer => {
                 this.socket.on('newGroup', (data) => {
-                    console.log(data);  // kommt nit nach addUser amk
-                    observer.next({group: data.group, lastMsg: data.lastmsg, admin_id: data.creator});
+                    console.log(data);
+                    observer.next({group: data.group, lastMsg: data.lastmsg, admin_id: data.group.creator});
                 });
             });
         }

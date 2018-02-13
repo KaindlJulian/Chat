@@ -62,9 +62,10 @@ export class UserPageComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
         const newGroup: Group = data.group;
-        newGroup.lastMessage = data.lastMsg;
+        newGroup.lastMessage = null;
         newGroup.admin_id = data.admin_id;
-        this.groups.push(data.group);
+        console.log(newGroup);
+        this.groups.push(newGroup);
       });
   }
 
