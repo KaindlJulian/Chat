@@ -66,6 +66,7 @@ export class UserPageComponent implements OnInit {
         newGroup.admin_id = data.admin_id;
         console.log(newGroup);
         this.groups.push(newGroup);
+        location.reload(true);
       });
   }
 

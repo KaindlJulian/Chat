@@ -32,7 +32,7 @@
     "socket.io": "^2.0.4",
     "socket.io-client": "^2.0.4",
     "zone.js": "^0.8.14"
-  },
+  }, 
   "devDependencies": {
     "@angular/cli": "1.6.3",
     "@angular/compiler-cli": "^5.0.0",

@@ -105,7 +105,7 @@ export class SocketService {
                 group: group,
                 user: user
             }));
-            console.log('emit addUser'); // da gehts aba rein lol
+            console.log('emit addUser');
             console.log(group, user);
         }
 
