@@ -5,7 +5,6 @@ import { Message } from '../_models/message';
 const AVATAR_URL = 'https://api.adorable.io/avatars';
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'group-item',
   templateUrl: './group-item.component.html',
   styleUrls: ['./group-item.component.scss']

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GroupItemComponent } from './group-item.component';
-
+ 
 describe('GroupItemComponent', () => {
   let component: GroupItemComponent;
   let fixture: ComponentFixture<GroupItemComponent>;
