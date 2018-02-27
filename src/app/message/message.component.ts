@@ -16,7 +16,6 @@ export class MessageComponent implements OnInit {
   @Input() message: Message;
   actUser: User;
 
-  // get session to flaot imgs
   constructor(private sessionUser: SessionUserService) {
     this.actUser = this.sessionUser.getUser();
   }

@@ -7,7 +7,4 @@ export class Group {
     name: string = '';
     lastMessage: Message = null;
     avatar_url:string = '';
-    // admin?: User;
-    // users?: User[];
-    // messages?: Message[];
 }

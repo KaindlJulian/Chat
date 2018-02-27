@@ -6,4 +6,4 @@ export class User {
     name: string = '';
     lastseen: Date = new Date();
     avatar_url: string = '';
-}
+} 

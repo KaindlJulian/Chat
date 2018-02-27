@@ -16,10 +16,10 @@ const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'user-page', component: UserPageComponent, /*canActivate: [AuthGuard]*/ },
-  { path: 'chat/:name', component: ChatComponent, /*canActivate: [AuthGuard]*/ },
-  { path: 'group-add/:name', component: AddUserComponent, /*canActivate: [AuthGuard]*/ },
-  { path: 'createGroup', component: CreateGroupComponent, /*canActivate: [AuthGuard]*/},
+  { path: 'user-page', component: UserPageComponent, canActivate: [AuthGuard] },
+  { path: 'chat/:name', component: ChatComponent, canActivate: [AuthGuard] },
+  { path: 'group-add/:name', component: AddUserComponent, canActivate: [AuthGuard] },
+  { path: 'createGroup', component: CreateGroupComponent, canActivate: [AuthGuard]},
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
