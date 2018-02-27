@@ -1,7 +1,8 @@
-<img [src]="message.sender.avatar_url" alt="avatar" class="avatar rounded-circle mr-2 ml-1 z-depth-1 img-small">
+<img class="mr-2 ml-1 z-depth-0">
 <div *ngIf="isNotSessionUser(message.sender)" class="chat-body white p-3 ml-2 z-depth-1 float-right">
     
     <div class="header">
+        <img [src]="message.sender.avatar_url" alt="avatar" class="avatar rounded-circle mr-2 ml-1 z-depth-1 img-small">
         <strong class="primary-font">{{message.sender.username}}</strong>
         <small class="pull-right text-muted"><i class="fa fa-clock-o"></i>{{message.sendTime | date: 'hh:mm'}}</small>
     </div>
@@ -12,8 +13,9 @@
 </div>
 <div *ngIf="isSessionUser(message.sender)" class="chat-body white p-3 ml-2 z-depth-1 float-left">
     <div class="header">
+        <img [src]="message.sender.avatar_url" alt="avatar" class="avatar rounded-circle mr-2 ml-1 z-depth-1 img-small">
         <strong class="primary-font">{{message.sender.username}}</strong>
-        <small class="pull-right text-muted"><i class="fa fa-clock-o"></i>{{message.sendTime | date: 'hh:mm'}}</small>
+        <small class="pull-right text-muted"><i class="fa fa-clock-o"></i>{{message.sendTime | date: 'HH:mm'}}</small>
     </div>
     <hr class="w-100">
     <p class="mb-0">

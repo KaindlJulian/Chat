@@ -10,9 +10,6 @@ import * as Rx from 'rxjs/Rx';
 import { User } from '../_models/user';
 import { Message } from '../_models/message';
 import { Group } from './../_models/group';
-// import { Event } from '../_models/event';
-
-
 
 const SERVER_URL = 'https://thawing-beach-52197.herokuapp.com';
 
