@@ -5,7 +5,7 @@
     "start_url": "./?utm_source=homescreen",
     "display": "standalone",
     "background_color": "#ffffff",
-    "theme_color": "#2196F3",
+    "theme_color": "#4052b5",
     "icons": [
         {
           "src": "\/assets\/icons\/icon-72x72.png",

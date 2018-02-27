@@ -14,7 +14,7 @@ import { Group } from './../_models/group';
 
 
 
-const SERVER_URL = 'ws://localhost:3462';
+const SERVER_URL = 'https://thawing-beach-52197.herokuapp.com';
 
 @Injectable()
 export class SocketService {
