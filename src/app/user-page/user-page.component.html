@@ -1,8 +1,7 @@
 <body class="rare-wind-gradient">
 
 <!--Navbar-->
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
-           
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">     
     <!-- Navbar brand -->
     <logo>
       <a href="" class="navbar-brand" (click)="logoutButton()">
@@ -10,7 +9,6 @@
           Whats Up
       </a>
     </logo>
-
     <!-- Collapsible content -->
     <links>
     <ul class="navbar-nav mr-auto pt-3">
@@ -20,17 +18,22 @@
             <a (click)="toggleShowContacts()" class="nav-link waves-light border border-white" mdbRippleRadius>Contacts</a>
             <a href="logout" class="nav-link waves-light border rounded-right border-white" mdbRippleRadius>Logout User</a>
             </div>
-        </li>    
+        </li>
         <li>
             <hr style="background-color:#bfbfbf;">
         </li>
+
         <li>
-            <div class="text-small navbar-brand">
-                <small>Logged In as</small>
-            </div>
-            <img [src]="user.avatar_url" alt="avatar" class="avatar rounded-circle ml-1 img-small">
-            <div class="text-small navbar-brand">
-                {{user.username}}
+            <div class="d-flex justify-content-between">
+                <div>
+                <img [src]="user.avatar_url" alt="avatar" class="avatar rounded-circle ml-1 img-small">
+                <div class="text-small navbar-brand">
+                    {{user.username}}             
+                </div>
+                </div>
+                <form class="form-inline  waves-light" mdbRippleRadius>
+                        <input [(ngModel)]="searchString" name="search" class="form-control mr-sm-2" type="text" placeholder="Search">
+                </form>
             </div>
         </li>
     </ul>
@@ -47,8 +50,9 @@
 
                 <ul class="list-unstyled friend-list mb-0">
                     <ng-container *ngIf="!showContacts">
-                        <li *ngFor="let group of groups; let i = index" class="p-2 mt-auto border">
-                            <group-item 
+                        <li *ngFor="let group of groups; let i = index" class=" mt-auto border">
+                            <group-item
+                                *ngIf=checkSearch(group)  
                                 [group]="group" 
                                 (openGroup)="onOpenGroup($event)" 
                                 (leaveGroup)="onLeaveGroup($event)">

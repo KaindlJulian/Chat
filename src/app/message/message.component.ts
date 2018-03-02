@@ -15,6 +15,7 @@ export class MessageComponent implements OnInit {
 
   @Input() message: Message;
   actUser: User;
+  isActUser: boolean;
 
   constructor(private sessionUser: SessionUserService) {
     this.actUser = this.sessionUser.getUser();
@@ -25,13 +26,14 @@ export class MessageComponent implements OnInit {
       this.message.sender = new User();
       this.message.sender.username = 'unknown';
     }
+    if (this.actUser.id === this.message.sender.id) {
+      this.message.sender.username = 'You';
+      this.isActUser = true;
+    } else {
+      this.isActUser = false;
+    }
     this.message.sender.avatar_url = `${AVATAR_URL}/${this.message.sender.id}.png`;
   }
 
-  isSessionUser(user: User): boolean {
-    if (this.actUser.username === user.username) {
-      return true;
-    }
-    return false;
-  }
+
 }

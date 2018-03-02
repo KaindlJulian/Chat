@@ -1,9 +1,9 @@
 export class User {
-    id: number = 0;
-    email: string = '';
-    password: string = '';
-    username: string = '';
-    name: string = '';
+    id = 0;
+    email = '';
+    password = '';
+    username = '';
+    name = '';
     lastseen: Date = new Date();
-    avatar_url: string = '';
-} 
+    avatar_url = '';
+}

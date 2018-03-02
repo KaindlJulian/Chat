@@ -29,12 +29,14 @@ export class AddUserComponent implements OnInit {
     this.users.splice(this.sessionUser.getUser().id - 1, 1);
   }
 
+  // todo
   isInGroup(user: User): boolean {
     return true;
   }
 
   addContact(user: User): void {
     this.socketService.addUser(this.group, user);
+    this.users.splice(this.users.indexOf(user), 1);
   }
 
   back(): void {

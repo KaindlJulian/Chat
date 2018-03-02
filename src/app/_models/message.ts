@@ -2,11 +2,9 @@ import { Group } from './group';
 import { User } from './user';
 
 export class Message {
-    sender_id: number = 0;
+    sender_id = 0;
     sender: User = null;
-    receiver_id: string = '';
-    // receiver?: Group
-    msg: string = '';
-    // msg?: Message;
+    receiver_id = '';
+    msg = '';
     sendTime: Date = new Date();
 }

@@ -1,5 +1,5 @@
 <img class="mr-2 ml-1 z-depth-0">
-<div *ngIf="!isSessionUser(message.sender)" class="chat-body white p-3 ml-2 z-depth-1 float-right">
+<div *ngIf="!isActUser" class="chat-body white p-3 ml-2 z-depth-1 float-left">
     
     <div class="header">
         <img [src]="message.sender.avatar_url" alt="avatar" class="avatar rounded-circle mr-2 ml-1 z-depth-1 img-small">
@@ -11,7 +11,7 @@
         {{message.msg}}
     </p>
 </div>
-<div *ngIf="isSessionUser(message.sender)" class="chat-body white p-3 ml-2 z-depth-1 float-left">
+<div *ngIf="isActUser" class="chat-body white p-3 ml-2 z-depth-1 float-right">
     <div class="header">
         <img [src]="message.sender.avatar_url" alt="avatar" class="avatar rounded-circle mr-2 ml-1 z-depth-1 img-small">
         <strong class="primary-font">{{message.sender.username}}</strong>

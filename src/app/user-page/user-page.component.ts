@@ -27,6 +27,7 @@ export class UserPageComponent implements OnInit {
   groups: Group[] = new Array<Group>();
   messages: Message[] = new Array<Message>();
   showContacts = false;
+  searchString = '';
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -88,25 +89,22 @@ export class UserPageComponent implements OnInit {
   toggleShowContacts(): void {
     this.showContacts = !this.showContacts;
   }
+  checkSearch(group: Group): boolean {
+    return group.name.includes(this.searchString);
+  }
 
   public onOpenGroup(selected: Group): void {
-    console.log('selected group: ');
-    console.log(selected);
     this.groupService.setGroup(selected);
     this.router.navigate(['chat', selected.name]);
   }
   public onLeaveGroup(selected: Group): void {
     this.groups.splice(this.groups.indexOf(selected), 1);
     this.socketService.leaveGroup(selected);
-    console.log('chat left:');
-    console.log(selected);
   }
 
   public logoutButton(): void {
     this.socketService.disconnect();
     this.authenticationService.logout();
     this.router.navigate(['home']);
-    console.log('token in authService: ' + this.authenticationService.token);
-    console.log('socket in socketService: ' + this.socketService.socket);
   }
 }
