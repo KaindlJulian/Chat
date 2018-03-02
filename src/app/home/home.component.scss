@@ -1,19 +1,13 @@
-
 .top-nav-collapse {
-    background-color: #82b1ff !important; 
-}
+    background-color: #82b1ff !important; }
 .navbar:not(.top-nav-collapse) {
-    background: transparent !important;
-}
+    background: transparent !important; }
 @media (max-width: 768px) {
     .navbar:not(.top-nav-collapse) {
         background: #82b1ff !important;
     } 
 }
 
-h5 {
-    letter-spacing: 3px;
-}
 @media (max-width: 740px) {
     .full-height,
     .full-height body,
@@ -22,3 +16,6 @@ h5 {
         height: 700px; 
     } 
 }
+
+h5 {
+    letter-spacing: 3px; }

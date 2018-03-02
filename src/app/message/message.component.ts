@@ -28,10 +28,6 @@ export class MessageComponent implements OnInit {
     this.message.sender.avatar_url = `${AVATAR_URL}/${this.message.sender.id}.png`;
   }
 
-  isNotSessionUser(user: User): boolean {
-    return !this.isSessionUser(user);
-  }
-
   isSessionUser(user: User): boolean {
     if (this.actUser.username === user.username) {
       return true;

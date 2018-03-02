@@ -24,7 +24,7 @@ export class GroupService {
 
   public getUserById(id: number): User {
     this.getUsers();
-    for (let user of this.users){
+    for (const user of this.users){
       if (user.id === id) {
         return user;
       }

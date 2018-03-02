@@ -37,14 +37,8 @@ export class AuthenticationService {
                 console.log(response.json().msg);
                 if (token) {
                     this.token = token;
-                    console.log('token received: ' + token);
-
-                    // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', token );
-
-                    console.log(response.json().user);
                     this.sessionUser.setUser(response.json().user);
-
                     console.log('succesfull login');
                     return true;
                 } else {
